@@ -42,6 +42,10 @@ export interface Database {
           role: 'owner' | 'admin' | 'member' | 'viewer'
           phone: string | null
           locale: string
+          subscription_status: 'trial' | 'active' | 'expired' | 'canceled'
+          trial_started_at: string | null
+          trial_ends_at: string | null
+          subscription_started_at: string | null
           created_at: string
           updated_at: string
         }
@@ -60,6 +64,10 @@ export interface Database {
           current_period_start: string | null
           current_period_end: string | null
           cancel_at_period_end: boolean
+          trial_ends_at: string | null
+          monthly_price: number
+          ai_tokens_used: number
+          ai_tokens_limit: number
           created_at: string
           updated_at: string
         }
@@ -213,6 +221,14 @@ export interface Database {
           file_size: number | null
           mime_type: string | null
           category: string | null
+          type_detecte: string | null
+          contenu_textuel: string | null
+          ai_summary: string | null
+          ai_metadata: Json
+          ai_confidence: number | null
+          processing_status: 'pending' | 'processing' | 'completed' | 'failed'
+          processing_error: string | null
+          processed_at: string | null
           uploaded_by: string | null
           created_at: string
           updated_at: string
@@ -236,6 +252,110 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['activities']['Row'], 'id' | 'created_at'>
         Update: Partial<Database['public']['Tables']['activities']['Insert']>
       }
+      upload_jobs: {
+        Row: {
+          id: string
+          organization_id: string
+          user_id: string | null
+          document_id: string | null
+          status: 'pending' | 'processing' | 'completed' | 'failed'
+          file_name: string
+          file_size: number | null
+          mime_type: string | null
+          stage: string | null
+          progress: number
+          error_message: string | null
+          metadata: Json
+          started_at: string | null
+          completed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['upload_jobs']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['upload_jobs']['Insert']>
+      }
+      tender_responses: {
+        Row: {
+          id: string
+          organization_id: string
+          project_id: string | null
+          source_document_id: string | null
+          title: string
+          tender_reference: string | null
+          status: 'draft' | 'in_review' | 'submitted' | 'won' | 'lost'
+          generated_content: string | null
+          edited_content: string | null
+          company_profile: Json
+          ai_metadata: Json
+          submitted_at: string | null
+          result: string | null
+          notes: string | null
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['tender_responses']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['tender_responses']['Insert']>
+      }
+      export_jobs: {
+        Row: {
+          id: string
+          organization_id: string
+          user_id: string
+          export_type: string
+          status: 'pending' | 'processing' | 'completed' | 'failed' | 'expired'
+          file_path: string | null
+          file_size: number | null
+          download_url: string | null
+          expires_at: string | null
+          error_message: string | null
+          metadata: Json
+          started_at: string | null
+          completed_at: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['export_jobs']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['export_jobs']['Insert']>
+      }
+      account_deletions: {
+        Row: {
+          id: string
+          organization_id: string
+          user_id: string
+          user_email: string
+          organization_name: string
+          reason: string | null
+          data_exported: boolean
+          export_job_id: string | null
+          deleted_by: string | null
+          metadata: Json
+          requested_at: string
+          completed_at: string | null
+        }
+        Insert: Omit<Database['public']['Tables']['account_deletions']['Row'], 'id' | 'requested_at'>
+        Update: Partial<Database['public']['Tables']['account_deletions']['Insert']>
+      }
+      ai_usage_logs: {
+        Row: {
+          id: string
+          organization_id: string
+          user_id: string | null
+          operation: string
+          model: string
+          tokens_input: number
+          tokens_output: number
+          tokens_total: number
+          cost_estimate: number | null
+          success: boolean
+          cached: boolean
+          execution_time_ms: number | null
+          error_message: string | null
+          metadata: Json
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['ai_usage_logs']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['ai_usage_logs']['Insert']>
+      }
     }
   }
 }
@@ -253,3 +373,8 @@ export type Invoice = Database['public']['Tables']['invoices']['Row']
 export type InvoiceItem = Database['public']['Tables']['invoice_items']['Row']
 export type Document = Database['public']['Tables']['documents']['Row']
 export type Activity = Database['public']['Tables']['activities']['Row']
+export type UploadJob = Database['public']['Tables']['upload_jobs']['Row']
+export type TenderResponse = Database['public']['Tables']['tender_responses']['Row']
+export type ExportJob = Database['public']['Tables']['export_jobs']['Row']
+export type AccountDeletion = Database['public']['Tables']['account_deletions']['Row']
+export type AIUsageLog = Database['public']['Tables']['ai_usage_logs']['Row']
