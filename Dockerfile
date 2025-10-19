@@ -9,6 +9,20 @@ FROM node:20-alpine AS builder
 # Définir le répertoire de travail
 WORKDIR /app
 
+# Arguments de build pour les variables d'environnement
+# Les variables NEXT_PUBLIC_* sont nécessaires au build time
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+
+# Définir les variables d'environnement pour le build
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+ENV NODE_ENV=production
+
 # Copier les fichiers de dépendances
 COPY package.json package-lock.json ./
 
@@ -19,19 +33,8 @@ RUN npm ci --legacy-peer-deps
 # Copier tout le code source
 COPY . .
 
-# Copier les variables d'environnement de build
-# Utilise .env.production s'il existe, sinon .env.example
-# Les variables NEXT_PUBLIC_* doivent être présentes au build time
-RUN if [ -f .env.production ]; then \
-        echo "📦 Utilisation de .env.production pour le build"; \
-        cp .env.production .env; \
-    else \
-        echo "📦 Utilisation de .env.example pour le build"; \
-        cp .env.example .env; \
-    fi
-
 # Build de l'application Next.js
-# Génère le dossier .next optimisé pour production
+# Les variables NEXT_PUBLIC_* sont injectées dans le bundle au build time
 RUN npm run build
 
 # ============================================

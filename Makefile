@@ -62,10 +62,22 @@ build-next:
 	@echo "$(GREEN)Build de Next.js...$(NC)"
 	npm run build
 
-## build: Builder l'image Docker
+## build: Builder l'image Docker (avec --build-arg)
 build:
 	@echo "$(GREEN)Build de l'image Docker $(IMAGE_NAME)...$(NC)"
-	docker build -t $(IMAGE_NAME):latest .
+	@echo "$(YELLOW)⚠️  Assurez-vous que les variables NEXT_PUBLIC_* sont exportées$(NC)"
+	@if [ -z "$$NEXT_PUBLIC_SUPABASE_URL" ]; then \
+		echo "$(RED)✗ NEXT_PUBLIC_SUPABASE_URL non définie!$(NC)"; \
+		echo "$(YELLOW)💡 Exportez vos variables ou utilisez: ./docker-build.sh$(NC)"; \
+		exit 1; \
+	fi
+	docker build \
+		--build-arg NEXT_PUBLIC_SUPABASE_URL="$$NEXT_PUBLIC_SUPABASE_URL" \
+		--build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="$$NEXT_PUBLIC_SUPABASE_ANON_KEY" \
+		--build-arg NEXT_PUBLIC_APP_URL="$$NEXT_PUBLIC_APP_URL" \
+		--build-arg NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="$$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY" \
+		-t $(IMAGE_NAME):latest \
+		.
 	@echo "$(GREEN)✓ Image buildée avec succès!$(NC)"
 
 ## run: Lancer le conteneur Docker

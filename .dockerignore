@@ -10,13 +10,11 @@ out
 dist
 
 # Environnement
-# Note: .env.production est autorisé pour le build Docker
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-!.env.production
+# IMPORTANT: Tous les fichiers .env sont bloqués pour la sécurité
+# Les variables sont passées via --build-arg au build
+.env*
+!.env.example
+!.env.production.example
 
 # Git
 .git
