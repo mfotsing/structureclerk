@@ -20,8 +20,15 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 
 # Copier les variables d'environnement de build
-# Note: Les vraies valeurs seront passées au runtime
-COPY .env.example .env
+# Utilise .env.production s'il existe, sinon .env.example
+# Les variables NEXT_PUBLIC_* doivent être présentes au build time
+RUN if [ -f .env.production ]; then \
+        echo "📦 Utilisation de .env.production pour le build"; \
+        cp .env.production .env; \
+    else \
+        echo "📦 Utilisation de .env.example pour le build"; \
+        cp .env.example .env; \
+    fi
 
 # Build de l'application Next.js
 # Génère le dossier .next optimisé pour production
