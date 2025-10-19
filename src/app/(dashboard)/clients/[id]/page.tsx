@@ -4,12 +4,8 @@ import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 import DeleteClientButton from './DeleteClientButton'
 
-<<<<<<< HEAD
-export default async function ClientDetailPage({ params }: { params: { id: string } }) {
-=======
 export default async function ClientDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
->>>>>>> feat/ai-integration
   const supabase = await createClient()
 
   const {

@@ -2,12 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import EditClientForm from './EditClientForm'
 
-<<<<<<< HEAD
-export default async function EditClientPage({ params }: { params: { id: string } }) {
-=======
 export default async function EditClientPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
->>>>>>> feat/ai-integration
   const supabase = await createClient()
 
   const {
