@@ -12,9 +12,10 @@ import { logTokenUsage } from '@/lib/ai/client'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id: documentId } = await params
     const supabase = createRouteHandlerClient({ cookies })
 
     // Vérifier l'authentification
@@ -48,8 +49,6 @@ export async function POST(
         { status: 402 }
       )
     }
-
-    const documentId = params.id
 
     // Récupérer le document
     const { data: document, error: docError } = await supabase

@@ -7,8 +7,6 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import archiver from 'archiver'
-import { Readable } from 'stream'
 
 interface ExportRequestBody {
   export_type?: 'full_backup' | 'documents_only' | 'invoices_only' | 'data_only'

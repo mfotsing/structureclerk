@@ -4,7 +4,6 @@
  * Extrait le texte de différents formats: PDF, DOCX, Images (OCR)
  */
 
-import pdf from 'pdf-parse'
 import mammoth from 'mammoth'
 import { createWorker } from 'tesseract.js'
 
@@ -21,7 +20,10 @@ export interface ProcessedDocument {
  */
 export async function extractTextFromPDF(buffer: Buffer): Promise<ProcessedDocument> {
   try {
-    const data = await pdf(buffer)
+    // Dynamic import for pdf-parse (CommonJS module)
+    const pdf: any = await import('pdf-parse')
+    const pdfParse = pdf.default || pdf
+    const data = await pdfParse(buffer)
 
     return {
       text: data.text,

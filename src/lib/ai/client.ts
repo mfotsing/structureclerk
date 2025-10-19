@@ -87,7 +87,9 @@ function saveToCache(key: string, data: any): void {
   // Nettoyage du cache si trop grand (limite: 1000 entrées)
   if (cache.size > 1000) {
     const oldestKey = cache.keys().next().value
-    cache.delete(oldestKey)
+    if (oldestKey) {
+      cache.delete(oldestKey)
+    }
   }
 }
 

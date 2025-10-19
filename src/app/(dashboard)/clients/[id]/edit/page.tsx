@@ -2,7 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import EditClientForm from './EditClientForm'
 
-export default async function EditClientPage({ params }: { params: { id: string } }) {
+export default async function EditClientPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const supabase = await createClient()
 
   const {
@@ -26,7 +27,7 @@ export default async function EditClientPage({ params }: { params: { id: string 
   const { data: client } = await supabase
     .from('clients')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .eq('organization_id', orgId || '')
     .single()
 

@@ -7,9 +7,7 @@ import type { Client } from '@/types/database'
 
 export default function ClientsTable({ initialClients }: { initialClients: Client[] }) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [cityFilter, setCity
-
-Filter] = useState('')
+  const [cityFilter, setCityFilter] = useState('')
 
   // Get unique cities for filter
   const cities = useMemo(() => {
@@ -54,7 +52,7 @@ Filter] = useState('')
             >
               <option value="">Toutes les villes</option>
               {cities.map((city) => (
-                <option key={city} value={city}>
+                <option key={city} value={city || ''}>
                   {city}
                 </option>
               ))}

@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 import DeleteClientButton from './DeleteClientButton'
 
-export default async function ClientDetailPage({ params }: { params: { id: string } }) {
+export default async function ClientDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const supabase = await createClient()
 
   const {
@@ -28,7 +29,7 @@ export default async function ClientDetailPage({ params }: { params: { id: strin
   const { data: client } = await supabase
     .from('clients')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .eq('organization_id', orgId || '')
     .single()
 
