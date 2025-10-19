@@ -4,6 +4,10 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+<<<<<<< HEAD
+=======
+import Image from 'next/image'
+>>>>>>> feat/ai-integration
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -39,6 +43,18 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
+<<<<<<< HEAD
+=======
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/logo.jpg"
+              alt="StructureClerk Logo"
+              width={80}
+              height={80}
+              className="rounded-xl shadow-md"
+            />
+          </div>
+>>>>>>> feat/ai-integration
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             Structure<span className="text-blue-600">Clerk</span>
           </h1>

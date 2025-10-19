@@ -32,6 +32,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+<<<<<<< HEAD
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
@@ -39,10 +40,50 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/auth') &&
     request.nextUrl.pathname !== '/'
   ) {
+=======
+  // Public routes - no auth required
+  const publicRoutes = ['/login', '/signup', '/auth', '/']
+  const isPublicRoute = publicRoutes.some((route) => request.nextUrl.pathname.startsWith(route))
+
+  // Redirect to login if not authenticated
+  if (!user && !isPublicRoute) {
+>>>>>>> feat/ai-integration
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
+<<<<<<< HEAD
+=======
+  // Check subscription status for authenticated users on protected routes
+  if (user && !isPublicRoute) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('subscription_status, trial_ends_at')
+      .eq('id', user.id)
+      .single()
+
+    if (profile) {
+      const isTrialExpired =
+        profile.subscription_status === 'trial' &&
+        profile.trial_ends_at &&
+        new Date(profile.trial_ends_at) < new Date()
+
+      const isSubscriptionInactive =
+        profile.subscription_status !== 'trial' && profile.subscription_status !== 'active'
+
+      // If subscription expired, redirect to subscription page (except for subscription page itself)
+      if (
+        (isTrialExpired || isSubscriptionInactive) &&
+        !request.nextUrl.pathname.startsWith('/subscription')
+      ) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/subscription/expired'
+        return NextResponse.redirect(url)
+      }
+    }
+  }
+
+>>>>>>> feat/ai-integration
   return supabaseResponse
 }
