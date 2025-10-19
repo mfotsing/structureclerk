@@ -224,10 +224,10 @@ export default async function SubscriptionExpiredPage() {
               Vous avez des questions ? Contactez-nous
             </p>
             <a
-              href="mailto:support@structureclerk.com"
+              href="mailto:support@structureclerk.ca"
               className="text-indigo-600 hover:text-indigo-700 font-medium"
             >
-              support@structureclerk.com
+              support@structureclerk.ca
             </a>
           </div>
 

@@ -607,8 +607,8 @@ psql -f supabase/migrations/002_add_ai_features.sql
 
 Pour toute question sur les fonctionnalités IA:
 
-- 📧 Email: support@structureclerk.com
-- 📖 Documentation: https://docs.structureclerk.com
+- 📧 Email: support@structureclerk.ca
+- 📖 Documentation: https://structureclerk.ca/docs
 - 🐛 Issues: https://github.com/mfotsing/structureclerk/issues
 
 ---

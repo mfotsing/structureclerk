@@ -734,10 +734,13 @@ test('complete upload and analysis workflow', async () => {
 ## 📞 Support
 
 **Questions techniques:**
-📧 dev@structureclerk.com
+📧 dev@structureclerk.ca
 
 **Support utilisateurs:**
-📧 support@structureclerk.com
+📧 support@structureclerk.ca
+
+**Site web:**
+🌐 https://structureclerk.ca
 
 **GitHub:**
 🐙 https://github.com/mfotsing/structureclerk
