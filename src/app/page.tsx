@@ -1,8 +1,19 @@
+import Image from 'next/image'
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center space-y-8">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <Image
+              src="/logo.jpg"
+              alt="StructureClerk Logo"
+              width={80}
+              height={80}
+              className="rounded-xl shadow-md"
+            />
+          </div>
           <h1 className="text-5xl font-bold text-gray-900">
             Structure<span className="text-blue-600">Clerk</span>
           </h1>
