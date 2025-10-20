@@ -1,6 +1,11 @@
+'use client'
+
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 export default function Footer() {
+  const t = useTranslations()
+
   return (
     <footer className="bg-brand-navy text-white mt-auto">
       <div className="container mx-auto px-4 py-12">
@@ -12,27 +17,27 @@ export default function Footer() {
               <span className="text-brand-orange">Clerk</span>
             </h3>
             <p className="text-blue-200 text-sm">
-              La plateforme intelligente pour entrepreneurs en construction au Québec
+              {t('footer.tagline')}
             </p>
           </div>
 
           {/* Product */}
           <div>
-            <h4 className="font-semibold mb-4">Produit</h4>
+            <h4 className="font-semibold mb-4">{t('footer.product')}</h4>
             <ul className="space-y-2 text-sm text-blue-200">
               <li>
                 <Link href="/#features" className="hover:text-brand-orange transition-colors">
-                  Fonctionnalités
+                  {t('footer.features')}
                 </Link>
               </li>
               <li>
                 <Link href="/signup" className="hover:text-brand-orange transition-colors">
-                  Tarifs
+                  {t('footer.pricing')}
                 </Link>
               </li>
               <li>
                 <Link href="/qa" className="hover:text-brand-orange transition-colors">
-                  Questions fréquentes
+                  {t('footer.faq')}
                 </Link>
               </li>
             </ul>
@@ -40,16 +45,16 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-semibold mb-4">Légal</h4>
+            <h4 className="font-semibold mb-4">{t('footer.legal')}</h4>
             <ul className="space-y-2 text-sm text-blue-200">
               <li>
                 <Link href="/legal/terms" className="hover:text-brand-orange transition-colors">
-                  Conditions d&apos;utilisation
+                  {t('footer.terms')}
                 </Link>
               </li>
               <li>
                 <Link href="/legal/privacy" className="hover:text-brand-orange transition-colors">
-                  Politique de confidentialité
+                  {t('footer.privacy')}
                 </Link>
               </li>
             </ul>
@@ -57,7 +62,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
+            <h4 className="font-semibold mb-4">{t('footer.contact')}</h4>
             <ul className="space-y-2 text-sm text-blue-200">
               <li>
                 <a
@@ -69,7 +74,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/qa" className="hover:text-brand-orange transition-colors">
-                  Nous contacter
+                  {t('footer.contactUs')}
                 </Link>
               </li>
             </ul>
@@ -79,7 +84,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-blue-800 mt-8 pt-8 text-center text-sm text-blue-300">
           <p>
-            © 2025 StructureClerk • Propulsé par{' '}
+            {t('footer.copyright')} • {t('footer.poweredBy')}{' '}
             <a
               href="https://techvibes.ca"
               target="_blank"
