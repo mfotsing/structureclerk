@@ -356,6 +356,147 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['ai_usage_logs']['Row'], 'id' | 'created_at'>
         Update: Partial<Database['public']['Tables']['ai_usage_logs']['Insert']>
       }
+      chat_conversations: {
+        Row: {
+          id: string
+          organization_id: string
+          user_id: string
+          title: string | null
+          context_snapshot: Json
+          created_at: string
+          updated_at: string
+          last_message_at: string | null
+        }
+        Insert: Omit<Database['public']['Tables']['chat_conversations']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['chat_conversations']['Insert']>
+      }
+      chat_messages: {
+        Row: {
+          id: string
+          conversation_id: string
+          role: 'user' | 'assistant' | 'system'
+          content: string
+          metadata: Json
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['chat_messages']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['chat_messages']['Insert']>
+      }
+      extraction_jobs: {
+        Row: {
+          id: string
+          organization_id: string
+          user_id: string
+          document_id: string | null
+          status: 'pending' | 'processing' | 'completed' | 'failed' | 'cancelled'
+          job_type: 'invoice' | 'quote' | 'receipt' | 'contract'
+          file_name: string
+          file_size: number | null
+          file_type: string | null
+          storage_path: string | null
+          extracted_data: Json
+          confidence_score: number | null
+          ai_model: string | null
+          tokens_used: Json
+          processing_time_ms: number | null
+          error_message: string | null
+          error_details: Json
+          created_at: string
+          started_at: string | null
+          completed_at: string | null
+        }
+        Insert: Omit<Database['public']['Tables']['extraction_jobs']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['extraction_jobs']['Insert']>
+      }
+      extracted_invoices: {
+        Row: {
+          id: string
+          extraction_job_id: string
+          organization_id: string
+          user_id: string
+          invoice_number: string | null
+          invoice_date: string | null
+          due_date: string | null
+          vendor_name: string | null
+          vendor_email: string | null
+          vendor_phone: string | null
+          vendor_address: string | null
+          vendor_tps: string | null
+          vendor_tvq: string | null
+          customer_name: string | null
+          customer_email: string | null
+          customer_phone: string | null
+          client_id: string | null
+          project_id: string | null
+          subtotal: number | null
+          tps_amount: number | null
+          tvq_amount: number | null
+          total: number | null
+          line_items: Json
+          payment_terms: string | null
+          payment_method: string | null
+          notes: string | null
+          tags: string[] | null
+          confidence_score: number | null
+          field_confidence: Json
+          needs_review: boolean
+          review_notes: string | null
+          converted_to_invoice_id: string | null
+          converted_at: string | null
+          created_at: string
+          updated_at: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+        }
+        Insert: Omit<Database['public']['Tables']['extracted_invoices']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['extracted_invoices']['Insert']>
+      }
+      usage_tracking: {
+        Row: {
+          id: string
+          organization_id: string
+          period_start: string
+          period_end: string
+          invoices_created: number
+          documents_uploaded: number
+          ai_operations: number
+          ai_tokens_used: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['usage_tracking']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['usage_tracking']['Insert']>
+      }
+      stripe_events: {
+        Row: {
+          id: string
+          stripe_event_id: string
+          event_type: string
+          event_data: Json
+          processed: boolean
+          processed_at: string | null
+          error_message: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['stripe_events']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['stripe_events']['Insert']>
+      }
+      contact_submissions: {
+        Row: {
+          id: string
+          organization_id: string | null
+          user_id: string | null
+          name: string
+          email: string
+          subject: string
+          message: string
+          status: 'new' | 'read' | 'replied' | 'archived'
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['contact_submissions']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['contact_submissions']['Insert']>
+      }
     }
   }
 }
@@ -378,3 +519,10 @@ export type TenderResponse = Database['public']['Tables']['tender_responses']['R
 export type ExportJob = Database['public']['Tables']['export_jobs']['Row']
 export type AccountDeletion = Database['public']['Tables']['account_deletions']['Row']
 export type AIUsageLog = Database['public']['Tables']['ai_usage_logs']['Row']
+export type ChatConversation = Database['public']['Tables']['chat_conversations']['Row']
+export type ChatMessage = Database['public']['Tables']['chat_messages']['Row']
+export type ExtractionJob = Database['public']['Tables']['extraction_jobs']['Row']
+export type ExtractedInvoice = Database['public']['Tables']['extracted_invoices']['Row']
+export type UsageTracking = Database['public']['Tables']['usage_tracking']['Row']
+export type StripeEvent = Database['public']['Tables']['stripe_events']['Row']
+export type ContactSubmission = Database['public']['Tables']['contact_submissions']['Row']

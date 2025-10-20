@@ -88,6 +88,9 @@ export default async function DashboardLayout({
               Documents
             </NavLink>
             <div className="pt-4 mt-4 border-t border-brand-blue/20">
+              <NavLink href="/invoices/extract" icon="🤖">
+                Extraction IA
+              </NavLink>
               <NavLink href="/settings" icon="⚙️">
                 Paramètres
               </NavLink>
