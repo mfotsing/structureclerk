@@ -94,6 +94,9 @@ export default async function DashboardLayout({
               <NavLink href="/forecasts" icon="📈">
                 Prévisions IA
               </NavLink>
+              <NavLink href="/approvals" icon="✅">
+                Approbations
+              </NavLink>
               <NavLink href="/admin" icon="📊">
                 Analytics Admin
               </NavLink>
