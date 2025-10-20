@@ -43,12 +43,12 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Légal</h4>
             <ul className="space-y-2 text-sm text-blue-200">
               <li>
-                <Link href="/qa" className="hover:text-brand-orange transition-colors">
+                <Link href="/legal/terms" className="hover:text-brand-orange transition-colors">
                   Conditions d&apos;utilisation
                 </Link>
               </li>
               <li>
-                <Link href="/qa" className="hover:text-brand-orange transition-colors">
+                <Link href="/legal/privacy" className="hover:text-brand-orange transition-colors">
                   Politique de confidentialité
                 </Link>
               </li>
