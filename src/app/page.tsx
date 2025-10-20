@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-orange-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-orange-50">
+      <main className="flex-1">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center space-y-8">
           <div className="flex items-center justify-center mb-6">
@@ -187,6 +189,8 @@ export default function Home() {
           </p>
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </div>
   )
 }
