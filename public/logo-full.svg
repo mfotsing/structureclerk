@@ -1,0 +1,45 @@
+<svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon -->
+  <g transform="translate(20, 40)">
+    <!-- Hexagone extérieur (bleu clair) -->
+    <path d="M60 5 L105 32.5 L105 87.5 L60 115 L15 87.5 L15 32.5 Z" fill="#5B8DB8" stroke="#0F3B5F" stroke-width="2"/>
+
+    <!-- Hexagone intérieur (bleu foncé) -->
+    <path d="M60 15 L95 35 L95 85 L60 105 L25 85 L25 35 Z" fill="#0F3B5F"/>
+
+    <!-- Bâtiment blanc -->
+    <rect x="45" y="50" width="30" height="40" fill="white" rx="2"/>
+
+    <!-- Toit -->
+    <path d="M40 50 L60 35 L80 50 Z" fill="white"/>
+
+    <!-- Fenêtres -->
+    <rect x="50" y="58" width="6" height="6" fill="#5B8DB8"/>
+    <rect x="64" y="58" width="6" height="6" fill="#5B8DB8"/>
+    <rect x="50" y="70" width="6" height="6" fill="#5B8DB8"/>
+    <rect x="64" y="70" width="6" height="6" fill="#5B8DB8"/>
+
+    <!-- Document orange -->
+    <g transform="translate(70, 70)">
+      <rect x="0" y="0" width="32" height="40" fill="#F59E0B" rx="2" stroke="#0F3B5F" stroke-width="2"/>
+      <rect x="6" y="8" width="20" height="3" fill="white" rx="1"/>
+      <rect x="6" y="15" width="20" height="3" fill="white" rx="1"/>
+      <rect x="6" y="22" width="20" height="3" fill="white" rx="1"/>
+      <rect x="6" y="29" width="14" height="3" fill="white" rx="1"/>
+    </g>
+  </g>
+
+  <!-- Text "Structure" (bleu foncé) -->
+  <text x="180" y="90" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#0F3B5F">Structure</text>
+
+  <!-- Text "Clerk" (orange) -->
+  <text x="500" y="90" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#F59E0B">Clerk</text>
+
+  <!-- Sous-titre -->
+  <text x="180" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="500" fill="#64748B" letter-spacing="2">GESTION DOCUMENTAIRE • CONSTRUCTION</text>
+
+  <!-- Ligne décorative -->
+  <line x1="180" y1="150" x2="280" y2="150" stroke="#0F3B5F" stroke-width="4"/>
+  <line x1="290" y1="150" x2="440" y2="150" stroke="#F59E0B" stroke-width="4"/>
+  <line x1="450" y1="150" x2="520" y2="150" stroke="#0F3B5F" stroke-width="4"/>
+</svg>

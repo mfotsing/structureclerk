@@ -9,6 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // StructureClerk Brand Colors
+        brand: {
+          navy: '#0F3B5F',      // Bleu foncé principal
+          blue: '#5B8DB8',       // Bleu clair
+          orange: '#F59E0B',     // Orange accent
+          gray: '#64748B',       // Gris sous-titres
+        },
+        // Aliases pour compatibilité
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
