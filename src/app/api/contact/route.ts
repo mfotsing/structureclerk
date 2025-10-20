@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { Resend } from 'resend'
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,43 +45,74 @@ export async function POST(request: NextRequest) {
       // Don't fail the request if logging fails
     }
 
-    // Send email using Supabase Edge Function or external service
-    // For now, we'll use a simple approach with SendGrid/Resend/Nodemailer
-    // You'll need to configure this based on your email service
+    // Send email using Resend
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
-    // Since we don't have email service configured yet, we'll just return success
-    // In production, you would integrate with SendGrid, Resend, or AWS SES here
-
-    // Example with fetch to an email service:
-    /*
-    await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        personalizations: [{
-          to: [{ email: 'info@structureclerk.ca' }],
-          subject: `[Contact Form] ${subject}`,
-        }],
-        from: { email: 'noreply@structureclerk.ca' },
-        content: [{
-          type: 'text/plain',
-          value: `
-Nouveau message de contact
-
-Nom: ${name}
-Email: ${email}
-Sujet: ${subject}
-
-Message:
-${message}
-          `.trim()
-        }]
+    try {
+      await resend.emails.send({
+        from: 'noreply@structureclerk.ca',
+        to: 'info@structureclerk.ca',
+        subject: `[Contact Form] ${subject}`,
+        html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background-color: #0F3B5F; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+    .content { background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; }
+    .field { margin-bottom: 20px; }
+    .label { font-weight: bold; color: #0F3B5F; }
+    .value { margin-top: 5px; padding: 10px; background-color: white; border-left: 3px solid #F59E0B; }
+    .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #64748B; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>📧 Nouveau message de contact - StructureClerk</h2>
+    </div>
+    <div class="content">
+      <div class="field">
+        <div class="label">👤 Nom :</div>
+        <div class="value">${name}</div>
+      </div>
+      <div class="field">
+        <div class="label">📧 Email :</div>
+        <div class="value"><a href="mailto:${email}">${email}</a></div>
+      </div>
+      <div class="field">
+        <div class="label">📌 Sujet :</div>
+        <div class="value">${subject}</div>
+      </div>
+      <div class="field">
+        <div class="label">💬 Message :</div>
+        <div class="value">${message.replace(/\n/g, '<br>')}</div>
+      </div>
+      <p style="margin-top: 30px; padding: 15px; background-color: #FEF3C7; border-left: 3px solid #F59E0B;">
+        <strong>💡 Action requise :</strong> Répondez directement à <a href="mailto:${email}">${email}</a>
+      </p>
+    </div>
+    <div class="footer">
+      © 2025 StructureClerk • Propulsé par <a href="https://techvibes.ca">Techvibes</a>
+    </div>
+  </div>
+</body>
+</html>
+        `.trim(),
       })
-    })
-    */
+    } catch (emailError: any) {
+      console.error('Error sending email with Resend:', emailError)
+      // Don't fail the request if email fails - at least we logged it in the database
+      return NextResponse.json({
+        success: true,
+        message:
+          'Message enregistré avec succès. Nous vous répondrons sous peu.',
+        warning: 'Email delivery may be delayed',
+      })
+    }
 
     return NextResponse.json({
       success: true,
