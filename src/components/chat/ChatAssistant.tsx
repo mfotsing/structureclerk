@@ -2,7 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react'
-import { SUGGESTED_QUESTIONS } from '@/lib/ai/chat/agent'
+
+const SUGGESTED_QUESTIONS = [
+  "Combien j'ai de factures impayées?",
+  "Quel est mon revenu ce mois?",
+  "Mes projets actifs?",
+  "Statistiques globales",
+]
 
 interface Message {
   id: string
