@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import ChatAssistant from '@/components/chat/ChatAssistant'
 
 export default async function DashboardLayout({
   children,
@@ -99,6 +100,9 @@ export default async function DashboardLayout({
           {children}
         </main>
       </div>
+
+      {/* AI Chat Assistant - Available on all dashboard pages */}
+      <ChatAssistant />
     </div>
   )
 }
