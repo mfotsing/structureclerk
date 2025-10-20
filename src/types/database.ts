@@ -42,13 +42,10 @@ export interface Database {
           role: 'owner' | 'admin' | 'member' | 'viewer'
           phone: string | null
           locale: string
-<<<<<<< HEAD
-=======
           subscription_status: 'trial' | 'active' | 'expired' | 'canceled'
           trial_started_at: string | null
           trial_ends_at: string | null
           subscription_started_at: string | null
->>>>>>> feat/ai-integration
           created_at: string
           updated_at: string
         }
@@ -67,13 +64,10 @@ export interface Database {
           current_period_start: string | null
           current_period_end: string | null
           cancel_at_period_end: boolean
-<<<<<<< HEAD
-=======
           trial_ends_at: string | null
           monthly_price: number
           ai_tokens_used: number
           ai_tokens_limit: number
->>>>>>> feat/ai-integration
           created_at: string
           updated_at: string
         }
@@ -227,8 +221,6 @@ export interface Database {
           file_size: number | null
           mime_type: string | null
           category: string | null
-<<<<<<< HEAD
-=======
           type_detecte: string | null
           contenu_textuel: string | null
           ai_summary: string | null
@@ -237,7 +229,6 @@ export interface Database {
           processing_status: 'pending' | 'processing' | 'completed' | 'failed'
           processing_error: string | null
           processed_at: string | null
->>>>>>> feat/ai-integration
           uploaded_by: string | null
           created_at: string
           updated_at: string
@@ -261,8 +252,6 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['activities']['Row'], 'id' | 'created_at'>
         Update: Partial<Database['public']['Tables']['activities']['Insert']>
       }
-<<<<<<< HEAD
-=======
       upload_jobs: {
         Row: {
           id: string
@@ -367,7 +356,6 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['ai_usage_logs']['Row'], 'id' | 'created_at'>
         Update: Partial<Database['public']['Tables']['ai_usage_logs']['Insert']>
       }
->>>>>>> feat/ai-integration
     }
   }
 }
@@ -385,11 +373,8 @@ export type Invoice = Database['public']['Tables']['invoices']['Row']
 export type InvoiceItem = Database['public']['Tables']['invoice_items']['Row']
 export type Document = Database['public']['Tables']['documents']['Row']
 export type Activity = Database['public']['Tables']['activities']['Row']
-<<<<<<< HEAD
-=======
 export type UploadJob = Database['public']['Tables']['upload_jobs']['Row']
 export type TenderResponse = Database['public']['Tables']['tender_responses']['Row']
 export type ExportJob = Database['public']['Tables']['export_jobs']['Row']
 export type AccountDeletion = Database['public']['Tables']['account_deletions']['Row']
 export type AIUsageLog = Database['public']['Tables']['ai_usage_logs']['Row']
->>>>>>> feat/ai-integration
