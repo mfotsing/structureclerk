@@ -32,29 +32,17 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-<<<<<<< HEAD
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/signup') &&
-    !request.nextUrl.pathname.startsWith('/auth') &&
-    request.nextUrl.pathname !== '/'
-  ) {
-=======
   // Public routes - no auth required
   const publicRoutes = ['/login', '/signup', '/auth', '/']
   const isPublicRoute = publicRoutes.some((route) => request.nextUrl.pathname.startsWith(route))
 
   // Redirect to login if not authenticated
   if (!user && !isPublicRoute) {
->>>>>>> feat/ai-integration
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
-<<<<<<< HEAD
-=======
   // Check subscription status for authenticated users on protected routes
   if (user && !isPublicRoute) {
     const { data: profile } = await supabase
@@ -84,6 +72,5 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
->>>>>>> feat/ai-integration
   return supabaseResponse
 }
