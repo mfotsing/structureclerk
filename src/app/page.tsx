@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -18,16 +19,22 @@ export default function Home() {
             Gestion de factures et documents pour entrepreneurs en construction au Québec
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-            <button className="px-6 sm:px-8 py-3 bg-brand-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-medium shadow-md">
+            <Link
+              href="/signup"
+              className="px-6 sm:px-8 py-3 bg-brand-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-medium shadow-md text-center"
+            >
               Commencer gratuitement
-            </button>
-            <button className="px-6 sm:px-8 py-3 bg-white text-brand-navy border-2 border-brand-navy rounded-lg hover:bg-blue-50 transition-colors font-medium">
+            </Link>
+            <a
+              href="#features"
+              className="px-6 sm:px-8 py-3 bg-white text-brand-navy border-2 border-brand-navy rounded-lg hover:bg-blue-50 transition-colors font-medium text-center"
+            >
               En savoir plus
-            </button>
+            </a>
           </div>
         </div>
 
-        <div className="mt-24 grid md:grid-cols-3 gap-8">
+        <div id="features" className="mt-24 grid md:grid-cols-3 gap-8">
           <div className="bg-white p-6 rounded-xl shadow-md border border-brand-blue/20 hover:border-brand-orange transition-colors">
             <div className="w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center mb-4">
               <svg className="w-6 h-6 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
