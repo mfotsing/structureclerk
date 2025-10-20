@@ -193,7 +193,7 @@ export default function InvoiceReviewPage({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Date d'émission
+                Date d&apos;émission
               </label>
               <input
                 type="date"
@@ -204,7 +204,7 @@ export default function InvoiceReviewPage({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Date d'échéance
+                Date d&apos;échéance
               </label>
               <input
                 type="date"

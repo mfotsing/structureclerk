@@ -5,7 +5,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk'
-import { extractTextFromDocument } from './document-processor'
+import { processDocument } from './document-processor'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -194,7 +194,8 @@ export async function extractInvoiceData(
   try {
     // Step 1: Extract text from document (PDF, DOCX, or image)
     console.log(`[Invoice Extraction] Processing ${fileName} (${mimeType})`)
-    const extractedText = await extractTextFromDocument(fileBuffer, mimeType)
+    const processedDoc = await processDocument(fileBuffer, mimeType)
+    const extractedText = processedDoc.text
 
     if (!extractedText || extractedText.length < 50) {
       return {

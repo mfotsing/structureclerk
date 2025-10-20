@@ -91,6 +91,9 @@ export default async function DashboardLayout({
               <NavLink href="/invoices/extract" icon="🤖">
                 Extraction IA
               </NavLink>
+              <NavLink href="/admin" icon="📊">
+                Analytics Admin
+              </NavLink>
               <NavLink href="/settings" icon="⚙️">
                 Paramètres
               </NavLink>

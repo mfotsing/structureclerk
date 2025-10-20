@@ -156,11 +156,11 @@ async function handleSubscriptionUpdate(
     .from('subscriptions')
     .update({
       status: subscription.status,
-      current_period_start: new Date(subscription.current_period_start * 1000),
-      current_period_end: new Date(subscription.current_period_end * 1000),
-      cancel_at_period_end: subscription.cancel_at_period_end,
-      cancel_at: subscription.cancel_at
-        ? new Date(subscription.cancel_at * 1000)
+      current_period_start: new Date((subscription as any).current_period_start * 1000),
+      current_period_end: new Date((subscription as any).current_period_end * 1000),
+      cancel_at_period_end: (subscription as any).cancel_at_period_end || false,
+      cancel_at: (subscription as any).cancel_at
+        ? new Date((subscription as any).cancel_at * 1000)
         : null,
     })
     .eq('stripe_subscription_id', subscription.id)
@@ -217,7 +217,7 @@ async function handlePaymentSucceeded(
   const { data: sub } = await supabase
     .from('subscriptions')
     .select('organization_id')
-    .eq('stripe_subscription_id', invoice.subscription)
+    .eq('stripe_subscription_id', (invoice as any).subscription)
     .single()
 
   if (!sub) return
@@ -225,10 +225,10 @@ async function handlePaymentSucceeded(
   await supabase.from('activities').insert({
     organization_id: sub.organization_id,
     action: 'payment_succeeded',
-    description: `Paiement reçu: ${(invoice.amount_paid / 100).toFixed(2)} ${invoice.currency.toUpperCase()}`,
+    description: `Paiement reçu: ${((invoice as any).amount_paid / 100).toFixed(2)} ${invoice.currency.toUpperCase()}`,
     metadata: {
       invoice_id: invoice.id,
-      amount: invoice.amount_paid / 100,
+      amount: (invoice as any).amount_paid / 100,
       currency: invoice.currency,
     },
   })
@@ -238,7 +238,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice, supabase: any) {
   const { data: sub } = await supabase
     .from('subscriptions')
     .select('organization_id')
-    .eq('stripe_subscription_id', invoice.subscription)
+    .eq('stripe_subscription_id', (invoice as any).subscription)
     .single()
 
   if (!sub) return
@@ -246,10 +246,10 @@ async function handlePaymentFailed(invoice: Stripe.Invoice, supabase: any) {
   await supabase.from('activities').insert({
     organization_id: sub.organization_id,
     action: 'payment_failed',
-    description: `Échec du paiement: ${(invoice.amount_due / 100).toFixed(2)} ${invoice.currency.toUpperCase()}`,
+    description: `Échec du paiement: ${((invoice as any).amount_due / 100).toFixed(2)} ${invoice.currency.toUpperCase()}`,
     metadata: {
       invoice_id: invoice.id,
-      amount: invoice.amount_due / 100,
+      amount: (invoice as any).amount_due / 100,
       currency: invoice.currency,
       error: invoice.last_finalization_error?.message,
     },

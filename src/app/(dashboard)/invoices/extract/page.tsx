@@ -17,6 +17,8 @@ interface ExtractedData {
   vendor_email: string | null
   vendor_phone: string | null
   customer_name: string | null
+  customer_email: string | null
+  customer_phone: string | null
   subtotal: number | null
   tps_amount: number | null
   tvq_amount: number | null
@@ -168,7 +170,7 @@ export default function InvoiceExtractionPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-brand-navy">Extraction de Factures</h1>
         <p className="mt-2 text-brand-gray">
-          Uploadez une facture PDF ou image et laissez l'IA extraire les données automatiquement
+          Uploadez une facture PDF ou image et laissez l&apos;IA extraire les données automatiquement
         </p>
       </div>
 
@@ -314,13 +316,13 @@ export default function InvoiceExtractionPage() {
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">Date d'émission</dt>
+                    <dt className="text-gray-500">Date d&apos;émission</dt>
                     <dd className="font-medium">
                       {extractedData.invoice_date || <span className="text-red-500">Non détectée</span>}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">Date d'échéance</dt>
+                    <dt className="text-gray-500">Date d&apos;échéance</dt>
                     <dd className="font-medium">
                       {extractedData.due_date || <span className="text-gray-500">N/A</span>}
                     </dd>

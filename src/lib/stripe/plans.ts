@@ -8,7 +8,7 @@ export interface PlanLimits {
   invoices_per_month: number | null
   documents: number | null
   ai_tokens: number
-  users: number
+  users: number | null
 }
 
 export interface Plan {
