@@ -1,0 +1,192 @@
+{
+  "common": {
+    "appName": "StructureClerk",
+    "tagline": "Intelligent management for construction contractors in Quebec",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "clients": "Clients",
+    "invoices": "Invoices",
+    "quotes": "Quotes",
+    "documents": "Documents",
+    "extractionAI": "AI Extraction",
+    "forecastsAI": "AI Forecasts",
+    "approvals": "Approvals",
+    "analyticsAdmin": "Analytics Admin",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset Password",
+    "createAccount": "Create an account",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "loginToAccount": "Login to your account",
+    "signUpForAccount": "Create your account",
+    "loginButton": "Log in",
+    "signupButton": "Sign up"
+  },
+  "homepage": {
+    "hero": {
+      "problem": "Too much paperwork, too much time lost managing construction site documents and invoices?",
+      "headline": "Simplify your daily routine, take back control of administration.",
+      "headlineAccent": "Focus on what you do best: building.",
+      "uvp": "StructureClerk automatically manages GST/QST, site requirements, and local compliance",
+      "uvpDetails": "in French and English. An AI platform that understands the reality of Quebec contractors.",
+      "cta": "Start Free Trial →",
+      "ctaSecondary": "Discover Features",
+      "ctaDemo": "See a Demo",
+      "trustBadge": "30-day free trial • No credit card required • Ready in 2 minutes",
+      "testimonial": "Finally a solution designed for Quebec contractors. No more hours lost in Excel."
+    },
+    "stats": {
+      "timeSaved": "time saved on administrative management",
+      "centralized": "of your documents centralized and accessible everywhere",
+      "taxErrors": "GST/QST tax errors thanks to automation"
+    },
+    "features": {
+      "title": "Create, send, and archive your invoices in 3 clicks",
+      "subtitle": "More than just invoicing software. An intelligent platform designed for construction contractors in Quebec.",
+      "ai": {
+        "title": "Automate with AI",
+        "description": "Upload a tender PDF in the morning, get a professional response in the afternoon. Our AI analyzes, extracts key data, and generates documents compliant with Quebec standards.",
+        "feature1": "Analyze your contracts and detect risks automatically",
+        "feature2": "Automatically generate responses to tenders",
+        "feature3": "Intelligently classify all your construction site documents"
+      },
+      "compliance": {
+        "title": "100% Quebec Compliance",
+        "description": "No more GST/QST tax errors. All forms and calculations specific to construction contractors in Quebec are integrated. No need to check your percentages.",
+        "feature1": "Automatically calculate GST (5%) + QST (9.975%)",
+        "feature2": "Comply with Quebec construction and site standards",
+        "feature3": "Work in French and English with bilingual templates"
+      },
+      "centralized": {
+        "title": "Centralize Everything",
+        "description": "All your invoices and documents centralized and accessible everywhere. Clients, projects, construction site invoices, quotes. No more 5 different applications.",
+        "feature1": "View your dashboard in real-time",
+        "feature2": "Collaborate in real-time with your site teams",
+        "feature3": "Secure your documents with automatic backup"
+      }
+    },
+    "finalCta": {
+      "title": "Ready to take back control of your time?",
+      "subtitle": "Join Quebec construction contractors who have already saved hundreds of hours of paperwork with StructureClerk.",
+      "cta": "Try free for 30 days →",
+      "ctaDemo": "See a Demo",
+      "trust": "2-minute setup • No credit card required • Cancel in 1 click"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "overview": "Overview",
+    "recentActivity": "Recent Activity",
+    "quickStats": "Quick Stats"
+  },
+  "forecasts": {
+    "title": "Financial Forecasts",
+    "subtitle": "AI analysis of your cash flow with 30, 60, and 90-day forecasts",
+    "currentMonth": "Current Month",
+    "revenue": "Revenue",
+    "expenses": "Expenses",
+    "netCashflow": "Net Cashflow",
+    "in30Days": "In 30 Days",
+    "in60Days": "In 60 Days",
+    "in90Days": "In 90 Days",
+    "confidence": "confidence",
+    "expectedRevenue": "Expected Revenue",
+    "expectedExpenses": "Expected Expenses",
+    "recommendations": "Recommendations",
+    "insights": "Financial Insights",
+    "generating": "Generating financial forecasts...",
+    "analyzing": "AI analysis in progress",
+    "upgradeRequired": {
+      "title": "AI Financial Forecasts",
+      "subtitle": "Get 30, 60, and 90-day cash flow forecasts with personalized recommendations.",
+      "feature1Title": "Accurate Forecasts",
+      "feature1Desc": "AI analysis of your historical data with seasonal adjustment",
+      "feature2Title": "Proactive Alerts",
+      "feature2Desc": "Automatic detection of cash flow risks",
+      "feature3Title": "Recommendations",
+      "feature3Desc": "Concrete actions to optimize your cashflow",
+      "cta": "Upgrade to Pro →",
+      "available": "Available with Pro and Enterprise plans"
+    },
+    "footer": "Forecasts are AI-generated by analyzing your historical data. Confidence decreases over time (30d → 60d → 90d)."
+  },
+  "approvals": {
+    "title": "Pending Approvals",
+    "subtitle": "{count} {count, plural, =1 {approval} other {approvals}} awaiting your decision",
+    "actionRequired": "Action Required",
+    "noApprovals": "No pending approvals",
+    "noApprovalsDesc": "You have no pending approval requests at this time.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "comment": "Comment",
+    "commentOptional": "Optional comment...",
+    "commentRequired": "Explain why you are rejecting this request...",
+    "commentRequiredNote": "A comment is required to reject a request",
+    "confirmApproval": "Confirm Approval",
+    "confirmRejection": "Confirm Rejection",
+    "processing": "Processing...",
+    "approversRequired": "{count} {count, plural, =1 {approver required} other {approvers required}}",
+    "createdBy": "Created by",
+    "resourceTypes": {
+      "invoice": "Invoice",
+      "quote": "Quote",
+      "project": "Project",
+      "document": "Document",
+      "expense": "Expense"
+    }
+  },
+  "admin": {
+    "title": "Analytics Admin",
+    "businessKpis": "Business KPIs",
+    "userAnalytics": "User Analytics",
+    "subscriptionInsights": "Subscription Insights",
+    "aiUsage": "AI Usage",
+    "systemHealth": "System Health"
+  },
+  "footer": {
+    "tagline": "The intelligent platform for construction contractors in Quebec",
+    "product": "Product",
+    "features": "Features",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contact": "Contact",
+    "email": "info@structureclerk.ca",
+    "contactUs": "Contact Us",
+    "copyright": "© 2025 StructureClerk • Powered by",
+    "poweredBy": "Techvibes"
+  }
+}

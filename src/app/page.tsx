@@ -1,13 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '@/components/Footer'
+import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-orange-50">
-      {/* Header with Login Button */}
+      {/* Header with Login Button & Language Switcher */}
       <header className="w-full py-4 px-4 sm:px-6">
-        <div className="container mx-auto flex justify-end">
+        <div className="container mx-auto flex justify-end items-center gap-4">
+          <LanguageSwitcher />
           <Link
             href="/login"
             className="px-6 py-2 bg-white text-brand-navy border-2 border-brand-navy rounded-lg hover:bg-blue-50 transition-colors font-semibold text-sm sm:text-base shadow-sm"

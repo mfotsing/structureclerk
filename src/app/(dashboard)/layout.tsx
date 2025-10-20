@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import ChatAssistant from '@/components/chat/ChatAssistant'
+import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
 
 export default async function DashboardLayout({
   children,
@@ -49,6 +50,7 @@ export default async function DashboardLayout({
             </div>
 
             <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
               <span className="text-sm text-brand-gray">
                 {profile?.full_name || user.email}
               </span>
