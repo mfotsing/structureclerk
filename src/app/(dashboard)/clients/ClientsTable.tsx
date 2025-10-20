@@ -52,11 +52,7 @@ export default function ClientsTable({ initialClients }: { initialClients: Clien
             >
               <option value="">Toutes les villes</option>
               {cities.map((city) => (
-<<<<<<< HEAD
-                <option key={city} value={city}>
-=======
                 <option key={city} value={city || ''}>
->>>>>>> feat/ai-integration
                   {city}
                 </option>
               ))}

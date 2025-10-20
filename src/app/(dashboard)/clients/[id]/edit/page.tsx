@@ -27,11 +27,7 @@ export default async function EditClientPage({ params }: { params: Promise<{ id:
   const { data: client } = await supabase
     .from('clients')
     .select('*')
-<<<<<<< HEAD
-    .eq('id', params.id)
-=======
     .eq('id', id)
->>>>>>> feat/ai-integration
     .eq('organization_id', orgId || '')
     .single()
 

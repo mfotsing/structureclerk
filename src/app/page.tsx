@@ -1,26 +1,10 @@
-<<<<<<< HEAD
-=======
 import Image from 'next/image'
 
->>>>>>> feat/ai-integration
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center space-y-8">
-<<<<<<< HEAD
-          <h1 className="text-5xl font-bold text-gray-900">
-            Structure<span className="text-blue-600">Clerk</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Gestion de factures et documents pour entrepreneurs en construction au Québec
-          </p>
-          <div className="flex gap-4 justify-center">
-            <button className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-              Commencer gratuitement
-            </button>
-            <button className="px-8 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium">
-=======
           <div className="flex items-center justify-center gap-4 mb-6">
             <Image
               src="/logo.jpg"
@@ -41,7 +25,6 @@ export default function Home() {
               Commencer gratuitement
             </button>
             <button className="px-6 sm:px-8 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium">
->>>>>>> feat/ai-integration
               En savoir plus
             </button>
           </div>
