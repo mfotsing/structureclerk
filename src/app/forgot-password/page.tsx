@@ -37,18 +37,18 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center px-4 py-8 sm:py-12">
       <div className="max-w-md w-full">
         {/* Back link */}
         <Link
           href="/login"
-          className="inline-flex items-center gap-2 text-brand-gray hover:text-brand-orange transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-brand-gray hover:text-brand-orange transition-colors mb-6 sm:mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
-          Retour à la connexion
+          <span className="text-sm sm:text-base">Retour à la connexion</span>
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
           {!success ? (
             <>
               {/* Header */}

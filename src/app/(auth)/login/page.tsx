@@ -39,26 +39,26 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 via-white to-orange-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 via-white to-orange-50 px-4 py-8 sm:py-12">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <div className="flex justify-center mb-4">
             <Image
               src="/logo-icon.svg"
               alt="StructureClerk Icon"
-              width={100}
-              height={100}
-              className="drop-shadow-lg"
+              width={80}
+              height={80}
+              className="drop-shadow-lg sm:w-100 sm:h-100"
             />
           </div>
-          <h1 className="text-4xl font-bold mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">
             <span className="text-brand-navy">Structure</span>
             <span className="text-brand-orange">Clerk</span>
           </h1>
-          <p className="text-brand-gray">{t('auth.loginToAccount')}</p>
+          <p className="text-brand-gray text-sm sm:text-base">{t('auth.loginToAccount')}</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-blue/20">
+        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-brand-blue/20">
           <form onSubmit={handleLogin} className="space-y-6">
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
