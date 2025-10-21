@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 import Button from '@/components/ui/Button'
 
@@ -18,6 +19,7 @@ interface Sector {
     icon: string
     text: string
   }[]
+  imageSrc: string
   imageAlt: string
 }
 
@@ -38,6 +40,7 @@ const sectors: Sector[] = [
       { icon: '🏠', text: 'Gestion propriétaires' },
       { icon: '💳', text: 'Paiements simplifiés' }
     ],
+    imageSrc: '/1.jpg',
     imageAlt: 'Entrepreneur rénovation maison québécoise'
   },
   {
@@ -56,6 +59,7 @@ const sectors: Sector[] = [
       { icon: '🏛️', text: 'Permis municipaux' },
       { icon: '📈', text: 'ROI projets' }
     ],
+    imageSrc: '/2.jpg',
     imageAlt: 'Gérant projet commercial centre-ville'
   },
   {
@@ -74,6 +78,7 @@ const sectors: Sector[] = [
       { icon: '📋', text: 'Documentation technique' },
       { icon: '👷', text: 'Équipes spécialisées' }
     ],
+    imageSrc: '/3.jpg',
     imageAlt: 'Superviseur chantier industriel'
   },
   {
@@ -92,6 +97,7 @@ const sectors: Sector[] = [
       { icon: '🛠️', text: 'Multi-projets' },
       { icon: '💫', text: 'Service après-vente' }
     ],
+    imageSrc: '/4.jpg',
     imageAlt: 'Entrepreneur multi-projets dynamique'
   }
 ]
@@ -250,25 +256,22 @@ export default function SectorHeroRotator() {
           {/* Right Image - 40% on desktop */}
           <div className="lg:col-span-5 xl:col-span-4">
             <div className="relative">
-              {/* Placeholder for sector image */}
-              <div 
-                className="rounded-2xl shadow-2xl overflow-hidden bg-gradient-to-br aspect-video lg:aspect-square flex items-center justify-center"
-                style={{
-                  background: `linear-gradient(135deg, ${sector.primaryColor}20, ${sector.secondaryColor}20)`
-                }}
-              >
-                <div className="text-center p-8">
-                  <div className="text-6xl mb-4">{sector.icon}</div>
-                  <p className="text-lg font-medium" style={{ color: sector.secondaryColor }}>
-                    {sector.imageAlt}
-                  </p>
-                  <div className="mt-4 flex justify-center gap-2">
-                    {sector.features.slice(0, 2).map((feature, index) => (
-                      <div key={index} className="flex items-center gap-1 text-sm">
-                        <span>{feature.icon}</span>
-                        <CheckCircle className="w-4 h-4" style={{ color: sector.primaryColor }} />
-                      </div>
-                    ))}
+              {/* Sector Image */}
+              <div className="rounded-2xl shadow-2xl overflow-hidden aspect-video lg:aspect-square relative">
+                <Image
+                  src={sector.imageSrc}
+                  alt={sector.imageAlt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                  priority
+                />
+                
+                {/* Overlay with sector icon */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end justify-center p-6">
+                  <div className="text-center text-white">
+                    <div className="text-4xl mb-2 drop-shadow-lg">{sector.icon}</div>
+                    <p className="text-sm font-medium drop-shadow">{sector.name}</p>
                   </div>
                 </div>
               </div>
@@ -287,17 +290,22 @@ export default function SectorHeroRotator() {
 
       {/* Mobile Image (show on mobile only) */}
       <div className="lg:hidden px-4 pb-8">
-        <div 
-          className="rounded-2xl shadow-xl overflow-hidden bg-gradient-to-br aspect-video flex items-center justify-center"
-          style={{
-            background: `linear-gradient(135deg, ${sector.primaryColor}20, ${sector.secondaryColor}20)`
-          }}
-        >
-          <div className="text-center p-6">
-            <div className="text-5xl mb-3">{sector.icon}</div>
-            <p className="text-base font-medium" style={{ color: sector.secondaryColor }}>
-              {sector.imageAlt}
-            </p>
+        <div className="rounded-2xl shadow-xl overflow-hidden aspect-video relative">
+          <Image
+            src={sector.imageSrc}
+            alt={sector.imageAlt}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+          
+          {/* Mobile overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center p-4">
+            <div className="text-center text-white">
+              <div className="text-3xl mb-1 drop-shadow-lg">{sector.icon}</div>
+              <p className="text-xs font-medium drop-shadow">{sector.name}</p>
+            </div>
           </div>
         </div>
       </div>
