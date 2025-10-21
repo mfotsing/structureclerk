@@ -40,7 +40,7 @@ const sectors: Sector[] = [
       { icon: '🏠', text: 'Gestion propriétaires' },
       { icon: '💳', text: 'Paiements simplifiés' }
     ],
-    imageSrc: '/1.jpg',
+    imageSrc: '/1 (1).png',
     imageAlt: 'Entrepreneur rénovation maison québécoise'
   },
   {
@@ -59,7 +59,7 @@ const sectors: Sector[] = [
       { icon: '🏛️', text: 'Permis municipaux' },
       { icon: '📈', text: 'ROI projets' }
     ],
-    imageSrc: '/2.jpg',
+    imageSrc: '/2 (1).png',
     imageAlt: 'Gérant projet commercial centre-ville'
   },
   {
@@ -78,7 +78,7 @@ const sectors: Sector[] = [
       { icon: '📋', text: 'Documentation technique' },
       { icon: '👷', text: 'Équipes spécialisées' }
     ],
-    imageSrc: '/3.jpg',
+    imageSrc: '/3 (1).png',
     imageAlt: 'Superviseur chantier industriel'
   },
   {
@@ -97,7 +97,7 @@ const sectors: Sector[] = [
       { icon: '🛠️', text: 'Multi-projets' },
       { icon: '💫', text: 'Service après-vente' }
     ],
-    imageSrc: '/4.jpg',
+    imageSrc: '/4 (1).png',
     imageAlt: 'Entrepreneur multi-projets dynamique'
   }
 ]
