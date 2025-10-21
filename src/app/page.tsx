@@ -13,28 +13,6 @@ import AnimatedNumber from '@/components/home/AnimatedNumber'
 export default function Home() {
   const t = useTranslations()
 
-  // Success examples data
-  const successExamples = [
-    {
-      title: "Construction commerciale",
-      description: "Gestion de 450+ documents avec 30% d'économie de temps",
-      metrics: ["450 documents", "30% temps gagné", "0 erreurs"],
-      icon: "🏢"
-    },
-    {
-      title: "Construction résidentielle",
-      description: "Centralisation de 3 projets simultanés avec validation en 24h",
-      metrics: ["3 projets", "24h validation", "100% conforme"],
-      icon: "🏘️"
-    },
-    {
-      title: "Travailleur autonome",
-      description: "Automatisation complète des factures et soumissions",
-      metrics: ["200+ factures", "Auto-classées", "IA intégrée"],
-      icon: "🏗️"
-    }
-  ]
-
   return (
     <div className="min-h-screen flex flex-col">
       {/* Top Navigation Bar */}
@@ -44,48 +22,6 @@ export default function Home() {
       <main className="flex-1">
         <SectorHeroRotator />
 
-        {/* Success Examples Section */}
-        <div className="container mx-auto px-4 py-16 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-brand-navy mb-4">
-            Cas d'usage
-          </h2>
-          <p className="text-center text-ui-text-secondary text-lg mb-16 max-w-2xl mx-auto">
-            Découvrez par ces exemples comment vous pouvez transformer votre gestion documentaire
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {successExamples.map((example, index) => (
-              <Card 
-                key={index} 
-                variant="elevated" 
-                padding="lg" 
-                className="hover:shadow-assembly-xl transition-all duration-300 transform hover:-translate-y-1"
-              >
-                <CardHeader>
-                  <div className="text-4xl mb-4">{example.icon}</div>
-                  <CardTitle className="text-xl text-brand-navy">
-                    {example.title}
-                  </CardTitle>
-                  <CardDescription className="text-ui-text-secondary">
-                    {example.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    {example.metrics.map((metric, metricIndex) => (
-                      <div key={metricIndex} className="flex items-center text-sm">
-                        <svg className="w-4 h-4 text-brand-orange mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        <span className="text-ui-text">{metric}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
 
         {/* Features Section */}
         <div className="container mx-auto px-4 py-16">
