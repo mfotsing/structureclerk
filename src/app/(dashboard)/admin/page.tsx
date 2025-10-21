@@ -1,3 +1,5 @@
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 import { calculateBusinessMetrics, formatCurrency, formatPercentage } from '@/lib/analytics/kpis'
 import { MetricCard } from '@/components/analytics/MetricCard'
 import {
@@ -9,11 +11,50 @@ import {
   AlertCircle,
   FileText,
   BarChart3,
+  Lock,
 } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
+// Authorized admin emails
+const AUTHORIZED_ADMIN_EMAILS = [
+  'm_fotsing@outlook.com',
+  'info@structureclerk.ca',
+  'dorcasfotsing@gmail.com',
+]
+
 export default async function AdminDashboardPage() {
+  // Check authentication and authorization
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
+  // Check if user email is authorized
+  if (!user.email || !AUTHORIZED_ADMIN_EMAILS.includes(user.email)) {
+    // Return unauthorized page
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-8 h-8 text-red-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-brand-navy mb-2">Accès Refusé</h1>
+          <p className="text-gray-600 mb-4">
+            Vous n&apos;avez pas les permissions nécessaires pour accéder au Dashboard Admin.
+          </p>
+          <p className="text-sm text-gray-500">
+            Cette section est réservée aux administrateurs de StructureClerk.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   const metrics = await calculateBusinessMetrics()
 
   return (

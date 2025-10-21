@@ -67,6 +67,17 @@ export default function SignupPage() {
 
         if (profileError) throw profileError
 
+        // Verify the profile was updated correctly
+        const { data: updatedProfile } = await supabase
+          .from('profiles')
+          .select('organization_id')
+          .eq('id', authData.user.id)
+          .single()
+
+        if (!updatedProfile?.organization_id) {
+          throw new Error('Erreur lors de la configuration du profil')
+        }
+
         setSuccess(true)
         setTimeout(() => {
           router.push('/dashboard')

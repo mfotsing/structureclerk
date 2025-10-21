@@ -26,11 +26,6 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">{t('footer.product')}</h4>
             <ul className="space-y-2 text-sm text-blue-200">
               <li>
-                <Link href="/#features" className="hover:text-brand-orange transition-colors">
-                  {t('footer.features')}
-                </Link>
-              </li>
-              <li>
                 <Link href="/signup" className="hover:text-brand-orange transition-colors">
                   {t('footer.pricing')}
                 </Link>
