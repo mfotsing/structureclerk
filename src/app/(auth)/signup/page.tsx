@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function SignupPage() {
+  const t = useTranslations()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
@@ -72,7 +74,7 @@ export default function SignupPage() {
         }, 2000)
       }
     } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue lors de la création du compte')
+      setError(error.message || t('common.error'))
     } finally {
       setLoading(false)
     }
@@ -88,8 +90,8 @@ export default function SignupPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-brand-navy mb-2">Compte créé avec succès!</h2>
-            <p className="text-brand-gray">Redirection vers votre tableau de bord...</p>
+            <h2 className="text-2xl font-bold text-brand-navy mb-2">{t('auth.accountCreatedSuccess')}</h2>
+            <p className="text-brand-gray">{t('auth.redirectingToDashboard')}</p>
           </div>
         </div>
       </div>
@@ -113,7 +115,7 @@ export default function SignupPage() {
             <span className="text-brand-navy">Structure</span>
             <span className="text-brand-orange">Clerk</span>
           </h1>
-          <p className="text-brand-gray">Créer votre compte</p>
+          <p className="text-brand-gray">{t('auth.signUpForAccount')}</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-blue/20">
@@ -126,7 +128,7 @@ export default function SignupPage() {
 
             <div>
               <label htmlFor="organizationName" className="block text-sm font-medium text-brand-navy mb-2">
-                Nom de votre entreprise
+                {t('auth.companyName')}
               </label>
               <input
                 id="organizationName"
@@ -135,13 +137,13 @@ export default function SignupPage() {
                 onChange={(e) => setOrganizationName(e.target.value)}
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none"
-                placeholder="Construction ABC Inc."
+                placeholder={t('auth.companyNamePlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-brand-navy mb-2">
-                Votre nom complet
+                {t('auth.fullName')}
               </label>
               <input
                 id="fullName"
@@ -150,13 +152,13 @@ export default function SignupPage() {
                 onChange={(e) => setFullName(e.target.value)}
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none"
-                placeholder="Jean Tremblay"
+                placeholder={t('auth.fullNamePlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-brand-navy mb-2">
-                Adresse courriel
+                {t('auth.email')}
               </label>
               <input
                 id="email"
@@ -165,13 +167,13 @@ export default function SignupPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none"
-                placeholder="jean@construction-abc.com"
+                placeholder={t('auth.emailPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-brand-navy mb-2">
-                Mot de passe
+                {t('auth.password')}
               </label>
               <input
                 id="password"
@@ -183,7 +185,7 @@ export default function SignupPage() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none"
                 placeholder="••••••••"
               />
-              <p className="text-xs text-brand-gray mt-1">Minimum 6 caractères</p>
+              <p className="text-xs text-brand-gray mt-1">{t('auth.passwordMinLength')}</p>
             </div>
 
             <button
@@ -191,22 +193,22 @@ export default function SignupPage() {
               disabled={loading}
               className="w-full bg-brand-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
-              {loading ? 'Création du compte...' : 'Créer mon compte'}
+              {loading ? t('auth.creatingAccount') : t('auth.createMyAccount')}
             </button>
           </form>
 
           <div className="mt-6 text-center text-sm">
             <p className="text-brand-gray">
-              Vous avez déjà un compte?{' '}
+              {t('auth.alreadyHaveAccount')}{' '}
               <Link href="/login" className="text-brand-orange hover:text-orange-600 font-medium">
-                Se connecter
+                {t('auth.loginButton')}
               </Link>
             </p>
           </div>
         </div>
 
         <p className="text-center text-xs text-brand-gray mt-8">
-          En créant un compte, vous acceptez nos conditions d&apos;utilisation
+          {t('auth.termsAcceptance')}
         </p>
       </div>
     </div>

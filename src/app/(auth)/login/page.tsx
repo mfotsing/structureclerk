@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function LoginPage() {
+  const t = useTranslations()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -30,7 +32,7 @@ export default function LoginPage() {
       router.push('/dashboard')
       router.refresh()
     } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue')
+      setError(error.message || t('common.error'))
     } finally {
       setLoading(false)
     }
@@ -53,7 +55,7 @@ export default function LoginPage() {
             <span className="text-brand-navy">Structure</span>
             <span className="text-brand-orange">Clerk</span>
           </h1>
-          <p className="text-brand-gray">Connexion à votre compte</p>
+          <p className="text-brand-gray">{t('auth.loginToAccount')}</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-blue/20">
@@ -66,7 +68,7 @@ export default function LoginPage() {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-brand-navy mb-2">
-                Adresse courriel
+                {t('auth.email')}
               </label>
               <input
                 id="email"
@@ -75,20 +77,20 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none"
-                placeholder="vous@exemple.com"
+                placeholder={t('auth.emailPlaceholder')}
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label htmlFor="password" className="block text-sm font-medium text-brand-navy">
-                  Mot de passe
+                  {t('auth.password')}
                 </label>
                 <Link
                   href="/forgot-password"
                   className="text-xs text-brand-orange hover:text-orange-600 font-medium"
                 >
-                  Mot de passe oublié?
+                  {t('auth.forgotPassword')}
                 </Link>
               </div>
               <input
@@ -107,22 +109,22 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full bg-brand-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
-              {loading ? 'Connexion...' : 'Se connecter'}
+              {loading ? t('common.loading') : t('auth.loginButton')}
             </button>
           </form>
 
           <div className="mt-6 text-center text-sm">
             <p className="text-brand-gray">
-              Pas encore de compte?{' '}
+              {t('auth.noAccount')}{' '}
               <Link href="/signup" className="text-brand-orange hover:text-orange-600 font-medium">
-                Créer un compte
+                {t('auth.createAccount')}
               </Link>
             </p>
           </div>
         </div>
 
         <p className="text-center text-sm text-brand-gray mt-8">
-          Gestion de factures pour entrepreneurs en construction au Québec
+          {t('common.tagline')}
         </p>
       </div>
     </div>

@@ -41,6 +41,7 @@
     "signup": "Sign Up",
     "logout": "Logout",
     "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "forgotPassword": "Forgot password?",
@@ -51,7 +52,17 @@
     "loginToAccount": "Login to your account",
     "signUpForAccount": "Create your account",
     "loginButton": "Log in",
-    "signupButton": "Sign up"
+    "signupButton": "Sign up",
+    "fullName": "Your full name",
+    "fullNamePlaceholder": "John Smith",
+    "companyName": "Your company name",
+    "companyNamePlaceholder": "ABC Construction Inc.",
+    "passwordMinLength": "Minimum 6 characters",
+    "creatingAccount": "Creating account...",
+    "createMyAccount": "Create my account",
+    "accountCreatedSuccess": "Account created successfully!",
+    "redirectingToDashboard": "Redirecting to your dashboard...",
+    "termsAcceptance": "By creating an account, you accept our terms of use"
   },
   "homepage": {
     "hero": {

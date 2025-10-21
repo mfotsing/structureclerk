@@ -41,6 +41,7 @@
     "signup": "Inscription",
     "logout": "Déconnexion",
     "email": "Adresse courriel",
+    "emailPlaceholder": "vous@exemple.com",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "forgotPassword": "Mot de passe oublié?",
@@ -51,7 +52,17 @@
     "loginToAccount": "Connexion à votre compte",
     "signUpForAccount": "Créer votre compte",
     "loginButton": "Se connecter",
-    "signupButton": "S'inscrire"
+    "signupButton": "S'inscrire",
+    "fullName": "Votre nom complet",
+    "fullNamePlaceholder": "Jean Tremblay",
+    "companyName": "Nom de votre entreprise",
+    "companyNamePlaceholder": "Construction ABC Inc.",
+    "passwordMinLength": "Minimum 6 caractères",
+    "creatingAccount": "Création du compte...",
+    "createMyAccount": "Créer mon compte",
+    "accountCreatedSuccess": "Compte créé avec succès!",
+    "redirectingToDashboard": "Redirection vers votre tableau de bord...",
+    "termsAcceptance": "En créant un compte, vous acceptez nos conditions d'utilisation"
   },
   "homepage": {
     "hero": {
