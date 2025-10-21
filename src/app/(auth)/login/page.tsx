@@ -30,7 +30,7 @@ export default function LoginPage() {
 
       if (error) throw error
 
-      router.push('/dashboard')
+      router.push('/dashboard/files')
       router.refresh()
     } catch (error: any) {
       setError(error.message || t('common.error'))
