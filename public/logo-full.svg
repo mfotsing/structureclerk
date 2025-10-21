@@ -1,6 +1,6 @@
 <svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Icon -->
-  <g transform="translate(20, 40)">
+  <g transform="translate(110, 40)">
     <!-- Hexagone extérieur (bleu clair) -->
     <path d="M60 5 L105 32.5 L105 87.5 L60 115 L15 87.5 L15 32.5 Z" fill="#5B8DB8" stroke="#0F3B5F" stroke-width="2"/>
 
@@ -29,9 +29,12 @@
     </g>
   </g>
 
-  <!-- Text "Structure" (bleu foncé) -->
-  <text x="180" y="90" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#0F3B5F">Structure</text>
-
-  <!-- Text "Clerk" (orange) -->
-  <text x="460" y="90" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#F59E0B">Clerk</text>
+  <!-- Text "StructureClerk" parfaitement centré -->
+  <g transform="translate(440, 100)">
+    <!-- Structure en bleu et Clerk en orange avec espace réduit -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" dominant-baseline="middle">
+      <tspan fill="#0F3B5F">Structure</tspan>
+      <tspan fill="#F59E0B" dx="-10">Clerk</tspan>
+    </text>
+  </g>
 </svg>
