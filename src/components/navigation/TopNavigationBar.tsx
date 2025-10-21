@@ -10,9 +10,9 @@ export default function TopNavigationBar() {
     <header className="w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          {/* Left - Logo */}
+          {/* Left - Logo with text */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/logo-icon.svg"
                 alt="StructureClerk"
@@ -27,6 +27,10 @@ export default function TopNavigationBar() {
                 height={32}
                 className="sm:hidden"
               />
+              <div className="hidden sm:block">
+                <span className="text-xl font-bold text-brand-navy">Structure</span>
+                <span className="text-xl font-bold text-brand-orange">Clerk</span>
+              </div>
             </Link>
           </div>
 

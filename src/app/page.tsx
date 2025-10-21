@@ -27,7 +27,7 @@ export default function Home() {
 
         {/* Features Section */}
         <div className="container mx-auto px-4 py-16">
-          <div className="mt-48">
+          <div className="mt-24">
             <h2 className="text-3xl sm:text-4xl font-bold text-center text-brand-navy mb-4">
               L'IA au Service de Votre Productivité
             </h2>
@@ -184,7 +184,7 @@ export default function Home() {
 
         {/* Final CTA Section */}
         <div className="container mx-auto px-4 py-16">
-          <div className="mt-32 bg-gradient-to-br from-brand-navy to-brand-navy-dark rounded-2xl p-12 text-center text-white shadow-assembly-xl">
+          <div className="mt-16 bg-gradient-to-br from-brand-navy to-brand-navy-dark rounded-2xl p-12 text-center text-white shadow-assembly-xl">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Prêt à Révolutionner Votre Gestion ?
             </h2>

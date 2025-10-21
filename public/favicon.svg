@@ -1,0 +1,28 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagone extérieur (bleu clair) -->
+  <path d="M60 5 L105 32.5 L105 87.5 L60 115 L15 87.5 L15 32.5 Z" fill="#5B8DB8" stroke="#0F3B5F" stroke-width="2"/>
+
+  <!-- Hexagone intérieur (bleu foncé) -->
+  <path d="M60 15 L95 35 L95 85 L60 105 L25 85 L25 35 Z" fill="#0F3B5F"/>
+
+  <!-- Bâtiment blanc -->
+  <rect x="45" y="50" width="30" height="40" fill="white" rx="2"/>
+
+  <!-- Toit -->
+  <path d="M40 50 L60 35 L80 50 Z" fill="white"/>
+
+  <!-- Fenêtres -->
+  <rect x="50" y="58" width="6" height="6" fill="#5B8DB8"/>
+  <rect x="64" y="58" width="6" height="6" fill="#5B8DB8"/>
+  <rect x="50" y="70" width="6" height="6" fill="#5B8DB8"/>
+  <rect x="64" y="70" width="6" height="6" fill="#5B8DB8"/>
+
+  <!-- Document orange -->
+  <g transform="translate(70, 70)">
+    <rect x="0" y="0" width="32" height="40" fill="#F59E0B" rx="2" stroke="#0F3B5F" stroke-width="2"/>
+    <rect x="6" y="8" width="20" height="3" fill="white" rx="1"/>
+    <rect x="6" y="15" width="20" height="3" fill="white" rx="1"/>
+    <rect x="6" y="22" width="20" height="3" fill="white" rx="1"/>
+    <rect x="6" y="29" width="14" height="3" fill="white" rx="1"/>
+  </g>
+</svg>

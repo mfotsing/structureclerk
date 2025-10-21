@@ -9,6 +9,11 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'StructureClerk - Gestion de factures et documents pour entrepreneurs en construction',
   description: 'Solution SaaS minimaliste de gestion de factures, soumissions et documents pour PME et entrepreneurs en construction au Québec',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 }
 
 export default async function RootLayout({
