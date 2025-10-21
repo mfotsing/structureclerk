@@ -111,7 +111,7 @@ export default function SectorHeroRotator() {
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
-          handleNextSector()
+          setActiveSector((prev) => (prev + 1) % sectors.length)
           return 0
         }
         return prev + 1.25 // 100% / 8 secondes / 10 updates per second
