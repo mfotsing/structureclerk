@@ -121,7 +121,7 @@ export default function Home() {
             {/* Success Examples Section */}
             <div className="mt-32">
               <h2 className="text-3xl sm:text-4xl font-bold text-center text-brand-navy mb-4">
-                Cas d'usage
+                Cas d&apos;usage
               </h2>
               <p className="text-center text-ui-text-secondary text-lg mb-16 max-w-2xl mx-auto">
                 Découvrez par ces exemples comment vous pouvez transformer votre gestion documentaire
@@ -164,7 +164,7 @@ export default function Home() {
             {/* Features Section */}
             <div className="mt-48">
               <h2 className="text-3xl sm:text-4xl font-bold text-center text-brand-navy mb-4">
-                L'IA au Service de Votre Productivité
+                L&apos;IA au Service de Votre Productivité
               </h2>
               <p className="text-center text-ui-text-secondary text-lg mb-16 max-w-2xl mx-auto">
                 Une plateforme conçue pour les exigences du secteur BTP
