@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
@@ -14,11 +14,7 @@ export default function SettingsPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
   const supabase = createClient()
 
-  useEffect(() => {
-    loadUserData()
-  }, [])
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
@@ -36,7 +32,11 @@ export default function SettingsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadUserData()
+  }, [loadUserData])
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -106,10 +106,11 @@ export default function SettingsPage() {
               <form onSubmit={handleSaveProfile} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                       Prénom
                     </label>
                     <input
+                      id="firstName"
                       type="text"
                       value={profile?.first_name || ''}
                       onChange={(e) => setProfile({...profile, first_name: e.target.value})}
@@ -117,10 +118,11 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
                       Nom
                     </label>
                     <input
+                      id="lastName"
                       type="text"
                       value={profile?.last_name || ''}
                       onChange={(e) => setProfile({...profile, last_name: e.target.value})}
@@ -130,12 +132,13 @@ export default function SettingsPage() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                     Email
                   </label>
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-gray-400" />
                     <input
+                      id="email"
                       type="email"
                       value={profile?.email || ''}
                       disabled
@@ -146,12 +149,13 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                     Téléphone
                   </label>
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-gray-400" />
                     <input
+                      id="phone"
                       type="tel"
                       value={profile?.phone || ''}
                       onChange={(e) => setProfile({...profile, phone: e.target.value})}

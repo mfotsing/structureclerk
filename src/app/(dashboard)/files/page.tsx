@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
@@ -45,11 +45,7 @@ export default function FilesPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const supabase = createClient()
 
-  useEffect(() => {
-    loadDocuments()
-  }, [])
-
-  const loadDocuments = async () => {
+  const loadDocuments = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
@@ -74,7 +70,11 @@ export default function FilesPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadDocuments()
+  }, [loadDocuments])
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -147,7 +147,7 @@ export default function FilesPage() {
   }
 
   const getFileIcon = (mimeType: string) => {
-    if (mimeType.startsWith('image/')) return <Image className="w-8 h-8 text-green-500" />
+    if (mimeType.startsWith('image/')) return <Image className="w-8 h-8 text-green-500" aria-label="Icone d'image" />
     if (mimeType.includes('pdf')) return <FileText className="w-8 h-8 text-red-500" />
     if (mimeType.includes('word') || mimeType.includes('document')) return <FileText className="w-8 h-8 text-blue-500" />
     return <FileIcon className="w-8 h-8 text-gray-500" />

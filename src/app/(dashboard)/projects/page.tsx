@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { formatDate, formatCurrency } from '@/lib/utils'
@@ -51,17 +51,7 @@ export default function ProjectsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    loadClients()
-  }, [])
-
-  useEffect(() => {
-    if (selectedClient) {
-      loadProjects(selectedClient.id)
-    }
-  }, [selectedClient])
-
-  const loadClients = async () => {
+  const loadClients = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
@@ -89,9 +79,9 @@ export default function ProjectsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
 
-  const loadProjects = async (clientId: string) => {
+  const loadProjects = useCallback(async (clientId: string) => {
     try {
       const { data: projectsData } = await supabase
         .from('projects')
@@ -103,7 +93,17 @@ export default function ProjectsPage() {
     } catch (error) {
       console.error('Error loading projects:', error)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadClients()
+  }, [loadClients])
+
+  useEffect(() => {
+    if (selectedClient) {
+      loadProjects(selectedClient.id)
+    }
+  }, [selectedClient, loadProjects])
 
   const filteredClients = clients.filter(client =>
     client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
