@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import DashboardNav from '@/components/dashboard/DashboardNav'
+import NewDashboardNav from '@/components/navigation/NewDashboardNav'
 import ChatAssistant from '@/components/chat/ChatAssistant'
 
 export default async function DashboardLayout({
@@ -26,10 +26,10 @@ export default async function DashboardLayout({
     .single()
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <DashboardNav userName={profile?.full_name || user.email || ''}>
+    <div className="min-h-screen bg-ui-background-secondary">
+      <NewDashboardNav userName={profile?.full_name || user.email || ''}>
         {children}
-      </DashboardNav>
+      </NewDashboardNav>
 
       {/* AI Chat Assistant - Available on all dashboard pages */}
       <ChatAssistant />
