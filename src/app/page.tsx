@@ -1,11 +1,20 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import Footer from '@/components/Footer'
 import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
+import TypewriterSlideshow from '@/components/home/TypewriterSlideshow'
 
 export default function Home() {
   const t = useTranslations()
+
+  // Phrases for the typewriter slideshow
+  const heroPhrasesValue = [
+    t('homepage.hero.headline'),
+    t('homepage.hero.headlineAccent'),
+  ]
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-orange-50">
@@ -40,11 +49,14 @@ export default function Home() {
             {t('homepage.hero.problem')}
           </p>
 
-          {/* Hero Headline - Solution claire */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-navy max-w-4xl mx-auto px-4 leading-tight">
-            {t('homepage.hero.headline')}
-            <span className="text-brand-orange"> {t('homepage.hero.headlineAccent')}</span>
-          </h1>
+          {/* Hero Headline with Typewriter Animation */}
+          <div className="max-w-4xl mx-auto px-4">
+            <TypewriterSlideshow
+              phrases={heroPhrasesValue}
+              typingSpeed={50}
+              pauseDuration={3000}
+            />
+          </div>
 
           {/* UVP Québec - Adaptation locale explicite */}
           <p className="text-lg sm:text-xl text-brand-gray max-w-3xl mx-auto px-4 leading-relaxed">
