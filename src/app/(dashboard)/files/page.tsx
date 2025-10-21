@@ -194,7 +194,7 @@ export default function FilesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-ui-text">Fichiers</h1>
-          <p className="text-ui-text-muted mt-1">GED intelligent - Gérez vos documents avec l'IA</p>
+          <p className="text-ui-text-muted mt-1">GED intelligent - Gérez vos documents avec lGED intelligent - Gérez vos documents avec l'IArsquo;IA</p>
         </div>
         <div className="mt-4 sm:mt-0">
           <Button 

@@ -195,7 +195,7 @@ export default function SettingsPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Nom de l'organisation
+                      Nom de lNom de l'organisationrsquo;organisation
                     </label>
                     <input
                       type="text"
@@ -231,7 +231,7 @@ export default function SettingsPage() {
             <CardContent className="space-y-3">
               <Button variant="outline" className="w-full justify-start">
                 <CreditCard className="w-4 h-4 mr-2" />
-                Gérer l'abonnement
+                Gérer lGérer l'abonnementrsquo;abonnement
               </Button>
               <Button variant="outline" className="w-full justify-start">
                 <Bell className="w-4 h-4 mr-2" />
