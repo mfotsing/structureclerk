@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import Footer from '@/components/Footer'
 import TopNavigationBar from '@/components/navigation/TopNavigationBar'
 import SectorHeroRotator from '@/components/home/SectorHeroRotator'
+import ModernBackground from '@/components/ui/ModernBackground'
 import Button from '@/components/ui/Button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import AnimatedNumber from '@/components/home/AnimatedNumber'
@@ -14,12 +15,13 @@ export default function Home() {
   const t = useTranslations()
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Top Navigation Bar */}
-      <TopNavigationBar />
+    <ModernBackground variant="page">
+      <div className="min-h-screen flex flex-col">
+        {/* Top Navigation Bar */}
+        <TopNavigationBar />
 
-      {/* Hero Section with Sector Rotator */}
-      <main className="flex-1">
+        {/* Hero Section with Sector Rotator */}
+        <main className="flex-1">
         <SectorHeroRotator />
 
 
@@ -218,6 +220,7 @@ export default function Home() {
       </div>
 
       <Footer />
-    </div>
+      </div>
+    </ModernBackground>
   )
 }
