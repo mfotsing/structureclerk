@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
 import Button from '@/components/ui/Button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
+import AnimatedNumber from '@/components/home/AnimatedNumber'
 
 export default function Home() {
   const t = useTranslations()
@@ -14,19 +15,19 @@ export default function Home() {
   // Success examples data
   const successExamples = [
     {
-      title: "Centre Commercial Sainte-Foy",
+      title: "Construction commerciale",
       description: "Gestion de 450+ documents avec 30% d'économie de temps",
       metrics: ["450 documents", "30% temps gagné", "0 erreurs"],
       icon: "🏢"
     },
     {
-      title: "Résidence des Pins",
+      title: "Construction résidentielle",
       description: "Centralisation de 3 projets simultanés avec validation en 24h",
       metrics: ["3 projets", "24h validation", "100% conforme"],
       icon: "🏘️"
     },
     {
-      title: "Extension Bureau TechCorp",
+      title: "Travailleur autonome",
       description: "Automatisation complète des factures et soumissions",
       metrics: ["200+ factures", "Auto-classées", "IA intégrée"],
       icon: "🏗️"
@@ -98,15 +99,21 @@ export default function Home() {
             {/* Stats Section */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto px-4 py-16">
               <Card variant="elevated" padding="lg" className="text-center">
-                <div className="text-4xl font-bold text-brand-orange mb-2">30%</div>
+                <div className="text-4xl font-bold text-brand-orange mb-2">
+                  <AnimatedNumber end={30} suffix="%" />
+                </div>
                 <p className="text-sm text-ui-text-secondary font-medium">Temps économisé</p>
               </Card>
               <Card variant="elevated" padding="lg" className="text-center">
-                <div className="text-4xl font-bold text-brand-navy mb-2">100%</div>
+                <div className="text-4xl font-bold text-brand-navy mb-2">
+                  <AnimatedNumber end={100} suffix="%" />
+                </div>
                 <p className="text-sm text-ui-text-secondary font-medium">Documents centralisés</p>
               </Card>
               <Card variant="elevated" padding="lg" className="text-center">
-                <div className="text-4xl font-bold text-ui-success mb-2">0</div>
+                <div className="text-4xl font-bold text-ui-success mb-2">
+                  <AnimatedNumber end={0} />
+                </div>
                 <p className="text-sm text-ui-text-secondary font-medium">Erreurs de saisie</p>
               </Card>
             </div>
@@ -114,10 +121,10 @@ export default function Home() {
             {/* Success Examples Section */}
             <div className="mt-32">
               <h2 className="text-3xl sm:text-4xl font-bold text-center text-brand-navy mb-4">
-                Exemples de Réussite
+                Cas d'usage
               </h2>
               <p className="text-center text-ui-text-secondary text-lg mb-16 max-w-2xl mx-auto">
-                Découvrez comment nos clients transforment leur gestion documentaire
+                Découvrez par ces exemples comment vous pouvez transformer votre gestion documentaire
               </p>
 
               <div className="grid md:grid-cols-3 gap-8">
@@ -155,9 +162,9 @@ export default function Home() {
             </div>
 
             {/* Features Section */}
-            <div className="mt-32">
+            <div className="mt-48">
               <h2 className="text-3xl sm:text-4xl font-bold text-center text-brand-navy mb-4">
-                L&apos;IA au Service de Votre Productivité
+                L'IA au Service de Votre Productivité
               </h2>
               <p className="text-center text-ui-text-secondary text-lg mb-16 max-w-2xl mx-auto">
                 Une plateforme conçue pour les exigences du secteur BTP

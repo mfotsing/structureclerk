@@ -9,11 +9,24 @@ export default function NewProjectPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [clients, setClients] = useState<any[]>([])
+  const [showNewClientForm, setShowNewClientForm] = useState(false)
+  const [clientLoading, setClientLoading] = useState(false)
+  const [clientError, setClientError] = useState<string | null>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
 
   const preselectedClientId = searchParams.get('client')
+
+  const [newClientData, setNewClientData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    province: 'QC',
+    postal_code: '',
+  })
 
   const [formData, setFormData] = useState({
     name: '',
@@ -104,6 +117,75 @@ export default function NewProjectPage() {
     })
   }
 
+  const handleNewClientChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setNewClientData({
+      ...newClientData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleCreateClient = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setClientError(null)
+    setClientLoading(true)
+
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      if (!user) throw new Error('Non authentifié')
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('organization_id')
+        .eq('id', user.id)
+        .single()
+
+      if (!profile?.organization_id) {
+        throw new Error('Aucune organisation trouvée')
+      }
+
+      const { data: newClient, error: insertError } = await supabase
+        .from('clients')
+        .insert({
+          organization_id: profile.organization_id,
+          created_by: user.id,
+          ...newClientData,
+        })
+        .select()
+        .single()
+
+      if (insertError) throw insertError
+
+      // Ajouter le nouveau client à la liste
+      setClients([...clients, newClient])
+      
+      // Sélectionner automatiquement le nouveau client
+      setFormData({
+        ...formData,
+        client_id: newClient.id,
+      })
+
+      // Réinitialiser le formulaire et le fermer
+      setNewClientData({
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        province: 'QC',
+        postal_code: '',
+      })
+      setShowNewClientForm(false)
+    } catch (error: any) {
+      setClientError(error.message || 'Une erreur est survenue lors de la création du client')
+    } finally {
+      setClientLoading(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-8">
@@ -161,20 +243,176 @@ export default function NewProjectPage() {
               <label htmlFor="client_id" className="block text-sm font-medium text-gray-700 mb-2">
                 Client
               </label>
-              <select
-                id="client_id"
-                name="client_id"
-                value={formData.client_id}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              >
-                <option value="">Sélectionner un client (optionnel)</option>
-                {clients.map((client) => (
-                  <option key={client.id} value={client.id}>
-                    {client.name}
-                  </option>
-                ))}
-              </select>
+              <div className="space-y-2">
+                <select
+                  id="client_id"
+                  name="client_id"
+                  value={formData.client_id}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                >
+                  <option value="">Sélectionner un client (optionnel)</option>
+                  {clients.map((client) => (
+                    <option key={client.id} value={client.id}>
+                      {client.name}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => setShowNewClientForm(!showNewClientForm)}
+                  className="w-full text-left px-4 py-2 border border-dashed border-gray-300 rounded-lg text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800 transition-colors"
+                >
+                  + Créer un nouveau client
+                </button>
+              </div>
+
+              {showNewClientForm && (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <h4 className="font-medium text-gray-900 mb-3">Nouveau client</h4>
+                  
+                  {clientError && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded-lg text-sm mb-3">
+                      {clientError}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleCreateClient} className="space-y-3">
+                    <div>
+                      <label htmlFor="client_name" className="block text-xs font-medium text-gray-700 mb-1">
+                        Nom du client <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="client_name"
+                        name="name"
+                        required
+                        value={newClientData.name}
+                        onChange={handleNewClientChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                        placeholder="Nom de l'entreprise ou du client"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label htmlFor="client_email" className="block text-xs font-medium text-gray-700 mb-1">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="client_email"
+                          name="email"
+                          value={newClientData.email}
+                          onChange={handleNewClientChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                          placeholder="email@exemple.com"
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="client_phone" className="block text-xs font-medium text-gray-700 mb-1">
+                          Téléphone
+                        </label>
+                        <input
+                          type="tel"
+                          id="client_phone"
+                          name="phone"
+                          value={newClientData.phone}
+                          onChange={handleNewClientChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                          placeholder="(418) 123-4567"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="client_address" className="block text-xs font-medium text-gray-700 mb-1">
+                        Adresse
+                      </label>
+                      <input
+                        type="text"
+                        id="client_address"
+                        name="address"
+                        value={newClientData.address}
+                        onChange={handleNewClientChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                        placeholder="123 rue Principale"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div>
+                        <label htmlFor="client_city" className="block text-xs font-medium text-gray-700 mb-1">
+                          Ville
+                        </label>
+                        <input
+                          type="text"
+                          id="client_city"
+                          name="city"
+                          value={newClientData.city}
+                          onChange={handleNewClientChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                          placeholder="Québec"
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="client_province" className="block text-xs font-medium text-gray-700 mb-1">
+                          Province
+                        </label>
+                        <select
+                          id="client_province"
+                          name="province"
+                          value={newClientData.province}
+                          onChange={handleNewClientChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                        >
+                          <option value="QC">QC</option>
+                          <option value="ON">ON</option>
+                          <option value="AB">AB</option>
+                          <option value="BC">BC</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="client_postal_code" className="block text-xs font-medium text-gray-700 mb-1">
+                          Code postal
+                        </label>
+                        <input
+                          type="text"
+                          id="client_postal_code"
+                          name="postal_code"
+                          value={newClientData.postal_code}
+                          onChange={handleNewClientChange}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                          placeholder="G1R 1A1"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 pt-2">
+                      <button
+                        type="submit"
+                        disabled={clientLoading}
+                        className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {clientLoading ? 'Création...' : 'Créer le client'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowNewClientForm(false)
+                          setClientError(null)
+                        }}
+                        className="flex-1 bg-gray-200 text-gray-700 py-2 px-3 rounded-lg hover:bg-gray-300 transition-colors text-sm font-medium"
+                      >
+                        Annuler
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
             </div>
 
             <div>

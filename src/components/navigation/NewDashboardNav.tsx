@@ -174,14 +174,18 @@ export default function NewDashboardNav({ userName, children }: NewDashboardNavP
               Actions Rapides
             </h3>
             <div className="space-y-2">
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <span className="mr-2">⚡</span>
-                Upload Intelligent
-              </Button>
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <span className="mr-2">➕</span>
-                Nouveau Projet
-              </Button>
+              <Link href="/documents/upload">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">⚡</span>
+                  Upload Intelligent
+                </Button>
+              </Link>
+              <Link href="/projects/new">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">➕</span>
+                  Nouveau Projet
+                </Button>
+              </Link>
             </div>
           </div>
         </aside>
