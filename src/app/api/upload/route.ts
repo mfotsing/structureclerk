@@ -5,8 +5,7 @@
  * Accepte: PDF, DOCX, images (PNG, JPG), texte
  */
 
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { processDocument } from '@/lib/ai/document-processor'
 import { intelligentExtraction } from '@/lib/ai/services'
@@ -24,7 +23,7 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024 // 50MB
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const supabase = await createClient()
 
     // Vérifier l'authentification
     const {
@@ -310,7 +309,7 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const supabase = await createClient()
 
     const {
       data: { session },
