@@ -204,7 +204,7 @@ export default function Home() {
               </Link>
             </div>
             <p className="text-sm text-blue-200 mt-6">
-              ✨ Sans engagement • Annulation à tout moment • Support québécois
+              ✨ Sans engagement • Annulation à tout moment • Support québécois 24/7
             </p>
           </div>
         </div>

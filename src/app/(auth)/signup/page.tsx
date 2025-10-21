@@ -56,7 +56,8 @@ export default function SignupPage() {
     setLoading(true)
 
     try {
-      const { error } = await supabase.auth.signUp({
+      // 1. Sign up the user
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -64,12 +65,49 @@ export default function SignupPage() {
         }
       })
 
-      if (error) throw error
+      if (signUpError) throw signUpError
+
+      if (!authData.user) {
+        throw new Error("Erreur lors de la création du compte")
+      }
+
+      // 2. Create a default organization for the user
+      const { data: orgData, error: orgError } = await supabase
+        .from('organizations')
+        .insert({
+          name: `${email.split('@')[0]} - Organisation`,
+          slug: `org-${Date.now()}`,
+          created_by: authData.user.id,
+        })
+        .select()
+        .single()
+
+      if (orgError) {
+        console.error('Erreur création organisation:', orgError)
+        // Continue even if org creation fails - user can create it later
+      }
+
+      // 3. Create user profile and link to organization
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: authData.user.id,
+          email: authData.user.email!,
+          organization_id: orgData?.id || null,
+          first_name: '',
+          last_name: '',
+          phone: '',
+          role: orgData?.id ? 'admin' : 'user',
+        })
+
+      if (profileError) {
+        console.error('Erreur création profil:', profileError)
+        throw profileError
+      }
 
       // Show success message instead of redirecting
       setError(null)
       setLoading(false)
-      // You could show a success message here or redirect to a confirmation page
       router.push('/login?message=signup-success')
     } catch (error: any) {
       setError(error.message || t('common.error'))

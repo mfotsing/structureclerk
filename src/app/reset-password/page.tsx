@@ -18,17 +18,27 @@ export default function ResetPasswordPage() {
   const [validationErrors, setValidationErrors] = useState<string[]>([])
 
   useEffect(() => {
-    // Check if we have a valid recovery token
-    const checkSession = async () => {
+    // Check if we have a valid recovery token in URL
+    const checkRecoveryToken = async () => {
       const supabase = createClient()
-      const { data: { session } } = await supabase.auth.getSession()
+      
+      // Get the current URL hash which contains the recovery token
+      const hash = window.location.hash
+      
+      if (!hash || !hash.includes('access_token')) {
+        setError('Lien de réinitialisation invalide ou expiré')
+        return
+      }
 
-      if (!session) {
+      // Try to get session from the hash
+      const { data, error } = await supabase.auth.getSession()
+      
+      if (error || !data.session) {
         setError('Lien de réinitialisation invalide ou expiré')
       }
     }
 
-    checkSession()
+    checkRecoveryToken()
   }, [])
 
   const validatePassword = (pwd: string): string[] => {

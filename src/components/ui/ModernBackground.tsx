@@ -31,7 +31,7 @@ export default function ModernBackground({
       <div className="absolute inset-0">
         {/* Large radial gradient - top left with liquid animation */}
         <div
-          className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full opacity-30 blur-3xl animate-pulse"
+          className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full opacity-40 blur-3xl"
           style={{
             background: 'radial-gradient(circle, #DAE6F0 0%, transparent 70%)',
             animation: 'liquidFloat 20s ease-in-out infinite',
@@ -40,7 +40,7 @@ export default function ModernBackground({
         
         {/* Medium radial gradient - bottom right with liquid animation */}
         <div
-          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full opacity-25 blur-3xl animate-pulse"
+          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full opacity-35 blur-3xl"
           style={{
             background: 'radial-gradient(circle, #19406C 0%, transparent 60%)',
             animation: 'liquidFloat 25s ease-in-out infinite reverse',
@@ -49,7 +49,7 @@ export default function ModernBackground({
         
         {/* Small accent gradient - center right with liquid animation */}
         <div
-          className="absolute top-1/2 right-1/4 w-[400px] h-[400px] rounded-full opacity-20 blur-2xl transform translate-x-1/2 -translate-y-1/2 animate-pulse"
+          className="absolute top-1/2 right-1/4 w-[400px] h-[400px] rounded-full opacity-30 blur-2xl transform translate-x-1/2 -translate-y-1/2"
           style={{
             background: 'radial-gradient(circle, #C5CAD2 0%, transparent 50%)',
             animation: 'liquidWave 15s ease-in-out infinite',
@@ -58,7 +58,7 @@ export default function ModernBackground({
         
         {/* Additional floating gradient for more liquid effect */}
         <div
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-pulse"
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
           style={{
             background: 'radial-gradient(circle, #223654 0%, transparent 60%)',
             animation: 'liquidFloat 30s ease-in-out infinite',
