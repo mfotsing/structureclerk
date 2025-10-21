@@ -27,13 +27,9 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardNav
-        userName={profile?.full_name || user.email || ''}
-      />
-
-      <main className="flex-1 p-8">
+      <DashboardNav userName={profile?.full_name || user.email || ''}>
         {children}
-      </main>
+      </DashboardNav>
 
       {/* AI Chat Assistant - Available on all dashboard pages */}
       <ChatAssistant />

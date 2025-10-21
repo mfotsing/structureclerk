@@ -7,9 +7,10 @@ import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
 
 interface DashboardNavProps {
   userName: string
+  children: React.ReactNode
 }
 
-export default function DashboardNav({ userName }: DashboardNavProps) {
+export default function DashboardNav({ userName, children }: DashboardNavProps) {
   const t = useTranslations()
 
   return (
@@ -93,6 +94,11 @@ export default function DashboardNav({ userName }: DashboardNavProps) {
             </div>
           </nav>
         </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          {children}
+        </main>
       </div>
     </>
   )
