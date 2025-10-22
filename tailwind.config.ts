@@ -9,6 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Landing Page Color Palette (8-12% conversion focused)
+        primary: {
+          50: '#f0f9ff',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          900: '#0c4a6e'
+        },
+        accent: {
+          500: '#f59e0b',
+          600: '#d97706'
+        },
+        success: '#10b981',
+        danger: '#ef4444',
+        neutral: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          800: '#1f2937',
+          900: '#111827'
+        },
         // StructureClerk Brand Colors (Assembly-inspired palette)
         brand: {
           navy: '#0F3B5F',      // Bleu foncé principal
@@ -47,7 +66,7 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
+        primaryVar: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
@@ -63,7 +82,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        accent: {
+        accentVar: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
