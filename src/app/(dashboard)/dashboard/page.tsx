@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
@@ -63,27 +63,7 @@ export default function DashboardPage() {
   const [selectedApprovals, setSelectedApprovals] = useState<ApprovalItem[]>([])
   const supabase = createClient()
 
-  useEffect(() => {
-    loadDashboardData()
-    
-    // Set up real-time updates
-    const channel = supabase
-      .channel('dashboard-updates')
-      .on('postgres_changes', { 
-        event: '*', 
-        schema: 'public', 
-        table: 'documents' 
-      }, () => {
-        loadDashboardData()
-      })
-      .subscribe()
-    
-    return () => {
-      supabase.removeChannel(channel)
-    }
-  }, [])
-
-  const loadDashboardData = async () => {
+  const loadDashboardData = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
@@ -160,7 +140,27 @@ export default function DashboardPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadDashboardData()
+    
+    // Set up real-time updates
+    const channel = supabase
+      .channel('dashboard-updates')
+      .on('postgres_changes', { 
+        event: '*', 
+        schema: 'public', 
+        table: 'documents' 
+      }, () => {
+        loadDashboardData()
+      })
+      .subscribe()
+    
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [loadDashboardData, supabase])
 
   const handleQuickApproval = () => {
     setSelectedApprovals(pendingApprovals.slice(0, 5))

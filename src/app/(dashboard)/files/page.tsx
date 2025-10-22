@@ -347,7 +347,7 @@ export default function FilesPage() {
                       Glissez-Déposez vos documents
                     </h3>
                     <p className="text-lg text-ui-text-muted">
-                      (Factures, Soumissions, Reçus). L'IA fait le reste.
+                      (Factures, Soumissions, Reçus). L(Factures, Soumissions, Reçus). L'IA fait le reste.rsquo;IA fait le reste.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                       <Button 
@@ -386,7 +386,7 @@ export default function FilesPage() {
                 Extraits Récemment
               </CardTitle>
               <CardDescription>
-                Documents traités par l'IA
+                Documents traités par lDocuments traités par l'IArsquo;IA
               </CardDescription>
             </CardHeader>
             <CardContent>
