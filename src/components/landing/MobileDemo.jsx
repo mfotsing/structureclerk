@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Button from './shared/Button';
 
 const MobileDemo = () => {
@@ -78,9 +79,11 @@ const MobileDemo = () => {
           <div className="relative">
             {/* Construction site background */}
             <div className="absolute inset-0 rounded-2xl overflow-hidden">
-              <img 
+              <Image 
                 src="https://images.unsplash.com/photo-1518517917554-4b4c6b1b4ceb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
                 alt="Construction site" 
+                width={320}
+                height={640}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 to-transparent"></div>
@@ -111,9 +114,11 @@ const MobileDemo = () => {
                       
                       {/* Camera view */}
                       <div className="flex-1 bg-neutral-100 rounded-lg mb-4 relative overflow-hidden">
-                        <img 
+                        <Image 
                           src="https://images.unsplash.com/photo-1581224246174-3cbf5aa9975a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
                           alt="Invoice" 
+                          width={300}
+                          height={200}
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -237,7 +242,7 @@ const MobileDemo = () => {
             <div className="bg-neutral-800 rounded-xl p-6">
               <h4 className="text-lg font-semibold text-white mb-4">Témoignage</h4>
               <blockquote className="text-neutral-300 italic mb-4">
-                "J'utilise StructureClerk directement sur mes chantiers. Je prends une photo d'une facture et je sais immédiatement si ça affecte mon budget. Plus besoin d'attendre de rentrer au bureau."
+                &ldquo;J'utilise StructureClerk directement sur mes chantiers. Je prends une photo d'une facture et je sais immédiatement si ça affecte mon budget. Plus besoin d'attendre de rentrer au bureau.&rdquo;
               </blockquote>
               <div className="text-sm text-neutral-400">
                 <div className="font-medium">Marc Tremblay</div>

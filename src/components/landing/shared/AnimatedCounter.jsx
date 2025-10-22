@@ -15,25 +15,26 @@ const AnimatedCounter = ({
   const counterRef = useRef(null);
   const startTimeRef = useRef(null);
   const animationRef = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          observerRef.current.disconnect();
         }
       },
       { threshold: 0.1 }
     );
 
     if (counterRef.current) {
-      observer.observe(counterRef.current);
+      observerRef.current.observe(counterRef.current);
     }
 
     return () => {
-      if (counterRef.current) {
-        observer.disconnect();
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
   }, []);

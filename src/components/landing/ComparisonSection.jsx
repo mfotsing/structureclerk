@@ -98,7 +98,7 @@ const ComparisonSection = () => {
                       Alerte de dépassement de budget
                     </h4>
                     <p className="text-sm text-red-600">
-                      Projet "Centre Commercial Sainte-Foy" : risque de dépassement de 8,500$
+                      Projet &ldquo;Centre Commercial Sainte-Foy&rdquo; : risque de dépassement de 8,500$
                     </p>
                   </div>
                 </div>

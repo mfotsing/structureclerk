@@ -7,7 +7,7 @@ const FAQSection = () => {
   const faqs = [
     {
       question: "Mes documents sont-ils sécurisés avec StructureClerk ?",
-      answer: "Oui, absolument. Nous utilisons un chiffrement de bout en bout (AES-256) pour protéger vos documents. Vos données sont sauvegardées automatiquement sur des serveurs sécurifiés avec redondance géographique. Nous sommes conformes RGPD et HIPAA, et nous ne partageons jamais vos données avec des tiers sans votre consentement explicite."
+      answer: "Oui, absolument. Nous utilisons un chiffrement de bout en bout (AES-256) pour protéger vos documents. Vos données sont sauvegardées automatiquement sur des serveurs sécurisés avec redondance géographique. Nous sommes conformes RGPD et HIPAA, et nous ne partageons jamais vos données avec des tiers sans votre consentement explicite."
     },
     {
       question: "Est-ce que StructureClerk est vraiment simple à utiliser ?",

@@ -33,7 +33,7 @@ const HeroSection = () => {
     }, 3000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [animationSteps.length]);
 
   // Start animation on component mount
   useEffect(() => {
