@@ -101,7 +101,7 @@ export default function HomePage() {
                 </span>
               </div>
               <p className="text-neutral-400 mb-4 max-w-md">
-                L'IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.
+                LL'IA qui transforme vos documents en décisionsrsquo;IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-neutral-400 hover:text-white transition-colors">

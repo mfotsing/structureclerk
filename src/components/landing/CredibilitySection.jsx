@@ -3,7 +3,7 @@ import Button from './shared/Button';
 
 const CredibilitySection = () => {
   const testimonial = {
-    text: "Avant StructureClerk, je passais mes dimanches à rentrer des factures. Maintenant, l'IA fait ça en temps réel. J'ai enfin récupéré mes week-ends et évité un dépassement de 8000$ sur un projet.",
+    text: "Avant StructureClerk, je passais mes dimanches à rentrer des factures. Maintenant, l&rsquo;IA fait ça en temps réel. J&rsquo;ai enfin récupéré mes week-ends et évité un dépassement de 8000$ sur un projet.",
     author: "Martin L., Entrepreneur Général",
     details: "Rénovation résidentielle · 6 employés · 18 projets/an"
   };
@@ -36,7 +36,7 @@ const CredibilitySection = () => {
             </div>
             
             <blockquote className="text-lg sm:text-xl text-neutral-700 mb-6 leading-relaxed relative">
-              "{testimonial.text}"
+              &ldquo;{testimonial.text}&rdquo;
             </blockquote>
             
             <div className="flex items-center">
@@ -68,7 +68,7 @@ const CredibilitySection = () => {
                 </h3>
               </div>
               <p className="text-neutral-600 mb-4">
-                Seulement 15 entrepreneurs sélectionnés pour notre programme bêta. Profitez d'un accès prioritaire et d'un support personnalisé.
+                Seulement 15 entrepreneurs sélectionnés pour notre programme bêta. Profitez d&rsquo;un accès prioritaire et d&rsquo;un support personnalisé.
               </p>
               <div className="flex items-center text-sm text-neutral-500">
                 <svg className="w-4 h-4 mr-1 text-accent-500" fill="currentColor" viewBox="0 0 20 20">

@@ -10,7 +10,7 @@ const FeatureGrid = () => {
         </svg>
       ),
       title: "Upload intelligent",
-      description: "Glissez-déposez factures, soumissions et contrats. L'IA fait le reste."
+      description: "Glissez-déposez factures, soumissions et contrats. LGlissez-déposez factures, soumissions et contrats. L'IA fait le reste.rsquo;IA fait le reste."
     },
     {
       icon: (

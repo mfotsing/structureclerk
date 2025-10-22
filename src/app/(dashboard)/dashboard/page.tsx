@@ -220,7 +220,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-red-800">
-                    {systemMetrics.pending_approvals} document{systemMetrics.pending_approvals > 1 ? 's' : ''} en attente d'approbation
+                    {systemMetrics.pending_approvals} document{systemMetrics.pending_approvals > 1 ? 's' : ''} en attente den attente den attente d'approbationrsquo;approbationrsquo;approbation
                   </h3>
                   <p className="text-red-600">
                     Action requise pour maintenir les projets en cours
@@ -272,7 +272,7 @@ export default function DashboardPage() {
                 </p>
                 <div className="flex items-center mt-2">
                   <Calendar className="w-4 h-4 text-gray-400 mr-1" />
-                  <span className="text-sm text-gray-500">Aujourd'hui</span>
+                  <span className="text-sm text-gray-500">AujourdAujourdAujourd'huirsquo;huirsquo;hui</span>
                 </div>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">

@@ -34,7 +34,7 @@ const ComparisonSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
-            Arrêtez de gérer des feuilles de calcul. Obtenez de l'intelligence, pas un autre logiciel complexe.
+            Arrêtez de gérer des feuilles de calcul. Obtenez de lArrêtez de gérer des feuilles de calcul. Obtenez de l'intelligence, pas un autre logiciel complexe.rsquo;intelligence, pas un autre logiciel complexe.
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
             StructureClerk est conçu spécifiquement pour les entrepreneurs du bâtiment, pas adapté d'autres industries.
@@ -74,7 +74,7 @@ const ComparisonSection = () => {
                     Détection en temps réel
                   </h3>
                   <p className="text-neutral-600">
-                    Recevez des alertes immédiates lors de dépassements de budget. Notre système surveille vos documents en temps réel et vous notifie avant qu'un problème ne devienne une crise.
+                    Recevez des alertes immédiates lors de dépassements de budget. Notre système surveille vos documents en temps réel et vous notifie avant quRecevez des alertes immédiates lors de dépassements de budget. Notre système surveille vos documents en temps réel et vous notifie avant qu'un problème ne devienne une crise.rsquo;un problème ne devienne une crise.
                   </p>
                 </div>
               </div>
