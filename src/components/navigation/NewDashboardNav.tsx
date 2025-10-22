@@ -23,6 +23,13 @@ interface NewDashboardNavProps {
 
 const navigationItems: NavigationItem[] = [
   {
+    id: 'files',
+    label: 'Extraction fichier IA',
+    href: '/dashboard/files',
+    icon: '🤖',
+    description: 'Upload et analyse intelligente'
+  },
+  {
     id: 'dashboard',
     label: 'Tableau de bord',
     href: '/dashboard',
@@ -32,37 +39,16 @@ const navigationItems: NavigationItem[] = [
   {
     id: 'projects',
     label: 'Projets',
-    href: '/projects',
+    href: '/dashboard/projects',
     icon: '🏗️',
     description: 'Hub central de vos chantiers'
   },
   {
-    id: 'clients',
-    label: 'Clients',
-    href: '/clients',
-    icon: '👤',
-    description: 'Gestion des contacts'
-  },
-  {
-    id: 'ged',
-    label: 'GED Intelligente',
-    href: '/documents',
-    icon: '📁',
-    description: 'Upload IA et classement'
-  },
-  {
-    id: 'reports',
-    label: 'Rapports & Suivi',
-    href: '/reports',
-    icon: '📈',
-    description: 'Analyses et prévisions'
-  },
-  {
     id: 'settings',
-    label: 'Paramètres & Admin',
-    href: '/settings',
+    label: 'Paramètres',
+    href: '/dashboard/settings',
     icon: '⚙️',
-    description: 'Configuration système'
+    description: 'Configuration du compte'
   }
 ]
 
@@ -84,7 +70,7 @@ export default function NewDashboardNav({ userName, children }: NewDashboardNavP
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center gap-3">
-              <Link href="/dashboard" className="flex items-center gap-3">
+              <Link href="/dashboard/files" className="flex items-center gap-3">
                 <Image
                   src="/logo-icon.svg"
                   alt="StructureClerk"
@@ -174,13 +160,13 @@ export default function NewDashboardNav({ userName, children }: NewDashboardNavP
               Actions Rapides
             </h3>
             <div className="space-y-2">
-              <Link href="/documents/upload">
+              <Link href="/dashboard/files">
                 <Button variant="ghost" size="sm" className="w-full justify-start">
                   <span className="mr-2">⚡</span>
                   Upload Intelligent
                 </Button>
               </Link>
-              <Link href="/projects/new">
+              <Link href="/dashboard/projects/new">
                 <Button variant="ghost" size="sm" className="w-full justify-start">
                   <span className="mr-2">➕</span>
                   Nouveau Projet
