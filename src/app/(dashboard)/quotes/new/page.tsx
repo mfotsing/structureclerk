@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -521,9 +522,9 @@ export default function NewQuotePage() {
                   {clients.length === 0 && (
                     <p className="text-sm text-gray-500 mt-1">
                       Aucun client disponible.{' '}
-                      <a href="/clients/new" className="text-brand-orange hover:underline">
+                      <Link href="/clients/new" className="text-brand-orange hover:underline">
                         Créer un client
-                      </a>
+                      </Link>
                     </p>
                   )}
                 </div>
