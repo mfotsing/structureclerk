@@ -3,9 +3,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import Button from '@/components/ui/Button'
+import PushNotificationManager from '@/components/notifications/PushNotificationManager'
 
 interface NavigationItem {
   id: string
@@ -28,6 +29,41 @@ const navigationItems: NavigationItem[] = [
     href: '/dashboard/files',
     icon: '🤖',
     description: 'Upload et analyse intelligente'
+  },
+  {
+    id: 'search',
+    label: 'Recherche Avancée',
+    href: '/dashboard/files/search',
+    icon: '🔍',
+    description: 'Trouvez documents en moins de 10s'
+  },
+  {
+    id: 'smart-quotes',
+    label: 'Devis Intelligents',
+    href: '/dashboard/smart-quotes',
+    icon: '🧠',
+    description: 'Devis IA mobile en 2 minutes'
+  },
+  {
+    id: 'metrology',
+    label: 'Métrologie Numérique',
+    href: '/dashboard/metrology',
+    icon: '📏',
+    description: 'Prise de mesures IA automatique'
+  },
+  {
+    id: 'timesheets',
+    label: 'Feuilles de Temps',
+    href: '/dashboard/timesheets',
+    icon: '⏰',
+    description: 'Suivi heures et coûts main-d\'œuvre'
+  },
+  {
+    id: 'quotes',
+    label: 'Devis & Soumissions',
+    href: '/dashboard/quotes',
+    icon: '📄',
+    description: 'Générez des devis en minutes'
   },
   {
     id: 'dashboard',
@@ -86,6 +122,11 @@ export default function NewDashboardNav({ userName, children }: NewDashboardNavP
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* Push Notifications */}
+              <div className="hidden md:block">
+                <PushNotificationManager />
+              </div>
+
               {/* Notifications */}
               <button className="relative p-2 text-ui-text-muted hover:text-ui-text transition-colors">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,6 +201,36 @@ export default function NewDashboardNav({ userName, children }: NewDashboardNavP
               Actions Rapides
             </h3>
             <div className="space-y-2">
+              <Link href="/dashboard/smart-quotes/create">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">🧠</span>
+                  Devis Intelligent Mobile
+                </Button>
+              </Link>
+              <Link href="/dashboard/metrology/camera">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">📏</span>
+                  Caméra Métrique
+                </Button>
+              </Link>
+              <Link href="/dashboard/quotes/generate">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">📄</span>
+                  Générer Devis IA
+                </Button>
+              </Link>
+              <Link href="/dashboard/timesheets/mobile">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">📱</span>
+                  Saisie Heures Mobile
+                </Button>
+              </Link>
+              <Link href="/dashboard/files/search">
+                <Button variant="ghost" size="sm" className="w-full justify-start">
+                  <span className="mr-2">🔍</span>
+                  Recherche Avancée
+                </Button>
+              </Link>
               <Link href="/dashboard/files">
                 <Button variant="ghost" size="sm" className="w-full justify-start">
                   <span className="mr-2">⚡</span>

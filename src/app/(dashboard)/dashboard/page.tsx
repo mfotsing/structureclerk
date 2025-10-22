@@ -1,516 +1,533 @@
-'use client'
+'use client';
 
-import { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
+import { useState, useEffect, useCallback } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import Link from 'next/link';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { 
-  AlertTriangle, 
+  Bell, 
+  AlertCircle, 
   CheckCircle, 
-  TrendingUp, 
-  TrendingDown, 
   Clock, 
+  TrendingUp, 
+  TrendingDown,
   DollarSign,
   FileText,
   Users,
-  Activity,
-  ArrowUp,
-  ArrowDown,
-  Minus,
-  Eye,
   Calendar,
   BarChart3,
-  Target
-} from 'lucide-react'
+  Target,
+  Zap,
+  Eye,
+  ArrowRight,
+  Smartphone,
+  Mic,
+  Camera,
+  Timer,
+  AlertTriangle,
+  Info
+} from 'lucide-react';
 
-interface ApprovalItem {
-  id: string
-  document_name: string
-  project_name: string
-  type: string
-  amount?: number
-  urgency: 'low' | 'medium' | 'high' | 'critical'
-  created_at: string
+interface CriticalAction {
+  id: string;
+  type: 'approval' | 'quote_response' | 'budget_alert' | 'timesheet_approval';
+  title: string;
+  description: string;
+  priority: 'high' | 'medium' | 'low';
+  created_at: string;
+  action_url: string;
+  metadata?: any;
 }
 
-interface ProjectMetrics {
-  id: string
-  name: string
-  budget_variance: number
-  performance_index: number
-  status: 'on_track' | 'at_risk' | 'behind'
-  completion_percentage: number
+interface PerformanceMetric {
+  name: string;
+  value: number;
+  unit: string;
+  status: 'good' | 'warning' | 'critical';
+  trend?: 'up' | 'down' | 'stable';
+  target?: number;
 }
 
-interface SystemMetrics {
-  pending_approvals: number
-  documents_processed_today: number
-  average_processing_time: number
-  system_health: 'good' | 'warning' | 'critical'
+interface QuickAction {
+  id: string;
+  title: string;
+  description: string;
+  icon: any;
+  url: string;
+  color: string;
 }
 
 export default function DashboardPage() {
-  const [loading, setLoading] = useState(true)
-  const [pendingApprovals, setPendingApprovals] = useState<ApprovalItem[]>([])
-  const [projectMetrics, setProjectMetrics] = useState<ProjectMetrics[]>([])
-  const [systemMetrics, setSystemMetrics] = useState<SystemMetrics>({
-    pending_approvals: 0,
-    documents_processed_today: 0,
-    average_processing_time: 0,
-    system_health: 'good'
-  })
-  const [showApprovalModal, setShowApprovalModal] = useState(false)
-  const [selectedApprovals, setSelectedApprovals] = useState<ApprovalItem[]>([])
-  const supabase = createClient()
+  const [criticalActions, setCriticalActions] = useState<CriticalAction[]>([]);
+  const [performanceMetrics, setPerformanceMetrics] = useState<PerformanceMetric[]>([]);
+  const [quickActions, setQuickActions] = useState<QuickAction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [vdiStats, setVdiStats] = useState({
+    documentsProcessed: 0,
+    timeSaved: 0,
+    accuracy: 0
+  });
+  const supabase = createClient();
 
-  const loadDashboardData = useCallback(async () => {
+  // Load critical actions
+  const loadCriticalActions = useCallback(async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) return
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
       const { data: profile } = await supabase
         .from('profiles')
         .select('organization_id')
         .eq('id', user.id)
-        .single()
+        .single();
 
-      if (!profile?.organization_id) return
+      if (!profile?.organization_id) return;
 
-      // Load pending approvals
-      const { data: approvals } = await supabase
-        .from('documents')
-        .select('*, projects(name)')
-        .eq('organization_id', profile.organization_id)
-        .eq('status', 'pending')
-        .order('created_at', { ascending: false })
-        .limit(10)
-
-      // Load project metrics
-      const { data: projects } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('organization_id', profile.organization_id)
-        .limit(5)
-
-      // Calculate system metrics
-      const { data: todayDocs } = await supabase
-        .from('documents')
-        .select('created_at')
-        .eq('organization_id', profile.organization_id)
-        .gte('created_at', new Date().toISOString().split('T')[0])
-
-      setPendingApprovals(approvals || [])
-      
-      // Mock project metrics for now
-      setProjectMetrics([
+      // Simulate critical actions from different sources
+      const mockActions: CriticalAction[] = [
         {
           id: '1',
-          name: 'Centre Commercial Sainte-Foy',
-          budget_variance: -5.2,
-          performance_index: 0.95,
-          status: 'on_track',
-          completion_percentage: 75
+          type: 'approval',
+          title: 'Facture ABC Fournitures en attente',
+          description: 'Montant: $1,870.50 - Échéance: 3 jours',
+          priority: 'high',
+          created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+          action_url: '/dashboard/approvals',
+          metadata: { amount: 1870.50, vendor: 'ABC Fournitures' }
         },
         {
           id: '2',
-          name: 'Résidence des Pins',
-          budget_variance: 12.8,
-          performance_index: 0.87,
-          status: 'at_risk',
-          completion_percentage: 45
+          type: 'quote_response',
+          title: 'Devis #456 - Rénovation Dupuis',
+          description: 'En attente de réponse depuis 2 jours',
+          priority: 'medium',
+          created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+          action_url: '/dashboard/quotes/456',
+          metadata: { client: 'Dupuis', amount: 25000 }
         },
         {
           id: '3',
-          name: 'Bureau TechCorp',
-          budget_variance: -2.1,
-          performance_index: 1.02,
-          status: 'on_track',
-          completion_percentage: 90
+          type: 'budget_alert',
+          title: 'Projet Saint-Laurent - Dépassement budget',
+          description: '90% du budget utilisé, reste $2,500',
+          priority: 'high',
+          created_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+          action_url: '/dashboard/projects/st-laurent',
+          metadata: { project: 'Saint-Laurent', budgetUsed: 90, remaining: 2500 }
+        },
+        {
+          id: '4',
+          type: 'timesheet_approval',
+          title: '5 feuilles de temps à approuver',
+          description: 'Total: 42 heures - Coût: $2,730',
+          priority: 'medium',
+          created_at: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+          action_url: '/dashboard/timesheets',
+          metadata: { hours: 42, cost: 2730, employees: 3 }
         }
-      ])
-      
-      setSystemMetrics({
-        pending_approvals: approvals?.length || 0,
-        documents_processed_today: todayDocs?.length || 0,
-        average_processing_time: 2.3, // Mock data
-        system_health: (approvals?.length || 0) > 10 ? 'warning' : 'good'
-      })
+      ];
+
+      setCriticalActions(mockActions);
     } catch (error) {
-      console.error('Error loading dashboard data:', error)
-    } finally {
-      setLoading(false)
+      console.error('Error loading critical actions:', error);
     }
-  }, [supabase])
+  }, [supabase]);
+
+  // Load performance metrics
+  const loadPerformanceMetrics = useCallback(async () => {
+    try {
+      // Simulate performance metrics
+      const mockMetrics: PerformanceMetric[] = [
+        {
+          name: 'Marge Nette',
+          value: 18.5,
+          unit: '%',
+          status: 'good',
+          trend: 'up',
+          target: 15
+        },
+        {
+          name: 'IPC (Indice de Performance des Coûts)',
+          value: 0.92,
+          unit: '',
+          status: 'good',
+          trend: 'stable',
+          target: 1.0
+        },
+        {
+          name: 'Utilisation Budget',
+          value: 76,
+          unit: '%',
+          status: 'warning',
+          trend: 'up',
+          target: 80
+        },
+        {
+          name: 'Taux Conversion Devis',
+          value: 68,
+          unit: '%',
+          status: 'warning',
+          trend: 'down',
+          target: 75
+        }
+      ];
+
+      setPerformanceMetrics(mockMetrics);
+    } catch (error) {
+      console.error('Error loading performance metrics:', error);
+    }
+  }, []);
+
+  // Load quick actions
+  const loadQuickActions = useCallback(() => {
+    const actions: QuickAction[] = [
+      {
+        id: '1',
+        title: 'Devis Intelligent',
+        description: 'Dictée vocale + caméra',
+        icon: Mic,
+        url: '/dashboard/smart-quotes/create',
+        color: 'bg-purple-600'
+      },
+      {
+        id: '2',
+        title: 'Saisie Heures Mobile',
+        description: 'Chronomètre intelligent',
+        icon: Timer,
+        url: '/dashboard/timesheets/mobile',
+        color: 'bg-blue-600'
+      },
+      {
+        id: '3',
+        title: 'Caméra Métrique',
+        description: 'Mesures IA automatiques',
+        icon: Camera,
+        url: '/dashboard/metrology/camera',
+        color: 'bg-green-600'
+      },
+      {
+        id: '4',
+        title: 'Smart Drop Zone',
+        description: 'Extraction IA 10s',
+        icon: Zap,
+        url: '/dashboard/files',
+        color: 'bg-orange-600'
+      }
+    ];
+
+    setQuickActions(actions);
+  }, []);
+
+  // Load VDI stats
+  const loadVDIStats = useCallback(async () => {
+    try {
+      // Simulate VDI stats
+      setVdiStats({
+        documentsProcessed: 127,
+        timeSaved: 635, // minutes
+        accuracy: 94
+      });
+    } catch (error) {
+      console.error('Error loading VDI stats:', error);
+    }
+  }, []);
 
   useEffect(() => {
-    loadDashboardData()
-    
-    // Set up real-time updates
-    const channel = supabase
-      .channel('dashboard-updates')
-      .on('postgres_changes', { 
-        event: '*', 
-        schema: 'public', 
-        table: 'documents' 
-      }, () => {
-        loadDashboardData()
-      })
-      .subscribe()
-    
-    return () => {
-      supabase.removeChannel(channel)
-    }
-  }, [loadDashboardData, supabase])
+    const loadData = async () => {
+      await Promise.all([
+        loadCriticalActions(),
+        loadPerformanceMetrics(),
+        loadQuickActions(),
+        loadVDIStats()
+      ]);
+      setLoading(false);
+    };
 
-  const handleQuickApproval = () => {
-    setSelectedApprovals(pendingApprovals.slice(0, 5))
-    setShowApprovalModal(true)
-  }
+    loadData();
+  }, [loadCriticalActions, loadPerformanceMetrics, loadQuickActions, loadVDIStats]);
 
-  const getUrgencyColor = (urgency: string) => {
-    switch (urgency) {
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200'
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200'
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+  // Handle quick approval
+  const handleQuickApproval = async (actionId: string) => {
+    try {
+      // Simulate approval
+      setCriticalActions(prev => prev.filter(action => action.id !== actionId));
+      
+      // Show success notification
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Action complétée', {
+          body: 'L\'action a été traitée avec succès',
+          icon: '/favicon.ico'
+        });
+      }
+    } catch (error) {
+      console.error('Error handling quick approval:', error);
     }
-  }
+  };
+
+  const getPriorityColor = (priority: string) => {
+    const colors = {
+      high: 'border-red-200 bg-red-50',
+      medium: 'border-yellow-200 bg-yellow-50',
+      low: 'border-blue-200 bg-blue-50'
+    };
+    return colors[priority as keyof typeof colors] || colors.medium;
+  };
+
+  const getPriorityIcon = (priority: string) => {
+    const icons = {
+      high: <AlertTriangle className="w-5 h-5 text-red-600" />,
+      medium: <AlertCircle className="w-5 h-5 text-yellow-600" />,
+      low: <Info className="w-5 h-5 text-blue-600" />
+    };
+    return icons[priority as keyof typeof icons] || icons.medium;
+  };
 
   const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'on_track': return 'text-green-600'
-      case 'at_risk': return 'text-yellow-600'
-      case 'behind': return 'text-red-600'
-      default: return 'text-gray-600'
-    }
-  }
+    const colors = {
+      good: 'text-green-600',
+      warning: 'text-yellow-600',
+      critical: 'text-red-600'
+    };
+    return colors[status as keyof typeof colors] || colors.good;
+  };
 
-  const getPerformanceColor = (index: number) => {
-    if (index >= 1.0) return 'text-green-600'
-    if (index >= 0.9) return 'text-yellow-600'
-    return 'text-red-600'
-  }
+  const getTrendIcon = (trend?: string) => {
+    const icons = {
+      up: <TrendingUp className="w-4 h-4 text-green-600" />,
+      down: <TrendingDown className="w-4 h-4 text-red-600" />,
+      stable: <div className="w-4 h-4 bg-gray-400 rounded-full" />
+    };
+    return trend ? icons[trend as keyof typeof icons] : icons.stable;
+  };
+
+  const formatTimeAgo = (dateString: string) => {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 60) return `Il y a ${diffMins} min`;
+    if (diffHours < 24) return `Il y a ${diffHours}h`;
+    return `Il y a ${diffDays}j`;
+  };
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-orange"></div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-ui-text">Tableau de bord</h1>
-          <p className="text-ui-text-muted mt-1">Centre de Commandement IAC - Prise de Décision Proactive</p>
+          <h1 className="text-3xl font-bold text-ui-text">Centre de Commandement</h1>
+          <p className="text-ui-text-muted mt-1">
+            "Qu'est-ce qui me fait perdre de l'argent ou du temps maintenant?"
+          </p>
         </div>
       </div>
 
-      {/* Critical Alert Widget */}
-      {systemMetrics.pending_approvals > 0 && (
-        <Card variant="default" padding="lg" className="border-l-4 border-l-red-500 bg-red-50">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                  <AlertTriangle className="w-6 h-6 text-red-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-red-800">
-                    {systemMetrics.pending_approvals} document{systemMetrics.pending_approvals > 1 ? 's' : ''} en attente den attente den attente d'approbationrsquo;approbationrsquo;approbation
-                  </h3>
-                  <p className="text-red-600">
-                    Action requise pour maintenir les projets en cours
-                  </p>
-                </div>
+      {/* VDI Proof of Value */}
+      <Card variant="default" padding="lg" className="bg-gradient-to-r from-brand-orange/10 to-brand-orange/5 border-brand-orange/20">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-brand-orange rounded-full flex items-center justify-center">
+                <Zap className="w-6 h-6 text-white" />
               </div>
-              <Button 
-                variant="primary" 
-                onClick={handleQuickApproval}
-                className="bg-red-600 hover:bg-red-700"
-              >
-                <Eye className="w-4 h-4 mr-2" />
-                Voir maintenant
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* System Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card variant="default" padding="lg">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="text-sm font-medium text-ui-text-muted">VDI (Vitesse)</p>
-                <p className="text-2xl font-bold text-ui-text mt-2">
-                  {'<'} {systemMetrics.average_processing_time}s
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Preuve de Valeur IA
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Depuis le dernier rapport, l'IA a traité {vdiStats.documentsProcessed} documents, 
+                  vous économisant {Math.round(vdiStats.timeSaved / 60)} heures de saisie
                 </p>
-                <div className="flex items-center mt-2">
-                  <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
-                  <span className="text-sm font-medium text-green-500">15% plus rapide</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Activity className="w-6 h-6 text-blue-600" />
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card variant="default" padding="lg">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="text-sm font-medium text-ui-text-muted">Documents traités</p>
-                <p className="text-2xl font-bold text-ui-text mt-2">
-                  {systemMetrics.documents_processed_today}
-                </p>
-                <div className="flex items-center mt-2">
-                  <Calendar className="w-4 h-4 text-gray-400 mr-1" />
-                  <span className="text-sm text-gray-500">AujourdAujourdAujourd'huirsquo;huirsquo;hui</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <FileText className="w-6 h-6 text-green-600" />
-              </div>
+            <div className="text-right">
+              <p className="text-2xl font-bold text-brand-orange">{vdiStats.accuracy}%</p>
+              <p className="text-xs text-gray-500">Précision moyenne</p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </CardContent>
+      </Card>
 
-        <Card variant="default" padding="lg">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="text-sm font-medium text-ui-text-muted">IPC (Performance)</p>
-                <p className="text-2xl font-bold text-ui-text mt-2">0.94</p>
-                <div className="flex items-center mt-2">
-                  <Target className="w-4 h-4 text-green-500 mr-1" />
-                  <span className="text-sm font-medium text-green-500">Objectif atteint</span>
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <BarChart3 className="w-6 h-6 text-purple-600" />
-              </div>
+      {/* Critical Actions Widget */}
+      <Card variant="default" padding="lg">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Bell className="w-5 h-5 text-brand-orange" />
+              Actions Critiques
             </div>
-          </CardContent>
-        </Card>
-
-        <Card variant="default" padding="lg">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="text-sm font-medium text-ui-text-muted">Santé système</p>
-                <p className="text-2xl font-bold text-ui-text mt-2">
-                  {systemMetrics.system_health === 'good' ? 'Bonne' : 
-                   systemMetrics.system_health === 'warning' ? 'Attention' : 'Critique'}
-                </p>
-                <div className="flex items-center mt-2">
-                  {systemMetrics.system_health === 'good' ? (
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
-                  ) : systemMetrics.system_health === 'warning' ? (
-                    <AlertTriangle className="w-4 h-4 text-yellow-500 mr-1" />
-                  ) : (
-                    <AlertTriangle className="w-4 h-4 text-red-500 mr-1" />
-                  )}
-                  <span className={`text-sm font-medium ${
-                    systemMetrics.system_health === 'good' ? 'text-green-500' :
-                    systemMetrics.system_health === 'warning' ? 'text-yellow-500' :
-                    'text-red-500'
-                  }`}>
-                    {systemMetrics.system_health === 'good' ? 'Optimal' : 
-                     systemMetrics.system_health === 'warning' ? 'Surveiller' : 'Action requise'}
-                  </span>
-                </div>
-              </div>
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                systemMetrics.system_health === 'good' ? 'bg-green-100' :
-                systemMetrics.system_health === 'warning' ? 'bg-yellow-100' :
-                'bg-red-100'
-              }`}>
-                <Activity className={`w-6 h-6 ${
-                  systemMetrics.system_health === 'good' ? 'text-green-600' :
-                  systemMetrics.system_health === 'warning' ? 'text-yellow-600' :
-                  'text-red-600'
-                }`} />
-              </div>
+            <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+              {criticalActions.length} urgententes
+            </span>
+          </CardTitle>
+          <CardDescription>
+            Centralisation des tâches critiques nécessitant votre attention immédiate
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {criticalActions.length === 0 ? (
+            <div className="text-center py-8">
+              <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Tout est en ordre!
+              </h3>
+              <p className="text-gray-600">
+                Aucune action critique requise pour le moment
+              </p>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Project Performance */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card variant="default" padding="lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="w-5 h-5" />
-                Performance des Projets
-              </CardTitle>
-              <CardDescription>
-                Indicateurs de performance clés (IPC) et écarts de budget
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {projectMetrics.map((project) => (
-                  <div key={project.id} className="border-b border-ui-border pb-4 last:border-0">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-ui-text">{project.name}</h4>
-                      <span className={`text-sm font-medium ${getStatusColor(project.status)}`}>
-                        {project.status === 'on_track' ? 'Sur la bonne voie' :
-                         project.status === 'at_risk' ? 'À risque' : 'En retard'}
-                      </span>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-gray-500">Écart budget</span>
-                          <span className={`text-xs font-medium ${
-                            project.budget_variance < 0 ? 'text-green-600' : 'text-red-600'
-                          }`}>
-                            {project.budget_variance > 0 ? '+' : ''}{project.budget_variance}%
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full ${
-                              project.budget_variance < 0 ? 'bg-green-500' : 'bg-red-500'
-                            }`}
-                            style={{ 
-                              width: `${Math.abs(project.budget_variance) > 20 ? 100 : Math.abs(project.budget_variance) * 5}%` 
-                            }}
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-gray-500">IPC</span>
-                          <span className={`text-xs font-medium ${getPerformanceColor(project.performance_index)}`}>
-                            {project.performance_index}
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full ${
-                              project.performance_index >= 1.0 ? 'bg-green-500' :
-                              project.performance_index >= 0.9 ? 'bg-yellow-500' : 'bg-red-500'
-                            }`}
-                            style={{ width: `${project.performance_index * 100}%` }}
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-gray-500">Avancement</span>
-                          <span className="text-xs font-medium">{project.completion_percentage}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-blue-500 h-2 rounded-full"
-                            style={{ width: `${project.completion_percentage}%` }}
-                          />
-                        </div>
+          ) : (
+            <div className="space-y-4">
+              {criticalActions.map((action) => (
+                <div key={action.id} className={`border rounded-lg p-4 ${getPriorityColor(action.priority)}`}>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start gap-3 flex-1">
+                      {getPriorityIcon(action.priority)}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-gray-900">{action.title}</h4>
+                        <p className="text-sm text-gray-600 mt-1">{action.description}</p>
+                        <p className="text-xs text-gray-500 mt-2">{formatTimeAgo(action.created_at)}</p>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="space-y-6">
-          <Card variant="default" padding="lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
-                Activité Récente
-              </CardTitle>
-              <CardDescription>
-                Dernières actions dans vos projets
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {pendingApprovals.slice(0, 5).map((approval) => (
-                  <div key={approval.id} className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-ui-background-secondary rounded-full flex items-center justify-center text-sm">
-                      <FileText className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                      {action.type === 'approval' && (
+                        <button
+                          onClick={() => handleQuickApproval(action.id)}
+                          className="px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-medium hover:bg-green-700"
+                        >
+                          Approuver
+                        </button>
+                      )}
+                      <Link href={action.action_url}>
+                        <Button variant="outline" size="sm">
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                      </Link>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-ui-text">{approval.document_name}</p>
-                      <p className="text-sm text-ui-text-muted">{approval.project_name}</p>
-                      <div className="flex items-center mt-1 space-x-2">
-                        <span className="text-xs text-ui-text-muted">
-                          {new Date(approval.created_at).toLocaleDateString('fr-FR')}
-                        </span>
-                        <span className={`text-xs px-2 py-1 rounded-full border ${getUrgencyColor(approval.urgency)}`}>
-                          {approval.urgency === 'critical' ? 'Urgent' :
-                           approval.urgency === 'high' ? 'Élevé' :
-                           approval.urgency === 'medium' ? 'Moyen' : 'Faible'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {pendingApprovals.length === 0 && (
-                  <div className="text-center py-4">
-                    <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Aucune approbation en attente</p>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Approval Modal (Simplified) */}
-      {showApprovalModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4">Approbations Rapides</h3>
-            <div className="space-y-3 mb-6">
-              {selectedApprovals.map((approval) => (
-                <div key={approval.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{approval.document_name}</p>
-                    <p className="text-xs text-gray-500">{approval.project_name}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Button variant="outline" size="sm">
-                      <Eye className="w-4 h-4" />
-                    </Button>
-                    <Button variant="primary" size="sm">
-                      <CheckCircle className="w-4 h-4" />
-                    </Button>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="flex justify-end space-x-3">
-              <Button variant="outline" onClick={() => setShowApprovalModal(false)}>
-                Annuler
-              </Button>
-              <Button variant="primary" onClick={() => setShowApprovalModal(false)}>
-                Approuver tout
-              </Button>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Performance Metrics */}
+      <Card variant="default" padding="lg">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5" />
+            Performance Proactive (Ex-Forecasts)
+          </CardTitle>
+          <CardDescription>
+            Protection de votre marge : KPI financiers avec alertes prédictives
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {performanceMetrics.map((metric, index) => (
+              <div key={index} className="bg-white border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-sm font-medium text-gray-900">{metric.name}</h4>
+                  {getTrendIcon(metric.trend)}
+                </div>
+                <div className="flex items-baseline">
+                  <p className={`text-2xl font-bold ${getStatusColor(metric.status)}`}>
+                    {metric.value}{metric.unit}
+                  </p>
+                  {metric.target && (
+                    <p className="text-xs text-gray-500 ml-2">/ {metric.target}{metric.unit}</p>
+                  )}
+                </div>
+                {metric.status === 'warning' && (
+                  <div className="mt-2 text-xs text-yellow-600">
+                    ⚠️ À surveiller
+                  </div>
+                )}
+                {metric.status === 'critical' && (
+                  <div className="mt-2 text-xs text-red-600">
+                    🚨 Risque critique
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Quick Actions */}
+      <Card variant="default" padding="lg">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="w-5 h-5" />
+            Démarrage Rapide
+          </CardTitle>
+          <CardDescription>
+            Accès direct aux workflows critiques non urgents
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {quickActions.map((action) => (
+              <Link key={action.id} href={action.url}>
+                <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+                  <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center mb-3`}>
+                    <action.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h4 className="font-medium text-gray-900 mb-1">{action.title}</h4>
+                  <p className="text-sm text-gray-600">{action.description}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Activity Summary */}
+      <Card variant="default" padding="lg">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Calendar className="w-5 h-5" />
+            Aperçu de la Semaine
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <FileText className="w-6 h-6 text-blue-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">12</p>
+              <p className="text-sm text-gray-600">Documents traités</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <DollarSign className="w-6 h-6 text-green-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">$45,750</p>
+              <p className="text-sm text-gray-600">Valeur devis</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="w-6 h-6 text-purple-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">3</p>
+              <p className="text-sm text-gray-600">Projets actifs</p>
             </div>
           </div>
-        </div>
-      )}
+        </CardContent>
+      </Card>
     </div>
-  )
+  );
 }

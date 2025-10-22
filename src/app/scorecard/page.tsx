@@ -1,19 +1,39 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import ScorecardNavigation from '@/components/scorecard/ScorecardNavigation';
 import FrustrationHero from '@/components/scorecard/FrustrationHero';
 import TransformationSection from '@/components/scorecard/TransformationSection';
 import ValueProposition from '@/components/scorecard/ValueProposition';
 import CredibilitySection from '@/components/scorecard/CredibilitySection';
+import ScoreQuiz from '@/components/scorecard/ScoreQuiz';
+import Image from 'next/image';
 
-export default function HomePage() {
-  // Analytics tracking
+const ScorecardPage = () => {
+  const [showQuiz, setShowQuiz] = React.useState(false);
+
+  useEffect(() => {
+    // Handle hash navigation
+    const handleHashChange = () => {
+      if (window.location.hash === '#scorecard') {
+        setShowQuiz(true);
+      }
+    };
+
+    // Check initial hash
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
   useEffect(() => {
     // Track page view
-    console.log('Track Event: page_view', { page: 'landing' });
+    console.log('Track Event: page_view', { page: 'scorecard_landing' });
     
     // Track scroll depth
     let maxScroll = 0;
@@ -41,18 +61,9 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // A/B testing for hero and CTA variants
-  const getHeroVariant = () => {
-    // In production, this would be determined by your A/B testing service
-    // For now, we'll use a random selection
-    return Math.random() > 0.5 ? 'a' : 'b';
-  };
-  
-  const getCTAVariant = () => {
-    // In production, this would be determined by your A/B testing service
-    // For now, we'll use a random selection
-    return Math.random() > 0.5 ? 'a' : 'b';
-  };
+  if (showQuiz) {
+    return <ScoreQuiz />;
+  }
 
   return (
     <div className="min-h-screen">
@@ -77,41 +88,15 @@ export default function HomePage() {
         <CredibilitySection />
       </section>
       
-      {/* Section navigation vers dashboard */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-neutral-900 mb-6">
-            prêt à transformer ton chaos en avantage ?
-          </h2>
-          <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
-            Rejoins les entrepreneurs qui ont déjà calculé leur score et commencent à récupérer 10h+ par semaine.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/scorecard#scorecard"
-              className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
-            >
-              calculer mon score gratuit
-            </Link>
-            <Link
-              href="/auth/signup"
-              className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-50 font-bold rounded-lg transition-all duration-200"
-            >
-              essayer structureclerk
-            </Link>
-          </div>
-        </div>
-      </section>
-      
-      {/* Footer */}
+      {/* Footer simplifié */}
       <footer className="bg-neutral-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
               <div className="flex items-center mb-4">
-                <Image 
-                  src="/logo-icon.svg" 
-                  alt="StructureClerk" 
+                <Image
+                  src="/logo-icon.svg"
+                  alt="StructureClerk"
                   width={32}
                   height={32}
                   className="mr-2"
@@ -122,7 +107,7 @@ export default function HomePage() {
                 </span>
               </div>
               <p className="text-neutral-400 mb-4 max-w-md">
-                LL'IA qui transforme vos documents en décisionsrsquo;IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.
+                L'IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-neutral-400 hover:text-white transition-colors">
@@ -144,54 +129,27 @@ export default function HomePage() {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">Produit</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Fonctionnalités</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Tarifs</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Intégrations</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">API</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Entreprise</h3>
+              <h3 className="text-lg font-semibold mb-4">Liens utiles</h3>
               <ul className="space-y-2">
                 <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">À propos</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Carrières</a></li>
                 <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Support</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Centre d'aide</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Statut du système</a></li>
                 <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Mentions légales</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white transition-colors">Confidentialité</a></li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="border-t border-neutral-800 mt-8 pt-8 text-center">
             <p className="text-neutral-400 text-sm">
               © {new Date().getFullYear()} StructureClerk. Tous droits réservés.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">
-                Confidentialité
-              </a>
-              <a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">
-                Conditions d'utilisation
-              </a>
-              <a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">
-                Cookies
-              </a>
-            </div>
           </div>
         </div>
       </footer>
     </div>
   );
-}
+};
+
+export default ScorecardPage;
+
+export const dynamic = 'force-dynamic';

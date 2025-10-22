@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import { User, Mail, Phone, Building, Shield, Bell, CreditCard, Globe } from 'lucide-react'
+import { NotificationSettings } from '@/components/notifications/PushNotificationManager'
 
 export default function SettingsPage() {
   const [profile, setProfile] = useState<any>(null)
@@ -220,6 +221,22 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
           )}
+
+          {/* Notification Settings */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bell className="w-5 h-5" />
+                Notifications
+              </CardTitle>
+              <CardDescription>
+                Gérez vos préférences de notification
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <NotificationSettings />
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Actions */}
@@ -233,9 +250,10 @@ export default function SettingsPage() {
                 <CreditCard className="w-4 h-4 mr-2" />
                 Gérer lu0026rsquo;abonnement
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button variant="outline" className="w-full justify-start" disabled>
                 <Bell className="w-4 h-4 mr-2" />
                 Préférences de notification
+                <span className="ml-auto text-xs text-gray-500">✓ Configuré ci-dessus</span>
               </Button>
               <Button variant="outline" className="w-full justify-start">
                 <Shield className="w-4 h-4 mr-2" />

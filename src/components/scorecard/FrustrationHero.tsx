@@ -1,0 +1,119 @@
+import React, { useState, useEffect } from 'react';
+import Button from '../landing/shared/Button';
+
+const FrustrationHero = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [currentFrustration, setCurrentFrustration] = useState(0);
+
+  const frustrations = [
+    "il est 22h17 mercredi soir. tu rentres encore des factures dans excel. ton fils t'a demandé trois fois si tu venais jouer. tu as dit 'dans 5 minutes' il y a 40 minutes. pendant ce temps, un de tes projets saigne 8% de marge et tu ne le sauras que dans 3 semaines. tu es entrepreneur du bâtiment, pas comptable. mais tu passes 40% de ton temps sur l'administration.",
+    "dimanche soir 20h32. ta famille regarde un film sur le canapé. toi, tu es à ton bureau avec une pile de factures. ton téléphone vibre : c'est un client qui demande pourquoi son devis n'est pas encore prêt. tu regardes ta liste : 12 autres devis en attente. tu réalises que tu passes plus de temps à paperasser qu'à développer ton business.",
+    "lundi matin 8h45. tu arrives sur le chantier et ton contremaître t'annonce : 'on ne peut pas continuer, on attend les plans modifiés'. tu vérifies tes emails : les plans sont dans ta boîte depuis vendredi, mais tu ne les as pas vus. chaque jour de retard sur ce chantier coûte 1200$. tu viens de perdre 3 jours de productivité."
+  ];
+
+  useEffect(() => {
+    setIsVisible(true);
+    const interval = setInterval(() => {
+      setCurrentFrustration((prev) => (prev + 1) % frustrations.length);
+    }, 8000);
+    
+    return () => clearInterval(interval);
+  }, [frustrations.length]);
+
+  const handleScorecardClick = () => {
+    // Track analytics
+    console.log('Track Event: scorecard_hero_click', { position: 'hero' });
+    // Navigate to scorecard
+    window.location.href = '#scorecard';
+  };
+
+  return (
+    <section className="relative bg-neutral-900 text-white overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900"></div>
+      
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <div className="text-center">
+          {/* Beta badge */}
+          <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-accent-500/20 border border-accent-500/30 mb-8">
+            <span className="w-2 h-2 bg-accent-500 rounded-full mr-2 animate-pulse"></span>
+            🎯 Scorecard exclusive : 47 entretiens entrepreneurs + analyse 10k documents réels
+          </div>
+
+          {/* Main frustration hook */}
+          <div className="max-w-4xl mx-auto mb-8">
+            <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-1000 transform ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}>
+              <span className="text-accent-400">{frustrations[currentFrustration].substring(0, 60)}...</span>
+            </h1>
+            
+            <div className={`text-xl sm:text-2xl text-neutral-300 leading-relaxed transition-all duration-1000 delay-300 transform ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}>
+              <span className="block mb-4">{frustrations[currentFrustration].substring(60)}</span>
+            </div>
+          </div>
+
+          {/* Transition subtitle */}
+          <div className={`max-w-3xl mx-auto mb-12 transition-all duration-1000 delay-500 transform ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
+            <p className="text-lg text-neutral-200 bg-neutral-800/50 rounded-lg p-6 border border-neutral-700">
+              <span className="text-accent-400 font-semibold">si tu reconnais au moins 2 de ces situations,</span> tu es au bon endroit. 
+              pas pour un autre logiciel compliqué. pour découvrir exactement où tu perds du temps et de l'argent.
+            </p>
+          </div>
+
+          {/* Primary CTA */}
+          <div className={`transition-all duration-1000 delay-700 transform ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
+            <Button 
+              variant="primary" 
+              size="lg" 
+              onClick={handleScorecardClick}
+              className="text-xl px-12 py-6 bg-accent-500 hover:bg-accent-600 text-white font-bold shadow-2xl hover:shadow-accent-500/25 transform hover:-translate-y-1 transition-all duration-300"
+            >
+              calculer mon score de chaos (gratuit, 2 min)
+              <span className="block text-sm font-normal mt-2 text-accent-100">
+                aucune carte · résultats instantanés · plan d'action inclus
+              </span>
+            </Button>
+            
+            <div className="mt-4 text-sm text-neutral-400">
+              ⏱️ Temps estimé : 2 minutes | 📊 12 questions personnalisées
+            </div>
+          </div>
+
+          {/* Social proof indicators */}
+          <div className={`mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-1000 delay-1000 transform ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-accent-400 mb-2">55%</div>
+              <div className="text-sm text-neutral-400">PME construction perdent 40%+ temps admin</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-accent-400 mb-2">90%</div>
+              <div className="text-sm text-neutral-400">Tableurs Excel contiennent des erreurs graves</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-accent-400 mb-2">25%</div>
+              <div className="text-sm text-neutral-400">Journée perdue en reporting manuel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FrustrationHero;
