@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import ScoreQuiz from '@/components/scorecard/ScoreQuiz';
+import ScoreQuizNew from '@/components/scorecard/ScoreQuizNew';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
@@ -48,7 +48,7 @@ function ScoreCardContent() {
           </button>
         </div>
       ) : (
-        <ScoreQuiz />
+        <ScoreQuizNew />
       )}
     </div>
   );
