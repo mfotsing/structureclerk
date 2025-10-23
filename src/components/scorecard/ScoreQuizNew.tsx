@@ -285,7 +285,7 @@ const ScoreQuizNew = () => {
     setIsCalculating(true);
 
     // Simulate calculation time
-    setTimeout(() => {
+    setTimeout(async () => {
       // Calculate score based on answers
       let scoreBase = 0;
 

@@ -220,7 +220,8 @@ export async function GET(request: NextRequest) {
         data = {
           total: leads?.length || 0,
           qualifications: qualificationCounts,
-          averageScore: Math.round((leads?.reduce((sum: number, lead: any) => sum + (lead.score || 0), 0) / (leads?.length || 1)) * 10) / 10
+          averageScore: leads && leads.length > 0 ?
+            Math.round((leads.reduce((sum: number, lead: any) => sum + ((lead && lead.score) || 0), 0) / leads.length) * 10) / 10 : 0
         }
         break
 
@@ -229,20 +230,23 @@ export async function GET(request: NextRequest) {
         const overviewStartDate = new Date()
         overviewStartDate.setDate(overviewStartDate.getDate() - 7)
 
-        const [{ count: totalPageViews }] = await supabase
+        const totalPageViewsResult = await supabase
           .from('analytics_page_views')
           .select('*', { count: 'exact', head: true })
           .gte('timestamp', overviewStartDate.toISOString())
+        const totalPageViews = totalPageViewsResult.count || 0
 
-        const [{ count: totalScorecardEvents }] = await supabase
+        const totalScorecardEventsResult = await supabase
           .from('analytics_scorecard_events')
           .select('*', { count: 'exact', head: true })
           .gte('timestamp', overviewStartDate.toISOString())
+        const totalScorecardEvents = totalScorecardEventsResult.count || 0
 
-        const [{ count: totalLeads }] = await supabase
+        const totalLeadsResult = await supabase
           .from('analytics_leads')
           .select('*', { count: 'exact', head: true })
           .gte('timestamp', overviewStartDate.toISOString())
+        const totalLeads = totalLeadsResult.count || 0
 
         data = {
           pageViews: totalPageViews || 0,

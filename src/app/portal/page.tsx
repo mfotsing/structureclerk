@@ -253,6 +253,14 @@ export default function PortalPage() {
     return null // Redirection handled in useEffect
   }
 
+  // Handle null analytics with default values
+  const safeAnalytics = analytics || {
+    visitors: { total: 0, today: 0, thisMonth: 0, topPages: [] },
+    scorecard: { totalCompleted: 0, completionRate: 0, averageScore: 0, categoryDistribution: { rouge: 0, orange: 0, vert: 0 } },
+    leads: { total: 0, qualified: 0, conversionRate: 0, recentLeads: [] },
+    performance: { uptime: 99.9, pageLoadTime: 1.2, errorRate: 0.1, mobileTraffic: 65 }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -325,12 +333,12 @@ export default function PortalPage() {
               </div>
               <span className="text-sm text-green-600 font-medium">+12.3%</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900">{analytics.visitors.total.toLocaleString()}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">{safeAnalytics.visitors.total.toLocaleString()}</h3>
             <p className="text-sm text-gray-600">Visiteurs totales</p>
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex justify-between text-xs text-gray-600">
-                <span>Aujourd'hui: {analytics.visitors.today}</span>
-                <span>Ce mois: {analytics.visitors.thisMonth}</span>
+                <span>Aujourd'hui: {safeAnalytics.visitors.today}</span>
+                <span>Ce mois: {safeAnalytics.visitors.thisMonth}</span>
               </div>
             </div>
           </div>
@@ -341,14 +349,14 @@ export default function PortalPage() {
               <div className="p-2 bg-green-100 rounded-lg">
                 <Target className="w-6 h-6 text-green-600" />
               </div>
-              <span className="text-sm text-green-600 font-medium">{analytics.scorecard.completionRate}%</span>
+              <span className="text-sm text-green-600 font-medium">{safeAnalytics.scorecard.completionRate}%</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900">{analytics.scorecard.totalCompleted.toLocaleString()}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">{safeAnalytics.scorecard.totalCompleted.toLocaleString()}</h3>
             <p className="text-sm text-gray-600">Scorecards complétés</p>
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex justify-between text-xs text-gray-600">
-                <span>Taux: {analytics.scorecard.completionRate}%</span>
-                <span>Score moyen: {analytics.scorecard.averageScore}</span>
+                <span>Taux: {safeAnalytics.scorecard.completionRate}%</span>
+                <span>Score moyen: {safeAnalytics.scorecard.averageScore}</span>
               </div>
             </div>
           </div>
@@ -361,12 +369,12 @@ export default function PortalPage() {
               </div>
               <span className="text-sm text-green-600 font-medium">+28.4%</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900">{analytics.leads.total.toLocaleString()}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">{safeAnalytics.leads.total.toLocaleString()}</h3>
             <p className="text-sm text-gray-600">Leads générés</p>
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex justify-between text-xs text-gray-600">
-                <span>Qualifiés: {analytics.leads.qualified}</span>
-                <span>Conversion: {analytics.leads.conversionRate}%</span>
+                <span>Qualifiés: {safeAnalytics.leads.qualified}</span>
+                <span>Conversion: {safeAnalytics.leads.conversionRate}%</span>
               </div>
             </div>
           </div>
@@ -377,14 +385,14 @@ export default function PortalPage() {
               <div className="p-2 bg-purple-100 rounded-lg">
                 <Activity className="w-6 h-6 text-purple-600" />
               </div>
-              <span className="text-sm text-green-600 font-medium">{analytics.performance.uptime}%</span>
+              <span className="text-sm text-green-600 font-medium">{safeAnalytics.performance.uptime}%</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900">{analytics.performance.pageLoadTime}s</h3>
+            <h3 className="text-2xl font-bold text-gray-900">{safeAnalytics.performance.pageLoadTime}s</h3>
             <p className="text-sm text-gray-600">Temps de chargement</p>
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex justify-between text-xs text-gray-600">
-                <span>Taux d'erreur: {analytics.performance.errorRate}%</span>
-                <span>Mobile: {analytics.performance.mobileTraffic}%</span>
+                <span>Taux d'erreur: {safeAnalytics.performance.errorRate}%</span>
+                <span>Mobile: {safeAnalytics.performance.mobileTraffic}%</span>
               </div>
             </div>
           </div>
@@ -404,7 +412,7 @@ export default function PortalPage() {
             </div>
             <div className="p-6">
               <div className="space-y-4">
-                {analytics.leads.recentLeads.map((lead) => (
+                {safeAnalytics.leads.recentLeads.map((lead) => (
                   <div key={lead.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                       <p className="font-medium text-gray-900">{lead.name}</p>
@@ -439,36 +447,36 @@ export default function PortalPage() {
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-medium text-red-600">🔴 Critique</span>
-                    <span className="text-sm text-gray-600">{analytics.scorecard.categoryDistribution.rouge} leads</span>
+                    <span className="text-sm text-gray-600">{safeAnalytics.scorecard.categoryDistribution.rouge} leads</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-red-500 h-2 rounded-full"
-                      style={{ width: `${(analytics.scorecard.categoryDistribution.rouge / analytics.scorecard.totalCompleted) * 100}%` }}
+                      style={{ width: `${(safeAnalytics.scorecard.categoryDistribution.rouge / safeAnalytics.scorecard.totalCompleted) * 100}%` }}
                     ></div>
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-medium text-orange-600">🟠 Attention</span>
-                    <span className="text-sm text-gray-600">{analytics.scorecard.categoryDistribution.orange} leads</span>
+                    <span className="text-sm text-gray-600">{safeAnalytics.scorecard.categoryDistribution.orange} leads</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-orange-500 h-2 rounded-full"
-                      style={{ width: `${(analytics.scorecard.categoryDistribution.orange / analytics.scorecard.totalCompleted) * 100}%` }}
+                      style={{ width: `${(safeAnalytics.scorecard.categoryDistribution.orange / safeAnalytics.scorecard.totalCompleted) * 100}%` }}
                     ></div>
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-medium text-green-600">🟢 Optimal</span>
-                    <span className="text-sm text-gray-600">{analytics.scorecard.categoryDistribution.vert} leads</span>
+                    <span className="text-sm text-gray-600">{safeAnalytics.scorecard.categoryDistribution.vert} leads</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-green-500 h-2 rounded-full"
-                      style={{ width: `${(analytics.scorecard.categoryDistribution.vert / analytics.scorecard.totalCompleted) * 100}%` }}
+                      style={{ width: `${(safeAnalytics.scorecard.categoryDistribution.vert / safeAnalytics.scorecard.totalCompleted) * 100}%` }}
                     ></div>
                   </div>
                 </div>
@@ -494,7 +502,7 @@ export default function PortalPage() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {analytics.visitors.topPages.map((page, index) => (
+                  {safeAnalytics.visitors.topPages.map((page, index) => (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {page.page}
