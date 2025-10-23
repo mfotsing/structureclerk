@@ -6,9 +6,8 @@ const FrustrationHero = () => {
   const [currentFrustration, setCurrentFrustration] = useState(0);
 
   const frustrations = [
-    "il est 22h17 mercredi soir. tu rentres encore des factures dans excel. ton fils t'a demandé trois fois si tu venais jouer. tu as dit 'dans 5 minutes' il y a 40 minutes. pendant ce temps, un de tes projets saigne 8% de marge et tu ne le sauras que dans 3 semaines. tu es entrepreneur du bâtiment, pas comptable. mais tu passes 40% de ton temps sur l'administration.",
-    "dimanche soir 20h32. ta famille regarde un film sur le canapé. toi, tu es à ton bureau avec une pile de factures. ton téléphone vibre : c'est un client qui demande pourquoi son devis n'est pas encore prêt. tu regardes ta liste : 12 autres devis en attente. tu réalises que tu passes plus de temps à paperasser qu'à développer ton business.",
-    "lundi matin 8h45. tu arrives sur le chantier et ton contremaître t'annonce : 'on ne peut pas continuer, on attend les plans modifiés'. tu vérifies tes emails : les plans sont dans ta boîte depuis vendredi, mais tu ne les as pas vus. chaque jour de retard sur ce chantier coûte 1200$. tu viens de perdre 3 jours de productivité."
+    "Mercredi 22h17. Ton fils t'attend. Toi, tu es dans Excel. Et ton projet perd 8 % de marge.",
+    "Dimanche 20h32. Ta famille regarde un film. Toi, tu traites tes dossiers. Et 12 devis attendent."
   ];
 
   useEffect(() => {
