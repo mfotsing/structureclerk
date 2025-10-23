@@ -5,7 +5,8 @@ import { Resend } from 'resend'
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
-    const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+    const forwarded = request.headers.get('x-forwarded-for')
+    const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip') || 'unknown'
 
     const { name, email, subject, message } = await request.json()
 
@@ -78,7 +79,6 @@ export async function POST(request: NextRequest) {
       subject: sanitizedSubject,
       message: sanitizedMessage,
       created_at: new Date().toISOString(),
-      client_ip: ip,
     })
 
     if (dbError) {
@@ -131,10 +131,6 @@ export async function POST(request: NextRequest) {
       <div class="field">
         <div class="label">💬 Message :</div>
         <div class="value">${sanitizedMessage.replace(/\n/g, '<br>')}</div>
-      </div>
-      <div class="field">
-        <div class="label">🌐 IP Client :</div>
-        <div class="value">${ip}</div>
       </div>
       <p style="margin-top: 30px; padding: 15px; background-color: #FEF3C7; border-left: 3px solid #F59E0B;">
         <strong>💡 Action requise :</strong> Répondez directement à <a href="mailto:${email}">${email}</a>
