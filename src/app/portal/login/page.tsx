@@ -1,13 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Eye, EyeOff, AlertCircle, Lock, Shield } from 'lucide-react'
 
-export default function PortalLoginPage() {
+function PortalLoginContent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -200,5 +200,20 @@ export default function PortalLoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function PortalLoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p>Chargement...</p>
+        </div>
+      </div>
+    }>
+      <PortalLoginContent />
+    </Suspense>
   )
 }

@@ -62,10 +62,24 @@
     "terms": "Conditions d'utilisation",
     "faq": "FAQ"
   },
+  "footer": {
+    "tagline": "L'IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.",
+    "product": "Produit",
+    "pricing": "Tarifs",
+    "faq": "FAQ",
+    "legal": "Légal",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Confidentialité",
+    "contact": "Contact",
+    "contactUs": "Nous contacter",
+    "copyright": "© {year} StructureClerk. Tous droits réservés.",
+    "poweredBy": "Propulsé par StructureClerk"
+  },
   "auth": {
     "login": "Connexion",
     "logout": "Déconnexion",
     "signup": "Inscription",
+    "loginButton": "Se connecter",
     "forgotPassword": "Mot de passe oublié",
     "resetPassword": "Réinitialiser le mot de passe",
     "changePassword": "Changer le mot de passe",
