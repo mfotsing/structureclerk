@@ -5,7 +5,7 @@ const FinalCTA = () => {
   const handleTrialClick = () => {
     // Track analytics event
     console.log('Track Event: cta_click', { position: 'final', type: 'trial' });
-    window.location.href = '/auth/signup';
+    window.location.href = '/signup';
   };
 
   const handleDemoClick = () => {

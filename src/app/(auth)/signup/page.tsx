@@ -171,8 +171,8 @@ export default function SignupPage() {
           }
         }
         
-        // Create organization and profile
-        const { error: profileError } = await supabase
+        // Create organization
+        const { data: orgData, error: orgError } = await supabase
           .from('organizations')
           .insert({
             name: formData.companyName,
@@ -183,14 +183,14 @@ export default function SignupPage() {
           })
           .select()
           .single();
-        
-        if (profileError) throw profileError;
-        
+
+        if (orgError) throw orgError;
+
         // Update profile with organization
         await supabase
           .from('profiles')
           .update({
-            organization_id: profileError ? null : data.user.id,
+            organization_id: orgData.id,
             updated_at: new Date().toISOString()
           })
           .eq('id', data.user.id);

@@ -94,7 +94,7 @@ export default function HomePage() {
               calculer mon score gratuit
             </Link>
             <Link
-              href="/auth/signup"
+              href="/signup"
               className="px-8 py-4 border-2 border-primary-600 text-primary-600 hover:bg-primary-50 font-bold rounded-lg transition-all duration-200"
             >
               essayer structureclerk
@@ -122,7 +122,7 @@ export default function HomePage() {
                 </span>
               </div>
               <p className="text-neutral-400 mb-4 max-w-md">
-                LL'IA qui transforme vos documents en décisionsrsquo;IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.
+                L'IA qui transforme vos documents en décisions. Spécialement conçu pour les entrepreneurs du bâtiment.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-neutral-400 hover:text-white transition-colors">

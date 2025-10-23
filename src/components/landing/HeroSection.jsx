@@ -55,7 +55,7 @@ const HeroSection = () => {
   const handleMainCTAClick = () => {
     trackEvent('cta_click', { position: 'hero', variation: ctaVariant });
     // Navigate to signup or demo
-    window.location.href = '/auth/signup';
+    window.location.href = '/signup';
   };
 
   const handleSecondaryCTAClick = () => {

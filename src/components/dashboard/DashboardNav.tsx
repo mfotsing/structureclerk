@@ -60,35 +60,35 @@ export default function DashboardNav({ userName, children }: DashboardNavProps) 
             <NavLink href="/dashboard" icon="📊">
               {t('nav.dashboard')}
             </NavLink>
-            <NavLink href="/clients" icon="👥">
+            <NavLink href="/dashboard/clients" icon="👥">
               {t('nav.clients')}
             </NavLink>
-            <NavLink href="/projects" icon="🏗️">
+            <NavLink href="/dashboard/projects" icon="🏗️">
               {t('nav.projects')}
             </NavLink>
-            <NavLink href="/invoices" icon="📄">
+            <NavLink href="/dashboard/invoices" icon="📄">
               {t('nav.invoices')}
             </NavLink>
-            <NavLink href="/quotes" icon="📝">
+            <NavLink href="/dashboard/quotes" icon="📝">
               {t('nav.quotes')}
             </NavLink>
-            <NavLink href="/documents" icon="📁">
+            <NavLink href="/dashboard/documents" icon="📁">
               {t('nav.documents')}
             </NavLink>
             <div className="pt-4 mt-4 border-t border-brand-blue/20">
-              <NavLink href="/invoices/extract" icon="🤖">
+              <NavLink href="/dashboard/invoices/extract" icon="🤖">
                 {t('nav.extraction')}
               </NavLink>
-              <NavLink href="/forecasts" icon="📈">
+              <NavLink href="/dashboard/forecasts" icon="📈">
                 {t('nav.forecasts')}
               </NavLink>
-              <NavLink href="/approvals" icon="✅">
+              <NavLink href="/dashboard/approvals" icon="✅">
                 {t('nav.approvals')}
               </NavLink>
-              <NavLink href="/admin" icon="📊">
+              <NavLink href="/dashboard/admin" icon="📊">
                 {t('nav.admin')}
               </NavLink>
-              <NavLink href="/settings" icon="⚙️">
+              <NavLink href="/dashboard/settings" icon="⚙️">
                 {t('nav.settings')}
               </NavLink>
             </div>

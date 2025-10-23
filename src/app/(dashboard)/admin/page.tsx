@@ -16,12 +16,22 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-// Authorized admin emails
-const AUTHORIZED_ADMIN_EMAILS = [
-  'm_fotsing@outlook.com',
-  'info@structureclerk.ca',
-  'dorcasfotsing@gmail.com',
-]
+// Check if user has admin role based on database
+async function checkAdminRole(supabase: any, userId: string): Promise<boolean> {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', userId)
+      .single();
+
+    if (error || !data) return false;
+
+    return data.role === 'admin' || data.role === 'super_admin';
+  } catch {
+    return false;
+  }
+}
 
 export default async function AdminDashboardPage() {
   // Check authentication and authorization
@@ -34,8 +44,10 @@ export default async function AdminDashboardPage() {
     redirect('/login')
   }
 
-  // Check if user email is authorized
-  if (!user.email || !AUTHORIZED_ADMIN_EMAILS.includes(user.email)) {
+  // Check if user has admin role
+  const isAdmin = await checkAdminRole(supabase, user.id);
+
+  if (!isAdmin) {
     // Return unauthorized page
     return (
       <div className="flex items-center justify-center min-h-[60vh]">

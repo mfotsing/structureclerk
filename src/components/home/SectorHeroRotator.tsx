@@ -119,7 +119,7 @@ export default function SectorHeroRotator() {
     }, 100)
 
     return () => clearInterval(interval)
-  }, [activeSector])
+  }, [])
 
   const handleSectorChange = (index: number) => {
     if (index !== activeSector && !isAnimating) {

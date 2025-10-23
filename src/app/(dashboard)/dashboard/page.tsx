@@ -369,7 +369,7 @@ export default function DashboardPage() {
               Actions Critiques
             </div>
             <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
-              {criticalActions.length} urgententes
+              {criticalActions.length} urgentes
             </span>
           </CardTitle>
           <CardDescription>

@@ -93,8 +93,77 @@ export default function ClientsTable({ initialClients }: { initialClients: Clien
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
+        <>
+          {/* Mobile Card View */}
+          <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-200">
+            {filteredClients.map((client) => (
+              <div key={client.id} className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <Link
+                    href={`/dashboard/clients/${client.id}`}
+                    className="font-medium text-gray-900 hover:text-blue-600"
+                  >
+                    {client.name}
+                  </Link>
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    client.is_active
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {client.is_active ? 'Actif' : 'Inactif'}
+                  </span>
+                </div>
+                <div className="space-y-1 text-sm text-gray-600">
+                  {client.email && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">📧</span>
+                      <a href={`mailto:${client.email}`} className="hover:text-blue-600">
+                        {client.email}
+                      </a>
+                    </div>
+                  )}
+                  {client.phone && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">📞</span>
+                      <a href={`tel:${client.phone}`} className="hover:text-blue-600">
+                        {client.phone}
+                      </a>
+                    </div>
+                  )}
+                  {client.city && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">📍</span>
+                      <span>{client.city}</span>
+                    </div>
+                  )}
+                  {client.created_at && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">📅</span>
+                      <span>{formatDate(client.created_at)}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex gap-2 mt-3">
+                  <Link
+                    href={`/dashboard/clients/${client.id}`}
+                    className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700"
+                  >
+                    Voir
+                  </Link>
+                  <Link
+                    href={`/dashboard/clients/${client.id}/edit`}
+                    className="px-3 py-1 text-xs bg-gray-600 text-white rounded hover:bg-gray-700"
+                  >
+                    Modifier
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden md:block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -147,7 +216,8 @@ export default function ClientsTable({ initialClients }: { initialClients: Clien
               ))}
             </tbody>
           </table>
-        </div>
+          </div>
+        </>
       )}
     </>
   )

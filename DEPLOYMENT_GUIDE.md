@@ -64,37 +64,37 @@ Guide complet pour déployer StructureClerk en production sur Vercel avec toutes
 
 2. Ajouter les variables suivantes (cliquer **"Add New"** pour chacune):
 
-#### **Supabase (déjà configurées normalement)**
+#### **Supabase**
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://lgcymcgbarjfjropanof.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...your-service-role-key
 ```
 
-#### **Anthropic AI (déjà configurée normalement)**
+#### **Anthropic AI**
 ```bash
-ANTHROPIC_API_KEY=sk-ant-api03-xxx...
+ANTHROPIC_API_KEY=sk-ant-api03-your-anthropic-api-key
 ```
 
 #### **Stripe (À VÉRIFIER/AJOUTER)**
 ```bash
 # Publishable Key (pk_live_xxx)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51RqESdCBFi583kPtuuYnEfBMoSHSPDZYyfuE0gKuFjyOTKE4opRNRKiqML6iAN8KR95KQwCjtsqQqU3jOFQMtjIP00p3bOhn5p
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_your-stripe-publishable-key
 
 # Secret Key (sk_live_xxx)
-STRIPE_SECRET_KEY=sk_live_xxx...
+STRIPE_SECRET_KEY=sk_live_your-stripe-secret-key
 
 # Webhook Secret (OBTENU À L'ÉTAPE 1)
-STRIPE_WEBHOOK_SECRET=whsec_xxx...
+STRIPE_WEBHOOK_SECRET=whsec_your-webhook-signing-secret
 
 # Price IDs (NOUVEAUX)
-STRIPE_PRICE_ID_PRO=price_1SKJTqCBFi583kPttlJHbaJV
-STRIPE_PRICE_ID_ENTERPRISE=price_1SKJV8CBFi583kPtsW6sup4k
+STRIPE_PRICE_ID_PRO=price_your-pro-plan-price-id
+STRIPE_PRICE_ID_ENTERPRISE=price_your-enterprise-plan-price-id
 ```
 
 #### **Resend (pour emails contact)**
 ```bash
-RESEND_API_KEY=re_xxx...
+RESEND_API_KEY=re_your-resend-api-key
 ```
 
 #### **App Configuration**

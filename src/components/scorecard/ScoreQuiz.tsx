@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../landing/shared/Button';
+import Button from '@/components/ui/Button';
 
 interface Answers {
   [key: string]: string;
@@ -247,16 +247,24 @@ const ScoreQuiz = () => {
   useEffect(() => {
     setIsVisible(true);
     // Load saved progress from localStorage
-    const savedAnswers = localStorage.getItem('scorecardAnswers');
-    if (savedAnswers) {
-      setAnswers(JSON.parse(savedAnswers));
+    try {
+      const savedAnswers = localStorage.getItem('scorecardAnswers');
+      if (savedAnswers) {
+        setAnswers(JSON.parse(savedAnswers));
+      }
+    } catch (error) {
+      console.warn('Failed to load saved answers from localStorage:', error);
     }
   }, []);
 
   useEffect(() => {
     // Save progress to localStorage
     if (Object.keys(answers).length > 0) {
-      localStorage.setItem('scorecardAnswers', JSON.stringify(answers));
+      try {
+        localStorage.setItem('scorecardAnswers', JSON.stringify(answers));
+      } catch (error) {
+        console.warn('Failed to save answers to localStorage:', error);
+      }
     }
   }, [answers]);
 

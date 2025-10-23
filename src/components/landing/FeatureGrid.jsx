@@ -62,7 +62,7 @@ const FeatureGrid = () => {
   const handleCTAClick = () => {
     // Track analytics event
     console.log('Track Event: cta_click', { position: 'features' });
-    window.location.href = '/auth/signup';
+    window.location.href = '/signup';
   };
 
   return (

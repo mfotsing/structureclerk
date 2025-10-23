@@ -48,7 +48,7 @@ export default function LoginPage() {
               alt="StructureClerk Icon"
               width={80}
               height={80}
-              className="drop-shadow-lg sm:w-100 sm:h-100"
+              className="drop-shadow-lg w-20 h-20 sm:w-24 sm:h-24"
             />
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">

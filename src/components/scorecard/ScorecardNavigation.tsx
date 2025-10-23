@@ -24,7 +24,7 @@ const ScorecardNavigation = () => {
   const handleLoginClick = () => {
     // Track analytics
     console.log('Track Event: nav_login_click');
-    window.location.href = '/auth/login';
+    window.location.href = '/login';
   };
 
   return (

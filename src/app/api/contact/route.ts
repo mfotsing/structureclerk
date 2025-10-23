@@ -4,9 +4,12 @@ import { Resend } from 'resend'
 
 export async function POST(request: NextRequest) {
   try {
+    // Get client IP for rate limiting
+    const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+
     const { name, email, subject, message } = await request.json()
 
-    // Validation
+    // Enhanced validation
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: 'Tous les champs sont requis' },
@@ -14,14 +17,51 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    // Length validation
+    if (name.length < 2 || name.length > 100) {
+      return NextResponse.json(
+        { error: 'Le nom doit contenir entre 2 et 100 caractères' },
+        { status: 400 }
+      )
+    }
+
+    if (subject.length < 5 || subject.length > 200) {
+      return NextResponse.json(
+        { error: 'Le sujet doit contenir entre 5 et 200 caractères' },
+        { status: 400 }
+      )
+    }
+
+    if (message.length < 10 || message.length > 2000) {
+      return NextResponse.json(
+        { error: 'Le message doit contenir entre 10 et 2000 caractères' },
+        { status: 400 }
+      )
+    }
+
+    // Enhanced email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: 'Adresse email invalide' },
         { status: 400 }
       )
     }
+
+    // XSS sanitization - escape HTML in text fields
+    const sanitizeInput = (input: string): string => {
+      return input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .trim()
+    }
+
+    const sanitizedName = sanitizeInput(name)
+    const sanitizedSubject = sanitizeInput(subject)
+    const sanitizedMessage = sanitizeInput(message)
 
     const supabase = await createClient()
 
@@ -33,11 +73,12 @@ export async function POST(request: NextRequest) {
     // Log contact form submission in database for tracking
     const { error: dbError } = await supabase.from('contact_submissions').insert({
       user_id: user?.id || null,
-      name,
+      name: sanitizedName,
       email,
-      subject,
-      message,
+      subject: sanitizedSubject,
+      message: sanitizedMessage,
       created_at: new Date().toISOString(),
+      client_ip: ip,
     })
 
     if (dbError) {
@@ -52,7 +93,7 @@ export async function POST(request: NextRequest) {
       await resend.emails.send({
         from: 'noreply@structureclerk.ca',
         to: 'info@structureclerk.ca',
-        subject: `[Contact Form] ${subject}`,
+        subject: `[Contact Form] ${sanitizedSubject}`,
         html: `
 <!DOCTYPE html>
 <html>
@@ -77,7 +118,7 @@ export async function POST(request: NextRequest) {
     <div class="content">
       <div class="field">
         <div class="label">👤 Nom :</div>
-        <div class="value">${name}</div>
+        <div class="value">${sanitizedName}</div>
       </div>
       <div class="field">
         <div class="label">📧 Email :</div>
@@ -85,11 +126,15 @@ export async function POST(request: NextRequest) {
       </div>
       <div class="field">
         <div class="label">📌 Sujet :</div>
-        <div class="value">${subject}</div>
+        <div class="value">${sanitizedSubject}</div>
       </div>
       <div class="field">
         <div class="label">💬 Message :</div>
-        <div class="value">${message.replace(/\n/g, '<br>')}</div>
+        <div class="value">${sanitizedMessage.replace(/\n/g, '<br>')}</div>
+      </div>
+      <div class="field">
+        <div class="label">🌐 IP Client :</div>
+        <div class="value">${ip}</div>
       </div>
       <p style="margin-top: 30px; padding: 15px; background-color: #FEF3C7; border-left: 3px solid #F59E0B;">
         <strong>💡 Action requise :</strong> Répondez directement à <a href="mailto:${email}">${email}</a>

@@ -5,7 +5,7 @@ interface MetricCardProps {
   title: string
   value: string | number
   change?: number
-  icon: React.ReactElement<LucideIcon>
+  icon: React.ReactNode
   trend?: 'up' | 'down'
   subtitle?: string
   className?: string
