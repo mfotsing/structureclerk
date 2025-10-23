@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useScorecardTracking } from '@/components/analytics/AnalyticsTracker';
 
 interface Answer {
   [key: string]: string;
@@ -15,12 +16,19 @@ const ScoreQuizNew = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [showInsight, setShowInsight] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const { trackScorecardEvent, trackLeadCapture } = useScorecardTracking();
 
   // Récupérer l'IP pour localisation (simulation)
   const [location, setLocation] = useState('Montréal, QC');
 
   useEffect(() => {
     setIsVisible(true);
+
+    // Track quiz start when first question is displayed
+    if (currentQuestion === 0) {
+      trackScorecardEvent('started');
+    }
+
     // Simuler détection de localisation
     fetch('https://ipapi.co/json/')
       .then(res => res.json())
@@ -32,7 +40,7 @@ const ScoreQuizNew = () => {
       .catch(() => {
         setLocation('Montréal, QC'); // Valeur par défaut
       });
-  }, []);
+  }, [currentQuestion, trackScorecardEvent]);
 
   const questions = [
     {
@@ -243,6 +251,12 @@ const ScoreQuizNew = () => {
     const newAnswers = { ...answers, [currentQ.id]: value };
     setAnswers(newAnswers);
 
+    // Track question answered
+    trackScorecardEvent('question_answered', {
+      question_id: currentQ.id,
+      answer: value
+    });
+
     // Show insight if applicable
     if (currentQ.insightTrigger && value === currentQ.insightTrigger) {
       setShowInsight(true);
@@ -298,6 +312,46 @@ const ScoreQuizNew = () => {
       if (scoreFinal <= 35) category = 'rouge_critique';
       else if (scoreFinal <= 65) category = 'orange_attention';
       else category = 'vert_ok';
+
+      // Track completion
+      trackScorecardEvent('completed', {
+        score: scoreFinal,
+        category
+      });
+
+      // Track lead capture if we have email
+      if (answers.email) {
+        trackLeadCapture({
+          email: answers.email,
+          name: answers.fullName,
+          phone: answers.phone,
+          score: scoreFinal,
+          category,
+          qualification: scoreFinal <= 35 ? 'hot' : scoreFinal <= 65 ? 'warm' : 'cold'
+        });
+      }
+
+      // Save to database via API
+      try {
+        await fetch('/api/scorecard', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fullName: answers.fullName,
+            email: answers.email,
+            phone: answers.phone,
+            companySize: answers.companySize,
+            answers,
+            score: scoreFinal,
+            category,
+            completedAt: new Date().toISOString()
+          })
+        });
+      } catch (error) {
+        console.error('Failed to save scorecard:', error);
+      }
 
       // Redirect to results
       router.push(`/results?score=${scoreFinal}&category=${category}&answers=${encodeURIComponent(JSON.stringify(answers))}`);
