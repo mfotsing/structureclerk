@@ -105,12 +105,8 @@ export default function ClientsTable({ initialClients }: { initialClients: Clien
                   >
                     {client.name}
                   </Link>
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    client.is_active
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-gray-100 text-gray-800'
-                  }`}>
-                    {client.is_active ? 'Actif' : 'Inactif'}
+                  <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">
+                    Actif
                   </span>
                 </div>
                 <div className="space-y-1 text-sm text-gray-600">
