@@ -21,25 +21,51 @@ export default function ResetPasswordPage() {
     // Check if we have a valid recovery token in URL
     const checkRecoveryToken = async () => {
       const supabase = createClient()
-      
+
+      // CRITICAL SECURITY CHECK: Block access if user is already authenticated via normal session
+      const { data: existingSession } = await supabase.auth.getSession()
+      if (existingSession?.session && !window.location.hash.includes('access_token')) {
+        // User has existing session but no recovery token - redirect to dashboard
+        router.push('/dashboard')
+        return
+      }
+
       // Get the current URL hash which contains the recovery token
       const hash = window.location.hash
-      
+
       if (!hash || !hash.includes('access_token')) {
         setError('Lien de réinitialisation invalide ou expiré')
         return
       }
 
-      // Try to get session from the hash
+      // Verify this is specifically a password recovery flow
+      // The hash should contain 'type=recovery' for legitimate reset links
+      if (!hash.includes('type=recovery')) {
+        setError('Lien de réinitialisation invalide ou expiré')
+        return
+      }
+
+      // Exchange the hash for a session and verify it's a recovery session
       const { data, error } = await supabase.auth.getSession()
-      
+
       if (error || !data.session) {
         setError('Lien de réinitialisation invalide ou expiré')
+        return
+      }
+
+      // Verify the session was created from a recovery flow
+      // Check if we came from the email link (has recovery tokens in URL)
+      const hasRecoveryTokens = hash.includes('refresh_token') && hash.includes('type=recovery')
+      if (!hasRecoveryTokens) {
+        setError('Lien de réinitialisation invalide ou expiré')
+        // Force sign out any invalid session
+        await supabase.auth.signOut()
+        return
       }
     }
 
     checkRecoveryToken()
-  }, [])
+  }, [router])
 
   const validatePassword = (pwd: string): string[] => {
     const errors: string[] = []
@@ -97,6 +123,9 @@ export default function ResetPasswordPage() {
       }
 
       setSuccess(true)
+
+      // Force logout to clear any existing session and prevent direct dashboard access
+      await supabase.auth.signOut()
 
       // Redirect to login after 3 seconds
       setTimeout(() => {
