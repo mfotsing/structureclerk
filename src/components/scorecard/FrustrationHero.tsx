@@ -19,15 +19,9 @@ const FrustrationHero = () => {
     return () => clearInterval(interval);
   }, [frustrations.length]);
 
-  const handleScorecardClick = () => {
-    // Track analytics
-    console.log('Track Event: scorecard_hero_click', { position: 'hero' });
-    // Navigate to scorecard
-    window.location.href = '#scorecard';
-  };
-
+  
   return (
-    <section className="relative bg-neutral-900 text-white overflow-hidden">
+    <section className="relative w-full h-screen bg-neutral-900 text-white overflow-hidden">
       {/* Background image with overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -46,8 +40,8 @@ const FrustrationHero = () => {
         }}></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-        <div className="text-center">
+      <div className="relative w-full h-full flex items-center justify-center px-4">
+        <div className="text-center max-w-4xl">
           {/* Beta badge */}
           <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-accent-500/20 border border-accent-500/30 mb-8">
             <span className="w-2 h-2 bg-accent-500 rounded-full mr-2 animate-pulse"></span>
@@ -79,27 +73,7 @@ const FrustrationHero = () => {
             </p>
           </div>
 
-          {/* Primary CTA */}
-          <div className={`transition-all duration-1000 delay-700 transform ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            <Button 
-              variant="primary" 
-              size="lg" 
-              onClick={handleScorecardClick}
-              className="text-xl px-12 py-6 bg-accent-500 hover:bg-accent-600 text-white font-bold shadow-2xl hover:shadow-accent-500/25 transform hover:-translate-y-1 transition-all duration-300"
-            >
-              calculer mon score de chaos (gratuit, 2 min)
-              <span className="block text-sm font-normal mt-2 text-accent-100">
-                aucune carte · résultats instantanés · plan d'action inclus
-              </span>
-            </Button>
-            
-            <div className="mt-4 text-sm text-neutral-400">
-              ⏱️ Temps estimé : 2 minutes | 📊 10 questions personnalisées
-            </div>
-          </div>
-
+          
           {/* Social proof indicators */}
           <div className={`mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-1000 delay-1000 transform ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
