@@ -145,7 +145,8 @@ export default function SignupPage() {
             last_name: formData.lastName,
             phone: formData.phone,
             role: formData.role
-          }
+          },
+          emailRedirectTo: `${window.location.origin}/login`
         }
       });
       
@@ -200,7 +201,15 @@ export default function SignupPage() {
       }
     } catch (error: any) {
       console.error('Signup error:', error);
-      setError(error.message || 'Une erreur est survenue lors de l\'inscription');
+
+      // Gérer spécifiquement les erreurs de rate limit
+      if (error.message?.includes('rate limit exceeded') || error.message?.includes('Email rate limit exceeded')) {
+        setError('⚠️ Trop de tentatives d\'inscription récemment. Veuillez réessayer dans quelques minutes ou utiliser une adresse email différente.');
+      } else if (error.message?.includes('User already registered')) {
+        setError('Cet email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.');
+      } else {
+        setError(error.message || 'Une erreur est survenue lors de l\'inscription');
+      }
     } finally {
       setLoading(false);
     }
