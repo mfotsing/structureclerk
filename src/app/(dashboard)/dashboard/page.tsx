@@ -5,12 +5,23 @@ import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { 
-  Bell, 
-  AlertCircle, 
-  CheckCircle, 
-  Clock, 
-  TrendingUp, 
+import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
+import EmptyState from '@/components/dashboard/EmptyState';
+import FeatureRecommendations from '@/components/progressive/FeatureRecommendations';
+import SmartHints from '@/components/progressive/SmartHints';
+import TrustIndicators from '@/components/social/TrustIndicators';
+import AIConfidenceBadge, { CompactAIConfidence } from '@/components/social/AIConfidenceBadge';
+import NPSDashboard from '@/components/feedback/NPSDashboard';
+import { QuickFeedback } from '@/components/feedback/FeedbackSurvey';
+import { SimplifiedText } from '@/contexts/TerminologyContext';
+import TerminologyHelper from '@/components/terminology/TerminologyHelper';
+import { useFeedback } from '@/contexts/FeedbackContext';
+import {
+  Bell,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  TrendingUp,
   TrendingDown,
   DollarSign,
   FileText,
@@ -26,7 +37,8 @@ import {
   Camera,
   Timer,
   AlertTriangle,
-  Info
+  Info,
+  Lightbulb
 } from 'lucide-react';
 
 interface CriticalAction {
@@ -68,7 +80,10 @@ export default function DashboardPage() {
     timeSaved: 0,
     accuracy: 0
   });
+  const [documents, setDocuments] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
   const supabase = createClient();
+  const { recordEvent } = useFeedback();
 
   // Load critical actions
   const loadCriticalActions = useCallback(async () => {
@@ -228,10 +243,15 @@ export default function DashboardPage() {
         timeSaved: 635, // minutes
         accuracy: 94
       });
+
+      // Trigger feedback for time saved milestone
+      if (127 >= 10) {
+        recordEvent('time_saved', { documentsProcessed: 127 });
+      }
     } catch (error) {
       console.error('Error loading VDI stats:', error);
     }
-  }, []);
+  }, [recordEvent]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -252,7 +272,10 @@ export default function DashboardPage() {
     try {
       // Simulate approval
       setCriticalActions(prev => prev.filter(action => action.id !== actionId));
-      
+
+      // Trigger feedback for successful approval
+      recordEvent('feature_usage', { feature: 'quick_approval', actionType: 'approval' });
+
       // Show success notification
       if ('Notification' in window && Notification.permission === 'granted') {
         new Notification('Action complétée', {
@@ -322,212 +345,277 @@ export default function DashboardPage() {
     );
   }
 
+  // Détecter l'état de l'utilisateur pour afficher le bon empty state
+  const hasDocuments = documents.length > 0
+  const hasProjects = projects.length > 0
+  const hasCriticalActions = criticalActions.length > 0
+  const isEmpty = !hasDocuments && !hasProjects && !hasCriticalActions
+
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <>
+      {/* Onboarding Flow pour nouveaux utilisateurs */}
+      <OnboardingFlow />
+
+      <div className="max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-ui-text">Centre de Commandement</h1>
+          <h1 className="text-3xl font-bold text-ui-text">
+            <SimplifiedText text="Centre de Commandement" />
+          </h1>
           <p className="text-ui-text-muted mt-1">
-            "Qu'est-ce qui me fait perdre de l'argent ou du temps maintenant?"
+            <SimplifiedText text="Qu'est-ce qui me fait perdre de l'argent ou du temps maintenant?" />
           </p>
         </div>
       </div>
 
-      {/* VDI Proof of Value */}
-      <Card variant="default" padding="lg" className="bg-gradient-to-r from-brand-orange/10 to-brand-orange/5 border-brand-orange/20">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-brand-orange rounded-full flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" />
+      {/* Empty State ou Proof of Value */}
+      {isEmpty ? (
+        <EmptyState
+          type="getting-started"
+          onPrimaryAction={() => window.location.href = '/documents?mode=upload'}
+          onSecondaryAction={() => window.open('https://www.youtube.com/watch?v=demo', '_blank')}
+        />
+      ) : (
+        <>
+          <Card variant="default" padding="lg" className="bg-gradient-to-r from-brand-orange/10 to-brand-orange/5 border-brand-orange/20">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-brand-orange rounded-full flex items-center justify-center">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      <SimplifiedText text="Preuve de Valeur IA" />
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      <SimplifiedText text={`Depuis le dernier rapport, l'IA a traité ${vdiStats.documentsProcessed} documents, vous économisant ${Math.round(vdiStats.timeSaved / 60)} heures de saisie`} />
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-brand-orange">{vdiStats.accuracy}%</p>
+                  <p className="text-xs text-gray-500"><SimplifiedText text="Précision moyenne" /></p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Preuve de Valeur IA
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Depuis le dernier rapport, l'IA a traité {vdiStats.documentsProcessed} documents, 
-                  vous économisant {Math.round(vdiStats.timeSaved / 60)} heures de saisie
-                </p>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className="text-2xl font-bold text-brand-orange">{vdiStats.accuracy}%</p>
-              <p className="text-xs text-gray-500">Précision moyenne</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
 
-      {/* Critical Actions Widget */}
-      <Card variant="default" padding="lg">
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Bell className="w-5 h-5 text-brand-orange" />
-              Actions Critiques
-            </div>
-            <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
-              {criticalActions.length} urgentes
-            </span>
-          </CardTitle>
-          <CardDescription>
-            Centralisation des tâches critiques nécessitant votre attention immédiate
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {criticalActions.length === 0 ? (
-            <div className="text-center py-8">
-              <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Tout est en ordre!
-              </h3>
-              <p className="text-gray-600">
-                Aucune action critique requise pour le moment
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {criticalActions.map((action) => (
-                <div key={action.id} className={`border rounded-lg p-4 ${getPriorityColor(action.priority)}`}>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3 flex-1">
-                      {getPriorityIcon(action.priority)}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-gray-900">{action.title}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{action.description}</p>
-                        <p className="text-xs text-gray-500 mt-2">{formatTimeAgo(action.created_at)}</p>
+          {/* Critical Actions Widget */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Bell className="w-5 h-5 text-brand-orange" />
+                  <SimplifiedText text="Actions Critiques" />
+                </div>
+                <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                  {criticalActions.length} urgentes
+                </span>
+              </CardTitle>
+              <CardDescription>
+                Centralisation des tâches critiques nécessitant votre attention immédiate
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {criticalActions.length === 0 ? (
+                <EmptyState
+                  type="no-actions"
+                  onPrimaryAction={() => window.location.href = '/dashboard?mode=history'}
+                  onSecondaryAction={() => window.open('https://www.youtube.com/watch?v=features', '_blank')}
+                />
+              ) : (
+                <div className="space-y-4">
+                  {criticalActions.map((action) => (
+                    <div key={action.id} className={`border rounded-lg p-4 ${getPriorityColor(action.priority)}`}>
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-3 flex-1">
+                          {getPriorityIcon(action.priority)}
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-medium text-gray-900">{action.title}</h4>
+                            <p className="text-sm text-gray-600 mt-1">{action.description}</p>
+                            <p className="text-xs text-gray-500 mt-2">{formatTimeAgo(action.created_at)}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {action.type === 'approval' && (
+                            <button
+                              onClick={() => handleQuickApproval(action.id)}
+                              className="px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-medium hover:bg-green-700"
+                            >
+                              Approuver
+                            </button>
+                          )}
+                          <Link href={action.action_url}>
+                            <Button variant="outline" size="sm">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {action.type === 'approval' && (
-                        <button
-                          onClick={() => handleQuickApproval(action.id)}
-                          className="px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-medium hover:bg-green-700"
-                        >
-                          Approuver
-                        </button>
-                      )}
-                      <Link href={action.action_url}>
-                        <Button variant="outline" size="sm">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                      </Link>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Performance Metrics */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5" />
+                <SimplifiedText text="Performance Proactive (Ex-Forecasts)" />
+              </CardTitle>
+              <CardDescription>
+                <SimplifiedText text="Protection de votre marge : KPI financiers avec alertes prédictives" />
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {performanceMetrics.map((metric, index) => (
+                  <div key={index} className="bg-white border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-medium text-gray-900">
+                        <TerminologyHelper term={metric.name} />
+                      </h4>
+                      {getTrendIcon(metric.trend)}
                     </div>
+                    <div className="flex items-baseline">
+                      <p className={`text-2xl font-bold ${getStatusColor(metric.status)}`}>
+                        {metric.value}{metric.unit}
+                      </p>
+                      {metric.target && (
+                        <p className="text-xs text-gray-500 ml-2">/ {metric.target}{metric.unit}</p>
+                      )}
+                    </div>
+                    {metric.status === 'warning' && (
+                      <div className="mt-2 text-xs text-yellow-600">
+                        ⚠️ À surveiller
+                      </div>
+                    )}
+                    {metric.status === 'critical' && (
+                      <div className="mt-2 text-xs text-red-600">
+                        🚨 Risque critique
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Performance Metrics */}
-      <Card variant="default" padding="lg">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            Performance Proactive (Ex-Forecasts)
-          </CardTitle>
-          <CardDescription>
-            Protection de votre marge : KPI financiers avec alertes prédictives
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {performanceMetrics.map((metric, index) => (
-              <div key={index} className="bg-white border border-gray-200 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-sm font-medium text-gray-900">{metric.name}</h4>
-                  {getTrendIcon(metric.trend)}
-                </div>
-                <div className="flex items-baseline">
-                  <p className={`text-2xl font-bold ${getStatusColor(metric.status)}`}>
-                    {metric.value}{metric.unit}
-                  </p>
-                  {metric.target && (
-                    <p className="text-xs text-gray-500 ml-2">/ {metric.target}{metric.unit}</p>
-                  )}
-                </div>
-                {metric.status === 'warning' && (
-                  <div className="mt-2 text-xs text-yellow-600">
-                    ⚠️ À surveiller
-                  </div>
-                )}
-                {metric.status === 'critical' && (
-                  <div className="mt-2 text-xs text-red-600">
-                    🚨 Risque critique
-                  </div>
-                )}
+          {/* Quick Actions */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="w-5 h-5" />
+                Démarrage Rapide
+              </CardTitle>
+              <CardDescription>
+                Accès direct aux workflows critiques non urgents
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {quickActions.map((action) => (
+                  <Link key={action.id} href={action.url}>
+                    <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center mb-3`}>
+                        <action.icon className="w-5 h-5 text-white" />
+                      </div>
+                      <h4 className="font-medium text-gray-900 mb-1">{action.title}</h4>
+                      <p className="text-sm text-gray-600">{action.description}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
 
-      {/* Quick Actions */}
-      <Card variant="default" padding="lg">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="w-5 h-5" />
-            Démarrage Rapide
-          </CardTitle>
-          <CardDescription>
-            Accès direct aux workflows critiques non urgents
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {quickActions.map((action) => (
-              <Link key={action.id} href={action.url}>
-                <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-                  <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center mb-3`}>
-                    <action.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="font-medium text-gray-900 mb-1">{action.title}</h4>
-                  <p className="text-sm text-gray-600">{action.description}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+          {/* Smart Hints */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-yellow-500" />
+                Conseils Intelligents
+              </CardTitle>
+              <CardDescription>
+                Astuces adaptées à votre profil et votre activité
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SmartHints />
+            </CardContent>
+          </Card>
 
-      {/* Recent Activity Summary */}
-      <Card variant="default" padding="lg">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Calendar className="w-5 h-5" />
-            Aperçu de la Semaine
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <FileText className="w-6 h-6 text-blue-600" />
+          {/* Trust Indicators */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                Confiance & Performance
+              </CardTitle>
+              <CardDescription>
+                Indicateurs de confiance et performance IA
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <TrustIndicators variant="compact" />
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600">Précision IA globale:</span>
+                  <AIConfidenceBadge feature="dashboard" confidence={94} />
+                </div>
               </div>
-              <p className="text-2xl font-bold text-gray-900">12</p>
-              <p className="text-sm text-gray-600">Documents traités</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <DollarSign className="w-6 h-6 text-green-600" />
+            </CardContent>
+          </Card>
+
+          {/* Feature Recommendations */}
+          <FeatureRecommendations maxItems={2} />
+
+          {/* NPS Dashboard */}
+          <NPSDashboard variant="compact" />
+
+          {/* Recent Activity Summary */}
+          <Card variant="default" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="w-5 h-5" />
+                Aperçu de la Semaine
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <FileText className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">12</p>
+                  <p className="text-sm text-gray-600">Documents traités</p>
+                  <QuickFeedback feature="dashboard" type="thumbs" className="mt-2" />
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <DollarSign className="w-6 h-6 text-green-600" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">$45,750</p>
+                  <p className="text-sm text-gray-600">Valeur devis</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Users className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">3</p>
+                  <p className="text-sm text-gray-600">Projets actifs</p>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-gray-900">$45,750</p>
-              <p className="text-sm text-gray-600">Valeur devis</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Users className="w-6 h-6 text-purple-600" />
-              </div>
-              <p className="text-2xl font-bold text-gray-900">3</p>
-              <p className="text-sm text-gray-600">Projets actifs</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </>
+      )}
     </div>
+    </>
   );
 }

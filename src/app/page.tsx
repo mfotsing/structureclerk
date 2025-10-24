@@ -7,7 +7,9 @@ import { ArrowRight, CheckCircle, Users, TrendingUp, Globe } from 'lucide-react'
 import FrustrationHero from '@/components/scorecard/FrustrationHero'
 import TransformationSection from '@/components/scorecard/TransformationSection'
 import ValueProposition from '@/components/scorecard/ValueProposition'
-import CredibilitySection from '@/components/scorecard/CredibilitySection'
+import SocialProofBar from '@/components/social/SocialProofBar'
+import TrustIndicators from '@/components/social/TrustIndicators'
+import Testimonials from '@/components/social/Testimonials'
 import { useRouter, usePathname } from 'next/navigation'
 
 export default function HomePage() {
@@ -135,12 +137,7 @@ export default function HomePage() {
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
           <div className="text-center">
-            {/* Beta Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-orange-500/20 border border-orange-500/30 mb-8">
-              <span className="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
-              <span className="text-orange-100">Analyse exclusive basée sur 47 entretiens entrepreneurs</span>
-            </div>
-
+            
             {/* Hero Content */}
             <div className="max-w-4xl mx-auto mb-12">
               <div className={`transition-all duration-1000 transform ${heroVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -158,7 +155,7 @@ export default function HomePage() {
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </span>
                     <span className="block text-sm font-normal mt-2 text-orange-100">
-                      2 minutes • Résultats immédiats • Plan d'action inclus
+                      Questionnaire de 10 questions • 2 minutes • Résultats immédiats
                     </span>
                   </button>
                 </div>
@@ -183,6 +180,9 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Social Proof Bar */}
+      <SocialProofBar />
+
       {/* Transformation Section - Text Only, No CTA */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -197,10 +197,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Social Proof - Text Only, No CTA */}
+      {/* Social Proof & Trust Indicators */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CredibilitySection />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Pourquoi 127 entrepreneurs nous font confiance
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Découvrez comment StructureClerk transforme la gestion d'entreprise avec une IA précise et fiable
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <div>
+              <TrustIndicators variant="full" />
+            </div>
+            <div>
+              <Testimonials variant="featured" />
+            </div>
+          </div>
+
+          <Testimonials variant="grid" maxItems={3} />
         </div>
       </section>
 
@@ -222,25 +240,31 @@ export default function HomePage() {
             Commencer l'analyse →
           </button>
 
-          {/* Trust Indicators */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Trust Indicators with Animated Counters */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-green-400" />
+                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
               <div className="text-3xl font-bold text-white mb-2">2 minutes</div>
               <div className="text-sm text-blue-200">Pour obtenir vos résultats</div>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-blue-400" />
+                <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
               </div>
               <div className="text-3xl font-bold text-white mb-2">500+</div>
               <div className="text-sm text-blue-200">Entrepreneurs accompagnés</div>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="w-8 h-8 text-green-400" />
+                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
               </div>
               <div className="text-3xl font-bold text-white mb-2">10h+</div>
               <div className="text-sm text-blue-200">Temps récupéré/semaine</div>
@@ -351,7 +375,7 @@ export default function HomePage() {
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
             <p>
-              © {new Date().getFullYear()} StructureClerk. Tous droits réservés.
+              © 2025 StructureClerk. Un produit de TechVibes.
             </p>
             <div className="flex space-x-6 mt-4 justify-center">
               <Link href="/privacy" className="text-gray-400 hover:text-gray-300 text-sm transition-colors">
@@ -362,9 +386,6 @@ export default function HomePage() {
               </Link>
               <Link href="/cookies" className="text-gray-400 hover:text-gray-300 text-sm transition-colors">
                 Cookies
-              </Link>
-              <Link href="/portal/login" className="text-gray-400 hover:text-gray-300 text-sm transition-colors">
-                Admin
               </Link>
             </div>
           </div>

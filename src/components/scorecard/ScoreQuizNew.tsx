@@ -50,7 +50,7 @@ const ScoreQuizNew = () => {
       subtext: "prénom et nom",
       placeholder: "ex: Marc Tremblay",
       required: true,
-      progress: "1/15"
+      progress: "1/10"
     },
     {
       id: 'email',
@@ -58,15 +58,7 @@ const ScoreQuizNew = () => {
       question: "adresse email professionnelle",
       placeholder: "ex: marc@construction.ca",
       required: true,
-      progress: "2/15"
-    },
-    {
-      id: 'phone',
-      type: 'tel',
-      question: "téléphone (optionnel, pour démo prioritaire si score critique)",
-      placeholder: "ex: 514-555-0123",
-      required: false,
-      progress: "3/15"
+      progress: "2/10"
     },
     {
       id: 'companySize',
@@ -79,7 +71,7 @@ const ScoreQuizNew = () => {
         "entreprise structurée (25+ employés)"
       ],
       info: "nous adaptons les recommandations selon ta taille",
-      progress: "4/15"
+      progress: "3/10"
     },
     {
       id: 'centralization',
@@ -92,7 +84,7 @@ const ScoreQuizNew = () => {
       ],
       insightTrigger: "non, mes documents sont dispersés partout et je perds du temps à les chercher",
       insight: "💡 78% des entrepreneurs perdent 3-5h/semaine juste à chercher des documents",
-      progress: "5/15"
+      progress: "4/10"
     },
     {
       id: 'visibility',
@@ -105,7 +97,7 @@ const ScoreQuizNew = () => {
       ],
       insightTrigger: "non, je découvre mes marges réelles en fin de mois",
       insight: "💡 découvrir un dépassement 3 semaines trop tard coûte en moyenne 8-15% de marge",
-      progress: "6/15"
+      progress: "5/10"
     },
     {
       id: 'automation',
@@ -118,33 +110,7 @@ const ScoreQuizNew = () => {
       ],
       insightTrigger: "non, je reçois tout par email et je dois manuellement",
       insight: "💡 chaque facture reçue par email = 3-5 minutes perdues en manipulation manuelle",
-      progress: "7/15"
-    },
-    {
-      id: 'alerts',
-      type: 'radio',
-      question: "reçois-tu des alertes automatiques (notification mobile ou email) quand un projet dépasse son budget prévu ou approche d'un seuil critique ?",
-      options: [
-        "oui, je suis alerté en temps réel dès qu'un seuil est franchi",
-        "parfois, je vérifie manuellement mes budgets chaque semaine",
-        "non, je découvre les dépassements quand je fais mes rapports mensuels"
-      ],
-      insightTrigger: "non, je découvre les dépassements quand je fais mes rapports mensuels",
-      insight: "💡 détection précoce d'un dépassement = possibilité de réagir et sauver 60-80% de la perte",
-      progress: "8/15"
-    },
-    {
-      id: 'hoursEntry',
-      type: 'radio',
-      question: "les heures de tes employés/sous-traitants sont-elles saisies une seule fois directement dans ton système (pas de papier → excel → erp) ?",
-      options: [
-        "oui, saisie unique mobile/web et tout est automatiquement lié aux projets",
-        "parfois, certains employés saisissent directement mais d'autres utilisent encore papier",
-        "non, on remplit des feuilles papier que je dois ressaisir manuellement"
-      ],
-      insightTrigger: "non, on remplit des feuilles papier que je dois ressaisir manuellement",
-      insight: "💡 la triple saisie (papier → tableur → système) génère 90% des erreurs de paie et facturation",
-      progress: "9/15"
+      progress: "6/10"
     },
     {
       id: 'quotes',
@@ -157,33 +123,19 @@ const ScoreQuizNew = () => {
       ],
       insightTrigger: "non, je prends toutes mes mesures à la main",
       insight: "💡 métrologie manuelle = 60-90 min/devis + taux erreur 15-20% vs 5 min + <2% erreur en numérique",
-      progress: "10/15"
+      progress: "7/10"
     },
     {
-      id: 'workflows',
+      id: 'adminTime',
       type: 'radio',
-      question: "as-tu un workflow automatisé pour les approbations (factures, changements, bons commande) où tu peux approuver/rejeter en 2 clics depuis ton mobile ?",
+      question: "combien d'heures passes-tu par semaine sur les tâches administratives (facturation, classement documents, reporting, relances, excel) ?",
       options: [
-        "oui, je reçois notification mobile et j'approuve en quelques secondes",
-        "parfois, certaines approbations sont digitales mais d'autres nécessitent emails/appels",
-        "non, tout se fait par échange emails ou appels, avec beaucoup d'allers-retours"
+        "moins de 5 heures (je suis déjà bien organisé)",
+        "5-10 heures (c'est gérable mais frustrant)",
+        "10-20 heures (ça devient problématique)",
+        "plus de 20 heures (🚨 zone burnout administratif)"
       ],
-      insightTrigger: "non, tout se fait par échange emails ou appels",
-      insight: "💡 approbations par email = délai moyen 2-5 jours vs 10 minutes avec workflow mobile",
-      progress: "11/15"
-    },
-    {
-      id: 'mobile',
-      type: 'radio',
-      question: "peux-tu accéder à tous tes documents critiques, faire des approbations et consulter l'état de tes projets directement depuis ton téléphone sur le chantier ?",
-      options: [
-        "oui, j'ai accès complet mobile et je gère autant depuis chantier que depuis bureau",
-        "parfois, certaines choses sont accessibles mobile mais d'autres nécessitent ordinateur",
-        "non, je dois attendre d'être au bureau pour accéder à la plupart des infos"
-      ],
-      insightTrigger: "non, je dois attendre d'être au bureau",
-      insight: "💡 mobilité = gain moyen 6h/semaine en évitant les retours bureau pour infos/décisions",
-      progress: "12/15"
+      progress: "8/10"
     },
     {
       id: 'objective',
@@ -196,19 +148,7 @@ const ScoreQuizNew = () => {
         "gagner 10+ heures/semaine pour prendre plus de projets rentables",
         "avoir enfin confiance dans mes chiffres (éliminer les erreurs)"
       ],
-      progress: "13/15"
-    },
-    {
-      id: 'adminTime',
-      type: 'radio',
-      question: "combien d'heures passes-tu par semaine sur les tâches administratives (facturation, classement documents, reporting, relances, excel) ?",
-      options: [
-        "moins de 5 heures (je suis déjà bien organisé)",
-        "5-10 heures (c'est gérable mais frustrant)",
-        "10-20 heures (ça devient problématique)",
-        "plus de 20 heures (🚨 zone burnout administratif)"
-      ],
-      progress: "14/15"
+      progress: "9/10"
     },
     {
       id: 'obstacle',
@@ -221,27 +161,7 @@ const ScoreQuizNew = () => {
         "je ne fais pas confiance à mes chiffres (trop d'erreurs de saisie)",
         "je n'ai pas le temps de former mon équipe à de nouveaux outils complexes"
       ],
-      progress: "15/15"
-    },
-    {
-      id: 'solution',
-      type: 'radio',
-      question: "quel type de solution correspondrait le mieux à tes besoins actuels ?",
-      options: [
-        "formation/méthodologie pour mieux m'organiser avec mes outils actuels (budget : 0-500$)",
-        "logiciel simple et intuitif que je configure moi-même en quelques minutes (budget : 100-300$/mois)",
-        "solution complète avec accompagnement personnalisé pour setup (budget : 300-800$/mois)",
-        "service clé-en-main où tout est configuré et géré pour moi (budget : 1000$+/mois)"
-      ],
-      progress: "16/18"
-    },
-    {
-      id: 'context',
-      type: 'textarea',
-      question: "y a-t-il autre chose qu'on devrait savoir sur ta situation, tes défis ou tes attentes ?",
-      placeholder: "ex: j'ai un budget à dépenser avant fin d'année",
-      maxLength: 500,
-      progress: "18/18"
+      progress: "10/10"
     }
   ];
 
@@ -465,8 +385,7 @@ const ScoreQuizNew = () => {
               value={answers[currentQ.id] || ''}
               onChange={(e) => handleAnswer(e.target.value)}
               placeholder={currentQ.placeholder}
-              maxLength={currentQ.maxLength}
-              rows={4}
+                            rows={4}
               className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent resize-none"
             />
           )}

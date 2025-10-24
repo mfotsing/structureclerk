@@ -16,8 +16,11 @@ function ScoreCardContent() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Calculer votre Score de Gestion
           </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-white/90 mb-4 max-w-3xl mx-auto">
             Découvrez combien d'heures et d'argent vous pourriez économiser avec StructureClerk
+          </p>
+          <p className="text-lg text-brand-orange font-medium mb-8">
+            Questionnaire de 10 questions • 2 minutes • Résultats immédiats
           </p>
           
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
@@ -44,7 +47,7 @@ function ScoreCardContent() {
             onClick={() => window.location.href = '/scorecard?scorecard=scorecard'}
             className="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-lg"
           >
-            Commencer le Quiz Gratuit
+            Commencer le questionnaire de 10 questions
           </button>
         </div>
       ) : (

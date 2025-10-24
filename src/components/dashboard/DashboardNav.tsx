@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
+import { useUserSegmentation, getNavigationForSegment } from '@/contexts/UserSegmentationContext'
+import { SimplifiedText } from '@/contexts/TerminologyContext'
 
 interface DashboardNavProps {
   userName: string
@@ -12,6 +14,10 @@ interface DashboardNavProps {
 
 export default function DashboardNav({ userName, children }: DashboardNavProps) {
   const t = useTranslations()
+  const { segment, isLoaded, updateActivity } = useUserSegmentation()
+
+  // Get adaptive navigation based on user segment
+  const navigationItems = isLoaded ? getNavigationForSegment(segment) : []
 
   return (
     <>
@@ -56,42 +62,93 @@ export default function DashboardNav({ userName, children }: DashboardNavProps) 
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-64 bg-white border-r border-brand-blue/20 min-h-[calc(100vh-4rem)]">
-          <nav className="p-4 space-y-1">
-            <NavLink href="/dashboard" icon="📊">
-              {t('nav.dashboard')}
-            </NavLink>
-            <NavLink href="/dashboard/clients" icon="👥">
-              {t('nav.clients')}
-            </NavLink>
-            <NavLink href="/dashboard/projects" icon="🏗️">
-              {t('nav.projects')}
-            </NavLink>
-            <NavLink href="/dashboard/invoices" icon="📄">
-              {t('nav.invoices')}
-            </NavLink>
-            <NavLink href="/dashboard/quotes" icon="📝">
-              {t('nav.quotes')}
-            </NavLink>
-            <NavLink href="/dashboard/documents" icon="📁">
-              {t('nav.documents')}
-            </NavLink>
-            <div className="pt-4 mt-4 border-t border-brand-blue/20">
-              <NavLink href="/dashboard/invoices/extract" icon="🤖">
-                {t('nav.extraction')}
-              </NavLink>
-              <NavLink href="/dashboard/forecasts" icon="📈">
-                {t('nav.forecasts')}
-              </NavLink>
-              <NavLink href="/dashboard/approvals" icon="✅">
-                {t('nav.approvals')}
-              </NavLink>
-              <NavLink href="/dashboard/admin" icon="📊">
-                {t('nav.admin')}
-              </NavLink>
-              <NavLink href="/dashboard/settings" icon="⚙️">
-                {t('nav.settings')}
-              </NavLink>
+          {/* User Segment Badge */}
+          {isLoaded && (
+            <div className="px-4 pt-4 pb-2">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-100">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-medium text-blue-700">
+                    Votre profil:
+                  </span>
+                </div>
+                <div className="text-sm font-semibold text-blue-900 capitalize">
+                  <SimplifiedText text={segment.replace('_', ' ')} />
+                </div>
+                <div className="text-xs text-blue-600 mt-1">
+                  <SimplifiedText text="Navigation adaptée à vos besoins" />
+                </div>
+              </div>
             </div>
+          )}
+
+          <nav className="p-4 space-y-1">
+            {isLoaded ? (
+              <>
+                {/* Primary Navigation */}
+                {navigationItems
+                  .filter(item => item.priority === 'high')
+                  .map((item) => (
+                    <AdaptiveNavLink
+                      key={item.href}
+                      href={item.href}
+                      icon={item.icon}
+                      label={item.label}
+                      onClick={() => updateActivity(item.href.split('/')[2])}
+                    />
+                  ))}
+
+                {/* Secondary Navigation */}
+                {navigationItems.filter(item => item.priority === 'medium').length > 0 && (
+                  <div className="pt-4 mt-4 border-t border-brand-blue/20">
+                    <div className="px-3 py-1">
+                      <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <SimplifiedText text="Outils avancés" />
+                      </span>
+                    </div>
+                    {navigationItems
+                      .filter(item => item.priority === 'medium')
+                      .map((item) => (
+                        <AdaptiveNavLink
+                          key={item.href}
+                          href={item.href}
+                          icon={item.icon}
+                          label={item.label}
+                          onClick={() => updateActivity(item.href.split('/')[2])}
+                        />
+                      ))}
+                  </div>
+                )}
+
+                {/* Settings */}
+                {navigationItems.filter(item => item.priority === 'low').length > 0 && (
+                  <div className="pt-4 mt-4 border-t border-brand-blue/20">
+                    {navigationItems
+                      .filter(item => item.priority === 'low')
+                      .map((item) => (
+                        <AdaptiveNavLink
+                          key={item.href}
+                          href={item.href}
+                          icon={item.icon}
+                          label={item.label}
+                          onClick={() => updateActivity(item.href.split('/')[2])}
+                        />
+                      ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              // Loading skeleton
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="flex items-center space-x-3 px-4 py-2">
+                      <div className="w-5 h-5 bg-gray-200 rounded"></div>
+                      <div className="h-4 bg-gray-200 rounded flex-1"></div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </nav>
         </aside>
 
@@ -104,22 +161,25 @@ export default function DashboardNav({ userName, children }: DashboardNavProps) 
   )
 }
 
-function NavLink({
+function AdaptiveNavLink({
   href,
   icon,
-  children,
+  label,
+  onClick,
 }: {
   href: string
   icon: string
-  children: React.ReactNode
+  label: string
+  onClick?: () => void
 }) {
   return (
     <Link
       href={href}
-      className="flex items-center space-x-3 px-4 py-2 text-brand-navy rounded-lg hover:bg-brand-orange/10 hover:text-brand-orange transition-colors"
+      onClick={onClick}
+      className="flex items-center space-x-3 px-4 py-2 text-brand-navy rounded-lg hover:bg-brand-orange/10 hover:text-brand-orange transition-colors group"
     >
-      <span>{icon}</span>
-      <span>{children}</span>
+      <span className="text-lg group-hover:scale-110 transition-transform">{icon}</span>
+      <span className="font-medium"><SimplifiedText text={label} /></span>
     </Link>
   )
 }
