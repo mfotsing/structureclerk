@@ -28,9 +28,17 @@ const FrustrationHero = () => {
 
   return (
     <section className="relative bg-neutral-900 text-white overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900"></div>
-      
+      {/* Background image with overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url("/frustration.png")`,
+        }}
+      />
+
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/90 via-neutral-800/80 to-neutral-900/90"></div>
+
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -88,7 +96,7 @@ const FrustrationHero = () => {
             </Button>
             
             <div className="mt-4 text-sm text-neutral-400">
-              ⏱️ Temps estimé : 2 minutes | 📊 12 questions personnalisées
+              ⏱️ Temps estimé : 2 minutes | 📊 10 questions personnalisées
             </div>
           </div>
 

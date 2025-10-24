@@ -10,6 +10,7 @@ import ValueProposition from '@/components/scorecard/ValueProposition'
 import SocialProofBar from '@/components/social/SocialProofBar'
 import TrustIndicators from '@/components/social/TrustIndicators'
 import Testimonials from '@/components/social/Testimonials'
+import AnimatedStatsSection from '@/components/ui/AnimatedStatsSection'
 import { useRouter, usePathname } from 'next/navigation'
 
 export default function HomePage() {
@@ -60,14 +61,7 @@ export default function HomePage() {
     window.location.href = '/scorecard?scorecard=scorecard'
   }
 
-  const handleSecondaryCTA = () => {
-    // Track secondary CTA click
-    console.log('Track Event: secondary_cta_click', { source: 'footer' })
-
-    // Navigate to scorecard (same as primary for simplicity)
-    window.location.href = '/scorecard?scorecard=scorecard'
-  }
-
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Simple Navigation - with language selector */}
@@ -222,57 +216,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Final Section - Storytelling with Single CTA */}
-      <section className="py-24 bg-blue-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Prêt à transformer votre chaos en avantage ?
-          </h2>
-          <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Rejoignez les entrepreneurs qui ont déjà calculé leur score et commencent à récupérer 10h+ par semaine.
-          </p>
-
-          {/* Single CTA - Different Color to stand out */}
-          <button
-            onClick={handleSecondaryCTA}
-            className="px-10 py-4 bg-white text-blue-900 font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transform hover:-translate-y-1 transition-all duration-300"
-          >
-            Commencer l'analyse →
-          </button>
-
-          {/* Trust Indicators with Animated Counters */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div className="text-3xl font-bold text-white mb-2">2 minutes</div>
-              <div className="text-sm text-blue-200">Pour obtenir vos résultats</div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              <div className="text-3xl font-bold text-white mb-2">500+</div>
-              <div className="text-sm text-blue-200">Entrepreneurs accompagnés</div>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <div className="text-3xl font-bold text-white mb-2">10h+</div>
-              <div className="text-sm text-blue-200">Temps récupéré/semaine</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer - Navigation Links Only */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -365,7 +308,7 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/faq" className="hover:text-orange-400 transition-colors">
+                  <Link href="/qa" className="hover:text-orange-400 transition-colors">
                     FAQ
                   </Link>
                 </li>
