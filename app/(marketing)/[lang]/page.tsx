@@ -7,13 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function LandingPage() {
-  const t = useTranslations('hero');
-  const ft = useTranslations('features');
-  const dt = useTranslations('demo');
-  const st = useTranslations('social_proof');
-  const ct = useTranslations('canada_first');
-  const pt = useTranslations('pricing');
-  const ft_tr = useTranslations('footer');
+  const t = useTranslations('common');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,178 +23,99 @@ export default function LandingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="gradient-text">{t('title')}</span>
+              StructureClerk
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 text-balance"
+              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              {t('subtitle')}
+              Document Management Made Simple for Canadian SMEs
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+              className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Link
-                href="/signup"
-                className="btn-primary px-8 py-4 text-lg inline-flex items-center gap-2"
+                href="/contact"
+                className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
               >
-                {t('cta_primary')}
-                <ArrowRight className="h-5 w-5" />
+                {t('contact')} StructureClerk
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-
               <Link
-                href="/demo"
-                className="btn-secondary px-8 py-4 text-lg inline-flex items-center gap-2"
+                href="/pricing"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors shadow-lg"
               >
-                {t('cta_secondary')}
+                {t('view')} Pricing
               </Link>
             </motion.div>
-
-            <motion.p
-              className="text-sm text-muted-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              {t('demo_note')}
-            </motion.p>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 lg:py-32 bg-muted/30">
+      <section className="py-20 bg-white dark:bg-dark-bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-              Everything you need to streamline your administrative work
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Powered by AI, designed for Canadian businesses
-            </p>
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Everything You Need
+            </motion.h2>
+            <motion.p
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              Complete document management solution for modern businesses
+            </motion.p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Scan AI Feature */}
-            <motion.div
-              className="card-hover bg-card p-8 rounded-xl border shadow-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-6">
-                <Zap className="h-6 w-6 text-brand-blue" />
-              </div>
-              <h3 className="text-xl font-semibold font-heading mb-4">
-                {ft('scan_ai.title')}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {ft('scan_ai.description')}
-              </p>
-              <ul className="space-y-3">
-                {(ft('scan_ai.features') as unknown as string[]).map((feature: string, index: number) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-brand-green mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Audio Actions Feature */}
-            <motion.div
-              className="card-hover bg-card p-8 rounded-xl border shadow-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <div className="w-12 h-12 bg-brand-green/10 rounded-lg flex items-center justify-center mb-6">
-                <Users className="h-6 w-6 text-brand-green" />
-              </div>
-              <h3 className="text-xl font-semibold font-heading mb-4">
-                {ft('audio_actions.title')}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {ft('audio_actions.description')}
-              </p>
-              <ul className="space-y-3">
-                {(ft('audio_actions.features') as unknown as string[]).map((feature: string, index: number) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-brand-green mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Automations Feature */}
-            <motion.div
-              className="card-hover bg-card p-8 rounded-xl border shadow-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-6">
-                <Shield className="h-6 w-6 text-brand-blue" />
-              </div>
-              <h3 className="text-xl font-semibold font-heading mb-4">
-                {ft('automations.title')}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {ft('automations.description')}
-              </p>
-              <ul className="space-y-3">
-                {(ft('automations.features') as unknown as string[]).map((feature: string, index: number) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-brand-green mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Canada First Section */}
-      <section className="py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-              {ct('title')}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {ct('subtitle')}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {(ct('features') as unknown as any[]).map((feature: any, index: number) => (
+            {[
+              {
+                icon: Shield,
+                title: "Secure Storage",
+                description: "Bank-level security with encrypted storage for all your documents"
+              },
+              {
+                icon: Zap,
+                title: "Lightning Fast",
+                description: "Process documents in seconds with our AI-powered extraction"
+              },
+              {
+                icon: Users,
+                title: "Team Collaboration",
+                description: "Share and collaborate on documents with your entire team"
+              }
+            ].map((feature, index) => (
               <motion.div
                 key={index}
-                className="text-center"
+                className="text-center p-8 bg-gray-50 dark:bg-dark-bg rounded-xl"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
-                <div className="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Globe className="h-8 w-8 text-brand-blue" />
+                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <feature.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 </div>
-                <h3 className="text-lg font-semibold font-heading mb-3">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-gray-600 dark:text-gray-300">
                   {feature.description}
                 </p>
               </motion.div>
@@ -209,60 +124,41 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Stats & Testimonials */}
-      <section className="py-20 lg:py-32 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Stats */}
-          <div className="grid md:grid-cols-4 gap-8 mb-20">
-            {Object.entries(st('stats')).map(([key, value]: [string, string]) => (
-              <div key={key} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold font-heading gradient-text mb-2">
-                  {value}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Testimonials */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {Object.entries(st).filter(([key]) => key.startsWith('testimonial_')).map(([key, testimonial]: [string, any]) => (
-              <div key={key} className="bg-card p-8 rounded-xl border shadow-sm">
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="text-muted-foreground mb-6 italic">
-                  "{testimonial.quote}"
-                </blockquote>
-                <div>
-                  <div className="font-semibold">{testimonial.author}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {testimonial.role} at {testimonial.company}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-r from-brand-blue to-brand-green text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
-            Ready to transform your administrative workflow?
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Join thousands of Canadian businesses already saving time with StructureClerk.
-          </p>
-          <Link
-            href="/signup"
-            className="bg-white text-brand-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors inline-flex items-center gap-2"
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            {t('cta_primary')}
-            <ArrowRight className="h-5 w-5" />
-          </Link>
+            Ready to Get Started?
+          </motion.h2>
+          <motion.p
+            className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            Join thousands of businesses already using StructureClerk
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+            >
+              {t('contact')} Sales Team
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>
