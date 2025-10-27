@@ -44,9 +44,9 @@ export default function RootLayout({
 }
 
 export const metadata = {
-  title: 'StructureClerk - Your AI Admin Assistant',
-  description: 'Transform documents and calls into actions: summary, tasks, follow-ups, contracts, invoices. Organize. Draft. Send. Get paid.',
-  keywords: 'AI assistant, document management, transcription, task automation, invoicing, Canadian business',
+  title: 'StructureClerk - AI That Works For Your Business',
+  description: 'Transform documents and calls into actions: summaries, tasks, follow-ups, contracts, invoices. Join 500+ entrepreneurs saving 10+ hours/week. Start your 30-day free trial.',
+  keywords: 'AI assistant, document management, transcription, task automation, invoicing, Canadian business, AI extraction, meeting intelligence, business automation',
   authors: [{ name: 'StructureClerk' }],
   creator: 'StructureClerk',
   publisher: 'StructureClerk',
@@ -60,22 +60,22 @@ export const metadata = {
     type: 'website',
     locale: 'en',
     url: 'https://structureclerk.ca',
-    title: 'StructureClerk - Your AI Admin Assistant',
-    description: 'Transform documents and calls into actions: summary, tasks, follow-ups, contracts, invoices.',
+    title: 'StructureClerk - AI That Works For Your Business',
+    description: 'Transform documents and calls into actions. Join 500+ entrepreneurs saving 10+ hours/week. 30-day free trial.',
     siteName: 'StructureClerk',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'StructureClerk - AI Admin Assistant',
+        alt: 'StructureClerk - AI That Works For Your Business',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'StructureClerk - Your AI Admin Assistant',
-    description: 'Transform documents and calls into actions: summary, tasks, follow-ups, contracts, invoices.',
+    title: 'StructureClerk - AI That Works For Your Business',
+    description: 'Transform documents and calls into actions. Join 500+ entrepreneurs saving 10+ hours/week. 30-day free trial.',
     images: ['/og-image.jpg'],
   },
   robots: {
