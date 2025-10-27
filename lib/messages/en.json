@@ -18,444 +18,203 @@
     "view": "View",
     "download": "Download",
     "upload": "Upload",
-    "share": "Share",
+    "export": "Export",
+    "import": "Import",
     "copy": "Copy",
-    "email": "Email",
-    "phone": "Phone",
-    "address": "Address",
-    "name": "Name",
-    "description": "Description",
-    "status": "Status",
-    "priority": "Priority",
-    "date": "Date",
-    "created": "Created",
-    "updated": "Updated",
-    "actions": "Actions",
-    "settings": "Settings",
-    "profile": "Profile",
-    "logout": "Logout",
-    "login": "Login",
-    "signup": "Sign up",
-    "get_started": "Get started",
-    "learn_more": "Learn more",
-    "contact_us": "Contact us",
-    "pricing": "Pricing",
-    "features": "Features",
-    "about": "About",
-    "privacy": "Privacy",
-    "terms": "Terms",
-    "cookies": "Cookies"
-  },
-  "nav": {
-    "home": "Home",
-    "dashboard": "Dashboard",
-    "documents": "Documents",
-    "audio": "Audio",
-    "clients": "Clients",
-    "tasks": "Tasks",
-    "automations": "Automations",
-    "billing": "Billing",
-    "settings": "Settings",
-    "support": "Support",
-    "admin": "Admin"
+    "paste": "Paste",
+    "cut": "Cut",
+    "undo": "Undo",
+    "redo": "Redo",
+    "submit": "Submit",
+    "reset": "Reset",
+    "clear": "Clear",
+    "select": "Select",
+    "selectAll": "Select All",
+    "none": "None",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "done": "Done",
+    "pending": "Pending",
+    "processing": "Processing",
+    "completed": "Completed",
+    "failed": "Failed",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "contact": "Contact"
   },
   "hero": {
-    "title": "StructureClerk — Your AI admin assistant.",
-    "subtitle": "Organize. Draft. Send. Get paid. Save hours every week.",
-    "cta_primary": "Start free",
-    "cta_secondary": "See demo",
-    "demo_note": "No credit card required • Free plan available"
+    "title": "Transform Your Document Management with AI",
+    "subtitle": "Automate invoice processing, extract data instantly, and make smarter business decisions. Built for modern entrepreneurs.",
+    "cta": "Start Free Trial",
+    "ctaSecondary": "See How It Works (2 min demo)",
+    "tagline": "From chaos to clarity. Protect your margins. Reclaim your evenings."
   },
   "features": {
+    "title": "Everything You Need, Nothing More",
+    "subtitle": "Complete document management solution designed for modern businesses",
     "scan_ai": {
-      "title": "Scan & AI Extract",
-      "description": "AI-powered document scanning and data extraction from invoices, contracts, and receipts.",
+      "title": "Scan & AI Extraction",
+      "description": "Upload documents and extract data with 99% accuracy using advanced AI",
       "features": [
-        "Automatic OCR with 99% accuracy",
-        "Extract names, dates, amounts, and entities",
-        "Multi-format support: PDF, images, scans",
-        "Smart categorization and tagging"
+        "OCR technology",
+        "Automatic data extraction",
+        "Smart categorization",
+        "Batch processing",
+        "Cloud storage"
       ]
     },
     "audio_actions": {
-      "title": "Audio → Actions",
-      "description": "Convert meetings and calls into searchable transcripts with AI-generated action items.",
+      "title": "Audio Actions",
+      "description": "Convert meeting recordings to actionable tasks and insights",
       "features": [
-        "English & French transcription",
-        "Speaker identification and diarization",
-        "Automated summary generation",
-        "Extract tasks and follow-ups"
+        "Speech-to-text",
+        "Meeting summaries",
+        "Action items extraction",
+        "Speaker identification",
+        "Export to multiple formats"
       ]
     },
     "automations": {
-      "title": "PRO Automations",
-      "description": "Automate follow-ups, invoice reminders, and routine administrative tasks.",
+      "title": "Smart Automations",
+      "description": "Set up workflows that adapt to your business needs",
       "features": [
-        "Smart follow-up scheduling",
-        "Invoice payment reminders",
-        "Email template automation",
-        "Custom workflow rules"
+        "Custom triggers",
+        "Multi-step workflows",
+        "Conditional logic",
+        "Integration with tools",
+        "Error handling"
       ]
     }
   },
   "demo": {
-    "upload": {
-      "title": "Upload your document",
-      "description": "Drag and drop your invoices, contracts, or any business document."
-    },
-    "summary": {
-      "title": "AI Summary & Extraction",
-      "description": "Our AI instantly extracts key information and provides a structured summary."
-    },
-    "tasks": {
-      "title": "Generate Tasks & Actions",
-      "description": "Automatically create actionable tasks based on document content and deadlines."
-    },
-    "email": {
-      "title": "Draft Email & Send",
-      "description": "Generate professional emails with extracted data and send directly from the platform."
-    },
-    "invoice": {
-      "title": "Create Invoice & Track",
-      "description": "Convert estimates to invoices and track payment status automatically."
-    }
+    "title": "See It in Action",
+    "subtitle": "Watch how StructureClerk transforms your workflow in minutes",
+    "watch_demo": "Watch Demo",
+    "try_now": "Try It Now",
+    "no_credit_card": "No credit card required"
   },
   "social_proof": {
-    "testimonial_1": {
-      "quote": "StructureClerk has transformed how we handle paperwork. What used to take hours now takes minutes.",
-      "author": "Sarah Chen",
-      "role": "Operations Manager",
-      "company": "TechStartup Inc."
-    },
-    "testimonial_2": {
-      "quote": "The AI accuracy is incredible. We've reduced manual data entry by 95%.",
-      "author": "Michel Tremblay",
-      "role": "Managing Partner",
-      "company": "Conseils Québec"
-    },
-    "testimonial_3": {
-      "quote": "Finally, a tool that understands Canadian business needs and billing requirements.",
-      "author": "Jennifer Wong",
-      "role": "Freelance Consultant",
-      "company": "Wong Consulting"
-    },
-    "stats": {
-      "documents_processed": "1M+ Documents Processed",
-      "time_saved": "10,000+ Hours Saved",
-      "accuracy": "99.5% Accuracy Rate",
-      "canadian": "Canadian Company"
-    }
+    "title": "Trusted by Entrepreneurs Worldwide",
+    "testimonial": "StructureClerk saved me hours of data entry and helped me catch billing errors before they became costly issues. The AI accuracy is remarkable.",
+    "author": "Sarah Johnson",
+    "role": "Construction Company Owner",
+    "stats": [
+      {
+        "number": "10,000+",
+        "label": "Documents Processed"
+      },
+      {
+        "number": "99%",
+        "label": "Accuracy Rate"
+      },
+      {
+        "number": "4+",
+        "label": "Hours Saved Weekly"
+      }
+    ]
   },
   "canada_first": {
-    "title": "Built for Canadian Business",
-    "subtitle": "Designed specifically for the Canadian market with local compliance and support.",
+    "title": "Built for Canadian Businesses",
+    "subtitle": "Compliant with Canadian regulations and designed for local business needs",
     "features": [
-      {
-        "title": "Bilingual Support",
-        "description": "Full English and French support for all features and customer service."
-      },
-      {
-        "title": "Privacy Compliant",
-        "description": "PIPEDA and Loi 25 compliant with Canadian data residency."
-      },
-      {
-        "title": "CAD Billing",
-        "description": "Canadian dollar pricing and GST/HST/QST tax support."
-      },
-      {
-        "title": "Local Support",
-        "description": "Canadian-based support team with business hours in Eastern Time."
-      }
+      "GDPR & PIPEDA compliant",
+      "Canadian data hosting",
+      "Bilingual support (EN/FR)",
+      "Local currency support",
+      "Canadian tax integration"
     ]
   },
   "pricing": {
     "title": "Simple, Transparent Pricing",
-    "subtitle": "Choose the plan that fits your business. Start free, scale as you grow.",
+    "subtitle": "Choose the plan that fits your business. Start free and scale as you grow.",
+    "monthly": "Monthly",
+    "annual": "Annual (Save 20%)",
+    "save_20": "Save 20%",
+    "most_popular": "Most Popular",
+    "contact_sales": "Contact Sales",
     "plans": {
       "free": {
         "name": "Free",
         "price": "$0",
-        "period": "forever",
         "description": "Perfect for getting started",
         "features": [
           "10 documents per month",
-          "30 minutes audio transcription",
-          "1 GB storage",
-          "Basic AI extraction",
-          "Email support"
-        ],
-        "cta": "Start free"
+          "Basic OCR",
+          "Email support",
+          "1GB storage",
+          "Single user"
+        ]
       },
       "pro": {
-        "name": "Pro",
-        "price": "$12",
-        "period": "/month",
-        "description": "For professionals and small teams",
-        "popular": true,
+        "name": "Professional",
+        "price": "$99",
+        "description": "Best for growing businesses",
         "features": [
-          "180 minutes audio transcription",
-          "20 GB storage",
-          "Advanced AI features",
-          "Templates & signatures",
-          "Google Drive & OneDrive import",
+          "Unlimited documents",
+          "Advanced AI extraction",
           "Priority support",
-          "Custom branding"
-        ],
-        "cta": "Start free trial"
+          "50GB storage",
+          "5 users",
+          "Advanced features",
+          "Custom workflows"
+        ]
       },
       "business": {
         "name": "Business",
-        "price": "$24",
-        "period": "/month",
-        "description": "For growing businesses",
+        "price": "$299",
+        "description": "For established businesses",
         "features": [
-          "600 minutes audio transcription",
-          "100 GB storage",
-          "Advanced automations",
-          "Team collaboration",
-          "API access",
+          "Everything in Pro",
           "Custom integrations",
-          "Phone support",
-          "Advanced analytics"
-        ],
-        "cta": "Start free trial"
+          "API access",
+          "500GB storage",
+          "Unlimited users",
+          "Advanced security",
+          "Dedicated support"
+        ]
       },
       "teams": {
-        "name": "Teams",
-        "price": "$49",
-        "period": "/month + $9/user",
-        "description": "For larger teams",
+        "name": "Enterprise",
+        "price": "Custom",
+        "description": "Custom solutions for large teams",
         "features": [
           "Everything in Business",
-          "Unlimited users",
-          "Shared workspaces",
-          "Admin controls",
-          "SSO (coming soon)",
-          "Custom training",
-          "Dedicated account manager"
+          "Unlimited everything",
+          "Custom development",
+          "On-premise option",
+          "SLA guarantee",
+          "White-label options"
         ],
-        "cta": "Contact sales"
-      }
-    },
-    "add_ons": {
-      "title": "Add-ons",
-      "audio_minutes": {
-        "title": "Extra Audio Minutes",
-        "price": "$5",
-        "description": "+200 audio minutes"
-      },
-      "storage": {
-        "title": "Extra Storage",
-        "price": "$4",
-        "description": "+50GB storage"
-      },
-      "branding": {
-        "title": "Branding Pro",
-        "price": "$5",
-        "description": "Custom branding & templates"
-      },
-      "automation": {
-        "title": "Automation Power Pack",
-        "price": "$9",
-        "description": "Advanced workflow automations"
-      },
-      "signatures": {
-        "title": "Digital Signatures",
-        "price": "$6",
-        "description": "Legally binding e-signatures"
-      }
-    },
-    "faq": {
-      "security": {
-        "question": "How secure is my data?",
-        "answer": "We use bank-level encryption for data at rest and in transit. All data is stored in Canadian data centers and is fully PIPEDA and Loi 25 compliant."
-      },
-      "data_residency": {
-        "question": "Where is my data stored?",
-        "answer": "All data is stored in Canadian data centers to ensure compliance with Canadian privacy laws and data residency requirements."
-      },
-      "loi25": {
-        "question": "Are you compliant with Loi 25?",
-        "answer": "Yes, we are fully compliant with Quebec's Loi 25 (Bill 64) including privacy impact assessments, breach notification procedures, and designated privacy officer."
-      },
-      "pipeda": {
-        "question": "What about PIPEDA compliance?",
-        "answer": "We exceed PIPEDA requirements with explicit consent management, data minimization principles, and user rights for access, correction, and deletion."
-      },
-      "stripe": {
-        "question": "How do payments work?",
-        "answer": "We use Stripe for secure payment processing with PCI compliance. All transactions are processed in Canadian dollars with appropriate taxes."
-      },
-      "export": {
-        "question": "Can I export my data?",
-        "answer": "Yes, you can export all your data at any time in standard formats (CSV, PDF, JSON) with no vendor lock-in."
-      },
-      "limits": {
-        "question": "What happens if I hit my plan limits?",
-        "answer": "You'll receive notifications at 80% usage. You can upgrade anytime or purchase add-ons. Your data is never lost - just temporarily limited until the next billing cycle."
-      },
-      "integrations": {
-        "question": "What integrations are available?",
-        "answer": "We support Google Drive and One Drive import/export. We're continuously adding new integrations based on customer feedback."
-      },
-      "accuracy": {
-        "question": "How accurate is the AI extraction?",
-        "answer": "Our AI achieves 99.5% accuracy on standard business documents. Confidence scores are provided for all extractions, and you can always review and correct results."
-      },
-      "support": {
-        "question": "What kind of support do you offer?",
-        "answer": "Free plans get email support. Pro plans include priority email support. Business and Teams plans include phone support with dedicated account managers."
+        "cta": "Get Quote"
       }
     }
   },
   "footer": {
-    "tagline": "Your AI-powered administrative assistant",
-    "product": {
-      "title": "Product",
-      "links": {
-        "features": "Features",
-        "pricing": "Pricing",
-        "integrations": "Integrations",
-        "api": "API"
-      }
-    },
-    "company": {
-      "title": "Company",
-      "links": {
-        "about": "About Us",
-        "blog": "Blog",
-        "careers": "Careers",
-        "contact": "Contact"
-      }
-    },
-    "legal": {
-      "title": "Legal",
-      "links": {
-        "privacy": "Privacy Policy",
-        "terms": "Terms of Service",
-        "cookies": "Cookie Policy",
-        "dpa": "Data Processing Agreement"
-      }
-    },
-    "contact": {
-      "title": "Contact",
-      "address": "123 Rue Sainte-Catherine, Montréal, QC H3B 1B6",
-      "phone": "+1 (514) 555-0123",
-      "email": "hello@structureclerk.ca"
-    },
-    "copyright": "© 2024 StructureClerk. All rights reserved."
+    "tagline": "Smart document management for modern businesses.",
+    "product": "Product",
+    "pricing": "Pricing",
+    "features": "Features",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog",
+    "support": "Support",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2024 StructureClerk. All rights reserved.",
+    "made_with": "Made with ❤️ in Canada"
   },
-  "app": {
-    "dashboard": {
-      "title": "Dashboard",
-      "welcome": "Welcome back, {{name}}!",
-      "quick_actions": "Quick Actions",
-      "upload_document": "Upload Document",
-      "record_audio": "Record Audio",
-      "create_invoice": "Create Invoice",
-      "send_followup": "Send Follow-up",
-      "recent_activity": "Recent Activity",
-      "usage_stats": "Usage This Month",
-      "documents": "Documents",
-      "audio_minutes": "Audio Minutes",
-      "storage": "Storage"
-    },
-    "documents": {
-      "title": "Documents",
-      "upload": "Upload Document",
-      "drag_drop": "Drag and drop files here or click to browse",
-      "supported_formats": "Supported formats: PDF, JPG, PNG, DOC, DOCX",
-      "processing": "Processing...",
-      "extracted_data": "Extracted Data",
-      "confidence": "Confidence",
-      "create_task": "Create Task",
-      "generate_email": "Generate Email",
-      "export_pdf": "Export PDF"
-    },
-    "audio": {
-      "title": "Audio Notes",
-      "record": "Start Recording",
-      "stop": "Stop Recording",
-      "pause": "Pause Recording",
-      "transcription": "Transcription",
-      "summary": "AI Summary",
-      "action_items": "Action Items",
-      "duration": "Duration"
-    },
-    "clients": {
-      "title": "Clients",
-      "add_client": "Add Client",
-      "client_info": "Client Information",
-      "projects": "Projects",
-      "invoices": "Invoices",
-      "contact_info": "Contact Information"
-    },
-    "tasks": {
-      "title": "Tasks",
-      "add_task": "Add Task",
-      "task_details": "Task Details",
-      "mark_complete": "Mark Complete",
-      "due_soon": "Due Soon",
-      "overdue": "Overdue",
-      "completed": "Completed"
-    },
-    "automations": {
-      "title": "Automations",
-      "create_rule": "Create Rule",
-      "rule_name": "Rule Name",
-      "trigger": "Trigger",
-      "actions": "Actions",
-      "enabled": "Enabled",
-      "last_run": "Last Run",
-      "next_run": "Next Run"
-    },
-    "billing": {
-      "title": "Billing",
-      "current_plan": "Current Plan",
-      "usage_meters": "Usage Meters",
-      "upgrade_plan": "Upgrade Plan",
-      "billing_history": "Billing History",
-      "payment_method": "Payment Method",
-      "manage_subscription": "Manage Subscription"
-    },
-    "settings": {
-      "title": "Settings",
-      "profile": "Profile",
-      "language": "Language",
-      "timezone": "Timezone",
-      "notifications": "Notifications",
-      "privacy": "Privacy",
-      "data_export": "Data Export",
-      "delete_account": "Delete Account",
-      "two_factor": "Two-Factor Authentication"
-    }
-  },
-  "errors": {
-    "404": {
-      "title": "Page not found",
-      "description": "Sorry, we couldn't find the page you're looking for.",
-      "button": "Go home"
-    },
-    "500": {
-      "title": "Something went wrong",
-      "description": "We're sorry, but something went wrong on our end.",
-      "button": "Try again"
-    },
-    "unauthorized": {
-      "title": "Access denied",
-      "description": "You don't have permission to access this page.",
-      "button": "Go back"
-    }
-  },
-  "chatbot": {
-    "greeting": "Hello! I'm StructureClerk AI. How can I help you today?",
-    "placeholder": "Ask me anything about features, pricing, or getting started...",
-    "examples": {
-      "features": "What can StructureClerk do?",
-      "pricing": "How much does it cost?",
-      "security": "Is my data secure?",
-      "demo": "Can I see a demo?"
-    },
-    "typing": "AI is typing..."
+  "navigation": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "login": "Login",
+    "signup": "Sign Up",
+    "dashboard": "Dashboard",
+    "docs": "Documentation",
+    "api": "API"
   }
 }
