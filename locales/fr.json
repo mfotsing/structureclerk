@@ -1,0 +1,161 @@
+{
+  "navigation": {
+    "logo": "StructureClerk",
+    "product": "Produit",
+    "pricing": "Tarification",
+    "testimonials": "Témoignages",
+    "about": "À propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "signup": "Essai Gratuit",
+    "languageToggle": "EN"
+  },
+  "hero": {
+    "badge": "🎉 Rejoignez 500+ entrepreneurs qui économisent 10+ heures/semaine",
+    "title": "Votre Entreprise,",
+    "titleHighlight": "Automatisée.",
+    "subtitle": "Transformez documents et appels en actions : résumés, tâches, suivis, contrats, factures.",
+    "subtitleHighlight": "Concentrez-vous sur la croissance. L'IA s'occupe de la paperasse.",
+    "ctaPrimary": "Commencer l'Essai Gratuit de 30 Jours",
+    "ctaSecondary": "Voir la Démo de 2 Minutes"
+  },
+  "stats": {
+    "documents": {
+      "value": "10K+",
+      "label": "Documents Traités Quotidiennement"
+    },
+    "timeSaved": {
+      "value": "95%",
+      "label": "Temps Économisé"
+    },
+    "invoices": {
+      "value": "2.5M$",
+      "label": "Factures Traitées"
+    },
+    "users": {
+      "value": "500+",
+      "label": "Entrepreneurs Satisfaits"
+    }
+  },
+  "features": {
+    "title": "L'IA Qui Fonctionne",
+    "titleHighlight": "Pour Votre Entreprise",
+    "subtitle": "Trois capacités clés qui gèrent 80% de votre charge administrative",
+    "documentExtraction": {
+      "title": "Scan & Extraction IA",
+      "description": "Téléchargez des documents et extrayez les données avec 99% de précision",
+      "demo": "Extrait les données de factures en secondes",
+      "features": [
+        "Technologie OCR",
+        "Extraction automatique de données",
+        "Catégorisation intelligente",
+        "Traitement par lot",
+        "Stockage cloud"
+      ]
+    },
+    "meetingIntelligence": {
+      "title": "Intelligence IA des Réunions",
+      "description": "Transformez les réunions en informations exploitables",
+      "demo": "Réunion de 2h → 5 actions clés",
+      "features": [
+        "Speech-to-text",
+        "Résumés de réunion",
+        "Extraction d'actions",
+        "Identification des intervenants",
+        "Export vers plusieurs formats"
+      ]
+    },
+    "automation": {
+      "title": "Automatisations Intelligentes",
+      "description": "Workflows qui s'adaptent à votre entreprise",
+      "demo": "Automatise 80% des tâches admin",
+      "features": [
+        "Déclencheurs personnalisés",
+        "Workflows multi-étapes",
+        "Logique conditionnelle",
+        "Intégration avec outils",
+        "Gestion d'erreurs"
+      ]
+    }
+  },
+  "demo": {
+    "title": "Voyez-le en Action",
+    "description": "Téléchargez n'importe quel document → L'IA extrait tout → Prêt pour votre logiciel comptable",
+    "features": [
+      "PDFs, images, scans",
+      "Support multilingue",
+      "Précision de 99.5%",
+      "Conforme GDPR & PIPEDA"
+    ],
+    "cta": "Essayer la Démo en Direct"
+  },
+  "testimonials": {
+    "title": "Approuvé par",
+    "titleHighlight": "les Entrepreneurs",
+    "subtitle": "Rejoignez des centaines de propriétaires d'entreprise qui ont retrouvé leur temps",
+    "sarah": {
+      "name": "Sarah Chen",
+      "role": "Fondatrice, TechStart Inc.",
+      "content": "StructureClerk a transformé tout notre workflow documentaire. Ce qui prenait des heures ne prend maintenant que quelques minutes."
+    },
+    "marcus": {
+      "name": "Marcus Rodriguez",
+      "role": "PDG, Agence Créative",
+      "content": "L'extraction IA est incroyable. 99% de précision signifie que je peux faire entièrement confiance à mes données financières."
+    },
+    "emily": {
+      "name": "Emily Watson",
+      "role": "Consultante Indépendante",
+      "content": "J'ai récupéré 10+ heures par semaine. Cet outil se rentabilise plusieurs fois."
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent",
+    "titleHighlight": "Tarification",
+    "subtitle": "Commencez gratuitement, grandissez selon vos besoins. Aucuns frais cachés.",
+    "pro": {
+      "title": "Pro",
+      "price": "99$",
+      "period": "/mois",
+      "description": "Parfait pour les entreprises en croissance",
+      "features": [
+        "Documents illimités",
+        "Extraction de données IA",
+        "Prévisions financières",
+        "Gestion clients & projets",
+        "Essai gratuit de 30 jours"
+      ],
+      "cta": "Commencer l'Essai de 30 Jours"
+    },
+    "enterprise": {
+      "title": "Enterprise",
+      "price": "299$",
+      "period": "/mois",
+      "description": "Pour les grandes équipes & besoins complexes",
+      "features": [
+        "Tout dans Pro",
+        "Approbations multi-niveaux",
+        "Workflows personnalisés",
+        "Accès API",
+        "Support prioritaire"
+      ],
+      "cta": "Contacter les Ventes"
+    }
+  },
+  "finalCTA": {
+    "title": "Prêt à Retrouver Vos Soirées ?",
+    "subtitle": "Rejoignez 500+ entrepreneurs qui ont automatisé leur travail admin. Commencez votre essai gratuit de 30 jours - aucune carte de crédit requise.",
+    "ctaPrimary": "Commencer l'Essai Gratuit",
+    "ctaSecondary": "Planifier un Appel Démo",
+    "trust1": "Aucune carte de crédit requise",
+    "trust2": "Configuration de 2 minutes",
+    "trust3": "500+ utilisateurs satisfaits"
+  },
+  "footer": {
+    "tagline": "Votre assistant admin IA. Concentrez-vous sur l'essentiel.",
+    "product": "Produit",
+    "company": "Entreprise",
+    "legal": "Légal",
+    "copyright": "© 2024 StructureClerk. Tous droits réservés. Créé avec 🧠 au Canada."
+  }
+}

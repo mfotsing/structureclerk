@@ -1,0 +1,161 @@
+{
+  "navigation": {
+    "logo": "StructureClerk",
+    "product": "Product",
+    "pricing": "Pricing",
+    "testimonials": "Testimonials",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "signup": "Sign Up Free",
+    "languageToggle": "FR"
+  },
+  "hero": {
+    "badge": "🎉 Join 500+ entrepreneurs saving 10+ hours/week",
+    "title": "Your Business,",
+    "titleHighlight": "Automated.",
+    "subtitle": "Transform documents and calls into actions: summaries, tasks, follow-ups, contracts, invoices.",
+    "subtitleHighlight": "Focus on growth. Let AI handle the paperwork.",
+    "ctaPrimary": "Start Free 30-Day Trial",
+    "ctaSecondary": "Watch 2-Min Demo"
+  },
+  "stats": {
+    "documents": {
+      "value": "10K+",
+      "label": "Documents Processed Daily"
+    },
+    "timeSaved": {
+      "value": "95%",
+      "label": "Time Saved"
+    },
+    "invoices": {
+      "value": "$2.5M",
+      "label": "Invoices Processed"
+    },
+    "users": {
+      "value": "500+",
+      "label": "Happy Entrepreneurs"
+    }
+  },
+  "features": {
+    "title": "AI That Works",
+    "titleHighlight": "For Your Business",
+    "subtitle": "Three core capabilities that handle 80% of your admin workload",
+    "documentExtraction": {
+      "title": "Scan & AI Extraction",
+      "description": "Upload documents and extract data with 99% accuracy",
+      "demo": "Extracts invoice data in seconds",
+      "features": [
+        "OCR technology",
+        "Automatic data extraction",
+        "Smart categorization",
+        "Batch processing",
+        "Cloud storage"
+      ]
+    },
+    "meetingIntelligence": {
+      "title": "AI Meeting Intelligence",
+      "description": "Transform meetings into actionable insights",
+      "demo": "2-hour meeting → 5 key actions",
+      "features": [
+        "Speech-to-text",
+        "Meeting summaries",
+        "Action items extraction",
+        "Speaker identification",
+        "Export to multiple formats"
+      ]
+    },
+    "automation": {
+      "title": "Smart Automations",
+      "description": "Workflows that adapt to your business",
+      "demo": "Automate 80% of admin tasks",
+      "features": [
+        "Custom triggers",
+        "Multi-step workflows",
+        "Conditional logic",
+        "Integration with tools",
+        "Error handling"
+      ]
+    }
+  },
+  "demo": {
+    "title": "See It In Action",
+    "description": "Upload any document → AI extracts everything → Ready for your accounting software",
+    "features": [
+      "PDFs, images, scans",
+      "Multi-language support",
+      "99.5% accuracy",
+      "GDPR & PIPEDA compliant"
+    ],
+    "cta": "Try Live Demo Now"
+  },
+  "testimonials": {
+    "title": "Loved by",
+    "titleHighlight": "Entrepreneurs",
+    "subtitle": "Join hundreds of business owners who've reclaimed their time",
+    "sarah": {
+      "name": "Sarah Chen",
+      "role": "Founder, TechStart Inc.",
+      "content": "StructureClerk transformed our entire document workflow. What used to take hours now takes minutes."
+    },
+    "marcus": {
+      "name": "Marcus Rodriguez",
+      "role": "CEO, Creative Agency",
+      "content": "The AI extraction is mind-blowing. 99% accuracy means I can trust my financial data completely."
+    },
+    "emily": {
+      "name": "Emily Watson",
+      "role": "Freelance Consultant",
+      "content": "I reclaimed 10+ hours per week. This tool pays for itself many times over."
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent",
+    "titleHighlight": "Pricing",
+    "subtitle": "Start free, scale as you grow. No hidden fees.",
+    "pro": {
+      "title": "Pro",
+      "price": "$99",
+      "period": "/mo",
+      "description": "Perfect for growing businesses",
+      "features": [
+        "Unlimited documents",
+        "AI data extraction",
+        "Financial forecasts",
+        "Client & project management",
+        "30-day free trial"
+      ],
+      "cta": "Start 30-Day Trial"
+    },
+    "enterprise": {
+      "title": "Enterprise",
+      "price": "$299",
+      "period": "/mo",
+      "description": "For large teams & complex needs",
+      "features": [
+        "Everything in Pro",
+        "Multi-level approvals",
+        "Custom workflows",
+        "API access",
+        "Priority support"
+      ],
+      "cta": "Contact Sales"
+    }
+  },
+  "finalCTA": {
+    "title": "Ready to Get Your Evenings Back?",
+    "subtitle": "Join 500+ entrepreneurs who've automated their admin work. Start your 30-day free trial - no credit card required.",
+    "ctaPrimary": "Start Free Trial Now",
+    "ctaSecondary": "Schedule a Demo Call",
+    "trust1": "No credit card required",
+    "trust2": "2-minute setup",
+    "trust3": "500+ happy users"
+  },
+  "footer": {
+    "tagline": "Your AI-powered admin assistant. Focus on what matters.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "copyright": "© 2024 StructureClerk. All rights reserved. Built with 🧠 in Canada."
+  }
+}

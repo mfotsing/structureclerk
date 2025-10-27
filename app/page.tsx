@@ -1,15 +1,20 @@
 'use client';
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Star, Shield, Users, Zap, Globe, FileText, BarChart3, Lock, Award, Sparkles, Play, ChevronRight, TrendingUp, Brain, Clock, DollarSign, MessageSquare } from 'lucide-react';
+import { ArrowRight, Check, Star, Shield, Users, Zap, Globe, FileText, BarChart3, Lock, Award, Sparkles, Play, ChevronRight, TrendingUp, Brain, Clock, DollarSign, MessageSquare, Mic, Languages } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { LanguageProvider, useLanguage } from '../contexts/LanguageContext';
+import AIChatbot from '../components/AIChatbot';
+import AudioRecorder from '../components/AudioRecorder';
 
-export default function HomePage() {
+function HomePageContent() {
   const [activeFeature, setActiveFeature] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const [showAudioRecorder, setShowAudioRecorder] = useState(false);
   const { scrollYProgress } = useScroll();
+  const { t, language, setLanguage } = useLanguage();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -29,60 +34,69 @@ export default function HomePage() {
   const features = [
     {
       icon: FileText,
-      title: "Scan & AI Extraction",
-      description: "Upload documents and extract data with 99% accuracy",
-      features: ["OCR technology", "Automatic data extraction", "Smart categorization", "Batch processing", "Cloud storage"],
+      title: t('features.documentExtraction.title'),
+      description: t('features.documentExtraction.description'),
+      features: t('features.documentExtraction.features') as string[],
       gradient: "from-blue-600 to-indigo-600",
-      demo: "Extracts invoice data in seconds"
+      demo: t('features.documentExtraction.demo')
     },
     {
       icon: Brain,
-      title: "AI Meeting Intelligence",
-      description: "Transform meetings into actionable insights",
-      features: ["Speech-to-text", "Meeting summaries", "Action items extraction", "Speaker identification", "Export to multiple formats"],
+      title: t('features.meetingIntelligence.title'),
+      description: t('features.meetingIntelligence.description'),
+      features: t('features.meetingIntelligence.features') as string[],
       gradient: "from-purple-600 to-pink-600",
-      demo: "2-hour meeting → 5 key actions"
+      demo: t('features.meetingIntelligence.demo')
     },
     {
       icon: Zap,
-      title: "Smart Automations",
-      description: "Workflows that adapt to your business",
-      features: ["Custom triggers", "Multi-step workflows", "Conditional logic", "Integration with tools", "Error handling"],
+      title: t('features.automation.title'),
+      description: t('features.automation.description'),
+      features: t('features.automation.features') as string[],
       gradient: "from-green-600 to-teal-600",
-      demo: "Automate 80% of admin tasks"
+      demo: t('features.automation.demo')
     }
   ];
 
   const stats = [
-    { value: "10K+", label: "Documents Processed Daily", icon: FileText },
-    { value: "95%", label: "Time Saved", icon: Clock },
-    { value: "$2.5M", label: "Invoices Processed", icon: DollarSign },
-    { value: "500+", label: "Happy Entrepreneurs", icon: Users }
+    { value: t('stats.documents.value'), label: t('stats.documents.label'), icon: FileText },
+    { value: t('stats.timeSaved.value'), label: t('stats.timeSaved.label'), icon: Clock },
+    { value: t('stats.invoices.value'), label: t('stats.invoices.label'), icon: DollarSign },
+    { value: t('stats.users.value'), label: t('stats.users.label'), icon: Users }
   ];
 
   const testimonials = [
     {
       name: "Sarah Chen",
       role: "Founder, TechStart Inc.",
-      content: "StructureClerk transformed our entire document workflow. What used to take hours now takes minutes.",
+      content: t('testimonials.sarah.content'),
       rating: 5,
       avatar: "SC"
     },
     {
       name: "Marcus Rodriguez",
       role: "CEO, Creative Agency",
-      content: "The AI extraction is mind-blowing. 99% accuracy means I can trust my financial data completely.",
+      content: t('testimonials.marcus.content'),
       rating: 5,
       avatar: "MR"
     },
     {
       name: "Emily Watson",
       role: "Freelance Consultant",
-      content: "I reclaimed 10+ hours per week. This tool pays for itself many times over.",
+      content: t('testimonials.emily.content'),
       rating: 5,
       avatar: "EW"
     }
   ];
+
+  if (showAudioRecorder) {
+    return (
+      <>
+        <AudioRecorder />
+        <AIChatbot />
+      </>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -112,19 +126,28 @@ export default function HomePage() {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">SC</span>
             </div>
-            <span className="text-xl font-bold">StructureClerk</span>
+            <span className="text-xl font-bold">{t('navigation.logo')}</span>
           </motion.div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-            <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors">Testimonials</a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+            <a href="#features" className="text-gray-300 hover:text-white transition-colors">{t('navigation.product')}</a>
+            <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors">{t('navigation.testimonials')}</a>
+            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t('navigation.pricing')}</a>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
+              className="flex items-center space-x-1 px-3 py-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg hover:bg-white/20 transition-all"
+            >
+              <Languages className="w-4 h-4" />
+              <span className="text-sm font-medium">{t('navigation.languageToggle')}</span>
+            </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all"
             >
-              Start Free Trial
+              {t('navigation.signup')}
             </motion.button>
           </div>
         </div>
@@ -141,7 +164,7 @@ export default function HomePage() {
           >
             <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3">
               <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-medium">🎉 Join 500+ entrepreneurs saving 10+ hours/week</span>
+              <span className="text-sm font-medium">{t('hero.badge')}</span>
             </div>
           </motion.div>
 
@@ -152,10 +175,10 @@ export default function HomePage() {
             className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
           >
             <span className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
-              Your Business,<br/>
+              {t('hero.title')}<br/>
             </span>
             <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              Automated.
+              {t('hero.titleHighlight')}
             </span>
           </motion.h1>
 
@@ -165,8 +188,8 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
           >
-            Transform documents and calls into actions: summaries, tasks, follow-ups, contracts, invoices.<br/>
-            <span className="text-blue-400 font-semibold">Focus on growth. Let AI handle the paperwork.</span>
+            {t('hero.subtitle')}<br/>
+            <span className="text-blue-400 font-semibold">{t('hero.subtitleHighlight')}</span>
           </motion.p>
 
           <motion.div
@@ -182,7 +205,7 @@ export default function HomePage() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative flex items-center">
-                Start Free 30-Day Trial
+                {t('hero.ctaPrimary')}
                 <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </div>
             </motion.button>
@@ -190,10 +213,11 @@ export default function HomePage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setShowAudioRecorder(true)}
               className="group px-10 py-5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl font-semibold text-lg hover:bg-white/20 transition-all"
             >
-              <Play className="inline-block w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              Watch 2-Min Demo
+              <Mic className="inline-block w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              {t('hero.ctaSecondary')}
             </motion.button>
           </motion.div>
 
@@ -252,13 +276,13 @@ export default function HomePage() {
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                AI That Works
+                {t('features.title')}
               </span>
               <br />
-              <span className="text-white">For Your Business</span>
+              <span className="text-white">{t('features.titleHighlight')}</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Three core capabilities that handle 80% of your admin workload
+              {t('features.subtitle')}
             </p>
           </motion.div>
 
@@ -273,7 +297,7 @@ export default function HomePage() {
                 onMouseEnter={() => setActiveFeature(index)}
                 className={`relative group cursor-pointer ${activeFeature === index ? 'scale-105' : ''} transition-all duration-300`}
               >
-                <div className={`relative h-full bg-gradient-to-br ${feature.gradient} p-8 rounded-3xl border border-white/10 backdrop-blur-xl hover:shadow-2xl hover:shadow-${feature.gradient.split(' ')[1].replace('to-', '')}/25`}>
+                <div className={`relative h-full bg-gradient-to-br ${feature.gradient} p-8 rounded-3xl border border-white/10 backdrop-blur-xl hover:shadow-2xl`}>
                   <div className="absolute top-4 right-4 w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
@@ -307,7 +331,7 @@ export default function HomePage() {
                     whileHover={{ opacity: 1 }}
                     className="absolute bottom-4 right-4 bg-white/20 px-4 py-2 rounded-full text-sm text-white"
                   >
-                    Learn more →
+                    {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
                   </motion.div>
                 </div>
               </motion.div>
@@ -325,13 +349,13 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h3 className="text-3xl font-bold text-white mb-4">
-                  See It In Action
+                  {t('demo.title')}
                 </h3>
                 <p className="text-gray-300 mb-6 text-lg">
-                  Upload any document → AI extracts everything → Ready for your accounting software
+                  {t('demo.description')}
                 </p>
                 <div className="space-y-4">
-                  {["PDFs, images, scans", "Multi-language support", "99.5% accuracy", "GDPR & PIPEDA compliant"].map((item, i) => (
+                  {(t('demo.features') as string[]).map((item, i) => (
                     <div key={i} className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                       <span className="text-gray-300">{item}</span>
@@ -343,7 +367,7 @@ export default function HomePage() {
                   whileTap={{ scale: 0.95 }}
                   className="mt-8 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl font-semibold text-lg hover:shadow-2xl transition-all"
                 >
-                  Try Live Demo Now
+                  {t('demo.cta')}
                 </motion.button>
               </div>
               <div className="relative">
@@ -375,14 +399,14 @@ export default function HomePage() {
             className="text-center mb-20"
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-white">Loved by</span>
+              <span className="text-white">{t('testimonials.title')}</span>
               <br />
               <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                Entrepreneurs
+                {t('testimonials.titleHighlight')}
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Join hundreds of business owners who've reclaimed their time
+              {t('testimonials.subtitle')}
             </p>
           </motion.div>
 
@@ -440,14 +464,14 @@ export default function HomePage() {
             className="text-center mb-20"
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-white">Simple, Transparent</span>
+              <span className="text-white">{t('pricing.title')}</span>
               <br />
               <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                Pricing
+                {t('pricing.titleHighlight')}
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Start free, scale as you grow. No hidden fees.
+              {t('pricing.subtitle')}
             </p>
           </motion.div>
 
@@ -462,12 +486,12 @@ export default function HomePage() {
             >
               <div className="h-full bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 border border-white/20 hover:scale-105 transition-all duration-300">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-                  <div className="text-5xl font-bold text-white mb-2">$99<span className="text-xl text-white/70">/mo</span></div>
-                  <p className="text-white/80">Perfect for growing businesses</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{t('pricing.pro.title')}</h3>
+                  <div className="text-5xl font-bold text-white mb-2">{t('pricing.pro.price')}<span className="text-xl text-white/70">{t('pricing.pro.period')}</span></div>
+                  <p className="text-white/80">{t('pricing.pro.description')}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
-                  {["Unlimited documents", "AI data extraction", "Financial forecasts", "Client & project management", "30-day free trial"].map((feature, i) => (
+                  {(t('pricing.pro.features') as string[]).map((feature, i) => (
                     <li key={i} className="flex items-center text-white">
                       <Check className="w-5 h-5 mr-3 text-green-400" />
                       {feature}
@@ -479,7 +503,7 @@ export default function HomePage() {
                   whileTap={{ scale: 0.95 }}
                   className="w-full py-4 bg-white text-blue-600 rounded-2xl font-semibold hover:bg-gray-100 transition-all"
                 >
-                  Start 30-Day Trial
+                  {t('pricing.pro.cta')}
                 </motion.button>
               </div>
             </motion.div>
@@ -494,12 +518,12 @@ export default function HomePage() {
             >
               <div className="h-full bg-gradient-to-br from-purple-600 to-pink-600 rounded-3xl p-8 border border-white/20 hover:scale-105 transition-all duration-300">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
-                  <div className="text-5xl font-bold text-white mb-2">$299<span className="text-xl text-white/70">/mo</span></div>
-                  <p className="text-white/80">For large teams & complex needs</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{t('pricing.enterprise.title')}</h3>
+                  <div className="text-5xl font-bold text-white mb-2">{t('pricing.enterprise.price')}<span className="text-xl text-white/70">{t('pricing.enterprise.period')}</span></div>
+                  <p className="text-white/80">{t('pricing.enterprise.description')}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
-                  {["Everything in Pro", "Multi-level approvals", "Custom workflows", "API access", "Priority support"].map((feature, i) => (
+                  {(t('pricing.enterprise.features') as string[]).map((feature, i) => (
                     <li key={i} className="flex items-center text-white">
                       <Check className="w-5 h-5 mr-3 text-green-400" />
                       {feature}
@@ -511,7 +535,7 @@ export default function HomePage() {
                   whileTap={{ scale: 0.95 }}
                   className="w-full py-4 bg-white text-purple-600 rounded-2xl font-semibold hover:bg-gray-100 transition-all"
                 >
-                  Contact Sales
+                  {t('pricing.enterprise.cta')}
                 </motion.button>
               </div>
             </motion.div>
@@ -530,11 +554,10 @@ export default function HomePage() {
             className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-16 backdrop-blur-xl border border-white/20"
           >
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Ready to Get Your Evenings Back?
+              {t('finalCTA.title')}
             </h2>
             <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
-              Join 500+ entrepreneurs who've automated their admin work.<br/>
-              Start your 30-day free trial - no credit card required.
+              {t('finalCTA.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <motion.button
@@ -542,7 +565,7 @@ export default function HomePage() {
                 whileTap={{ scale: 0.95 }}
                 className="px-12 py-6 bg-white text-blue-600 rounded-2xl font-bold text-xl hover:shadow-2xl transition-all"
               >
-                Start Free Trial Now
+                {t('finalCTA.ctaPrimary')}
                 <ArrowRight className="inline-block ml-3 h-6 w-6" />
               </motion.button>
               <motion.button
@@ -550,21 +573,21 @@ export default function HomePage() {
                 whileTap={{ scale: 0.95 }}
                 className="px-12 py-6 bg-white/20 backdrop-blur-xl border border-white/30 text-white rounded-2xl font-bold text-xl hover:bg-white/30 transition-all"
               >
-                Schedule a Demo Call
+                {t('finalCTA.ctaSecondary')}
               </motion.button>
             </div>
             <div className="mt-8 flex items-center justify-center space-x-6 text-white/80">
               <div className="flex items-center">
                 <Shield className="w-5 h-5 mr-2" />
-                No credit card required
+                {t('finalCTA.trust1')}
               </div>
               <div className="flex items-center">
                 <Clock className="w-5 h-5 mr-2" />
-                2-minute setup
+                {t('finalCTA.trust2')}
               </div>
               <div className="flex items-center">
                 <Users className="w-5 h-5 mr-2" />
-                500+ happy users
+                {t('finalCTA.trust3')}
               </div>
             </div>
           </motion.div>
@@ -580,33 +603,33 @@ export default function HomePage() {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">SC</span>
                 </div>
-                <span className="text-xl font-bold text-white">StructureClerk</span>
+                <span className="text-xl font-bold text-white">{t('navigation.logo')}</span>
               </div>
               <p className="text-gray-400">
-                Your AI-powered admin assistant. Focus on what matters.
+                {t('footer.tagline')}
               </p>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.product')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#testimonials" className="hover:text-white transition-colors">Testimonials</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors">{t('navigation.product')}</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors">{t('navigation.pricing')}</a></li>
+                <li><a href="#testimonials" className="hover:text-white transition-colors">{t('navigation.testimonials')}</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.company')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t('navigation.about')}</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.legal')}</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
@@ -616,10 +639,20 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-white/10 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 StructureClerk. All rights reserved. Built with 🧠 in Canada.</p>
+            <p>{t('footer.copyright')}</p>
           </div>
         </div>
       </footer>
+
+      <AIChatbot />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <LanguageProvider>
+      <HomePageContent />
+    </LanguageProvider>
   );
 }
