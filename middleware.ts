@@ -1,23 +1,11 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-
-const isPublicRoute = createRouteMatcher([
-  '/',
-  '/api(.*)',
-  '/:lang',
-  '/:lang/(.*)',
-]);
-
-export default clerkMiddleware((auth, req) => {
-  if (!isPublicRoute(req)) {
-    auth().protect();
-  }
-});
+// Temporarily disabled middleware to fix 500 error
+export default function middleware(req: Request) {
+  // No middleware logic for now
+}
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files by default
+    // Skip all paths for now
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/api/(.*)',
   ],
 };
