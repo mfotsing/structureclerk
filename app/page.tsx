@@ -31,12 +31,12 @@ function HomePageContent() {
     };
   }, []);
 
-  const features = [
+  const getFeatures = () => [
     {
       icon: FileText,
       title: t('features.documentExtraction.title'),
       description: t('features.documentExtraction.description'),
-      features: t('features.documentExtraction.features') as unknown as string[],
+      features: Array.isArray(t('features.documentExtraction.features')) ? t('features.documentExtraction.features') as string[] : [],
       gradient: "from-blue-600 to-indigo-600",
       demo: t('features.documentExtraction.demo')
     },
@@ -44,7 +44,7 @@ function HomePageContent() {
       icon: Brain,
       title: t('features.meetingIntelligence.title'),
       description: t('features.meetingIntelligence.description'),
-      features: t('features.meetingIntelligence.features') as unknown as string[],
+      features: Array.isArray(t('features.meetingIntelligence.features')) ? t('features.meetingIntelligence.features') as string[] : [],
       gradient: "from-purple-600 to-pink-600",
       demo: t('features.meetingIntelligence.demo')
     },
@@ -52,11 +52,13 @@ function HomePageContent() {
       icon: Zap,
       title: t('features.automation.title'),
       description: t('features.automation.description'),
-      features: t('features.automation.features') as unknown as string[],
+      features: Array.isArray(t('features.automation.features')) ? t('features.automation.features') as string[] : [],
       gradient: "from-green-600 to-teal-600",
       demo: t('features.automation.demo')
     }
   ];
+
+  const features = getFeatures();
 
   const stats = [
     { value: t('stats.documents.value'), label: t('stats.documents.label'), icon: FileText },
@@ -355,12 +357,12 @@ function HomePageContent() {
                   {t('demo.description')}
                 </p>
                 <div className="space-y-4">
-                  {(t('demo.features') as unknown as string[]).map((item, i) => (
+                  {Array.isArray(t('demo.features')) ? (t('demo.features') as string[]).map((item, i) => (
                     <div key={i} className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                       <span className="text-gray-300">{item}</span>
                     </div>
-                  ))}
+                  )) : null}
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -491,12 +493,12 @@ function HomePageContent() {
                   <p className="text-white/80">{t('pricing.pro.description')}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
-                  {(t('pricing.pro.features') as unknown as string[]).map((feature, i) => (
+                  {Array.isArray(t('pricing.pro.features')) ? (t('pricing.pro.features') as string[]).map((feature, i) => (
                     <li key={i} className="flex items-center text-white">
                       <Check className="w-5 h-5 mr-3 text-green-400" />
                       {feature}
                     </li>
-                  ))}
+                  )) : null}
                 </ul>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -523,12 +525,12 @@ function HomePageContent() {
                   <p className="text-white/80">{t('pricing.enterprise.description')}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
-                  {(t('pricing.enterprise.features') as unknown as string[]).map((feature, i) => (
+                  {Array.isArray(t('pricing.enterprise.features')) ? (t('pricing.enterprise.features') as string[]).map((feature, i) => (
                     <li key={i} className="flex items-center text-white">
                       <Check className="w-5 h-5 mr-3 text-green-400" />
                       {feature}
                     </li>
-                  ))}
+                  )) : null}
                 </ul>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
