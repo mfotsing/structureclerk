@@ -14,11 +14,15 @@ const isPublicRoute = createRouteMatcher([
   "/api/webhook",
   "/api/health",
   "/api/legal/subprocessors",
-  "/api/(.*)"
+  "/api/(.*)",
+  "/api/ai/(.*)",
+  "/api/audio/(.*)",
+  "/api/stripe/(.*)",
+  "/api/integrations/(.*)",
+  "/api/contact"
 ]);
 
 export default clerkMiddleware((auth, req) => {
-  // Check authentication for protected routes
   if (!isPublicRoute(req)) {
     auth().protect();
   }
