@@ -31,34 +31,36 @@ function HomePageContent() {
     };
   }, []);
 
-  const getFeatures = () => [
-    {
-      icon: FileText,
-      title: t('features.documentExtraction.title'),
-      description: t('features.documentExtraction.description'),
-      features: Array.isArray(t('features.documentExtraction.features')) ? t('features.documentExtraction.features') as string[] : [],
-      gradient: "from-blue-600 to-indigo-600",
-      demo: t('features.documentExtraction.demo')
-    },
-    {
-      icon: Brain,
-      title: t('features.meetingIntelligence.title'),
-      description: t('features.meetingIntelligence.description'),
-      features: Array.isArray(t('features.meetingIntelligence.features')) ? t('features.meetingIntelligence.features') as string[] : [],
-      gradient: "from-purple-600 to-pink-600",
-      demo: t('features.meetingIntelligence.demo')
-    },
-    {
-      icon: Zap,
-      title: t('features.automation.title'),
-      description: t('features.automation.description'),
-      features: Array.isArray(t('features.automation.features')) ? t('features.automation.features') as string[] : [],
-      gradient: "from-green-600 to-teal-600",
-      demo: t('features.automation.demo')
-    }
-  ];
+  const [features, setFeatures] = useState<any[]>([]);
 
-  const features = getFeatures();
+  useEffect(() => {
+    setFeatures([
+      {
+        icon: FileText,
+        title: t('features.documentExtraction.title'),
+        description: t('features.documentExtraction.description'),
+        features: (t('features.documentExtraction.features') as any) || [],
+        gradient: "from-blue-600 to-indigo-600",
+        demo: t('features.documentExtraction.demo')
+      },
+      {
+        icon: Brain,
+        title: t('features.meetingIntelligence.title'),
+        description: t('features.meetingIntelligence.description'),
+        features: (t('features.meetingIntelligence.features') as any) || [],
+        gradient: "from-purple-600 to-pink-600",
+        demo: t('features.meetingIntelligence.demo')
+      },
+      {
+        icon: Zap,
+        title: t('features.automation.title'),
+        description: t('features.automation.description'),
+        features: (t('features.automation.features') as any) || [],
+        gradient: "from-green-600 to-teal-600",
+        demo: t('features.automation.demo')
+      }
+    ]);
+  }, [t, language]);
 
   const stats = [
     { value: t('stats.documents.value'), label: t('stats.documents.label'), icon: FileText },
