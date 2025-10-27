@@ -6,6 +6,11 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -17,6 +22,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              viewport={{ once: false }}
             >
               <Sparkles className="w-4 h-4 mr-2" />
               Now with AI-Powered Processing
@@ -26,7 +32,7 @@ export default function HomePage() {
               className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading text-balance mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
               Transform Your Document Management with AI
             </motion.h1>
@@ -35,7 +41,7 @@ export default function HomePage() {
               className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
               Automate invoice processing, extract data instantly, and make smarter business decisions. Built for modern entrepreneurs.
             </motion.p>
@@ -44,7 +50,7 @@ export default function HomePage() {
               className="text-lg text-gray-500 dark:text-gray-400 mb-8 font-medium italic"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
               From chaos to clarity. Protect your margins. Reclaim your evenings.
             </motion.p>
@@ -53,7 +59,7 @@ export default function HomePage() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
             >
               <Link
                 href="/contact"
@@ -222,5 +228,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+    </motion.div>
   );
 }
