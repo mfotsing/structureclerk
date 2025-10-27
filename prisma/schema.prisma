@@ -1,0 +1,339 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User management with Clerk integration
+model User {
+  id            String            @id @default(cuid())
+  email         String            @unique
+  clerkId       String            @unique // Clerk user ID
+  firstName     String?
+  lastName      String?
+  language      String            @default("en") // en or fr
+  timezone      String            @default("America/Toronto")
+  plan          Plan              @default(FREE)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  // Relations
+  usage         UsageCounters?
+  legalConsents LegalConsents?
+  integrations  IntegrationAccount[]
+  clients       Client[]
+  projects      Project[]
+  documents     Document[]
+  audioNotes    NoteAudio[]
+  tasks         Task[]
+  automations   AutomationRule[]
+  invoices      Invoice[]
+  payments      Payment[]
+  sessions      UserSession[]
+
+  @@map("users")
+}
+
+// User session management
+model UserSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("user_sessions")
+}
+
+// Subscription plans
+enum Plan {
+  FREE
+  PRO
+  BUSINESS
+  TEAMS
+  ENTERPRISE
+}
+
+// Usage tracking and limits
+model UsageCounters {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  month         String   // Format: "2024-01"
+  docsCount     Int      @default(0)
+  audioMinutes  Int      @default(0)
+  storageBytes  BigInt   @default(0)
+  aiRequests    Int      @default(0)
+  plan          Plan     @default(FREE)
+  lastReset     DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("usage_counters")
+}
+
+// Legal consents and compliance
+model LegalConsents {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  cookiesConsent  Boolean  @default(false)
+  aiProcessing    Boolean  @default(false) // Consent for AI processing
+  marketing       Boolean  @default(false) // Marketing communications
+  dataRetention   Boolean  @default(true)  // Data retention consent
+  analyticsConsent Boolean @default(false) // Analytics/tracking
+  privacyVersion  String   @default("1.0")  // Version of privacy policy accepted
+  termsVersion    String   @default("1.0")  // Version of terms accepted
+  consentedAt     DateTime @default(now())
+  ipAddress       String?  // IP address at time of consent
+  userAgent       String?  // User agent at time of consent
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("legal_consents")
+}
+
+// Client management (mini-CRM)
+model Client {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  email     String?
+  phone     String?
+  company   String?
+  address   String? // JSON object for structured address
+  notes     String?
+  tags      String[] // Array of tags for categorization
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projects Project[]
+  invoices Invoice[]
+
+  @@map("clients")
+}
+
+// Project management
+model Project {
+  id          String   @id @default(cuid())
+  userId      String
+  clientId    String?
+  name        String
+  description String?
+  status      String   @default("active") // active, completed, archived
+  priority    Int      @default(0) // 0-5 priority level
+  tags        String[]
+  startDate   DateTime?
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client    Client?      @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  documents Document[]
+  audioNotes NoteAudio[]
+  tasks     Task[]
+  invoices  Invoice[]
+
+  @@map("projects")
+}
+
+// Document management
+model Document {
+  id           String    @id @default(cuid())
+  userId       String
+  projectId    String?
+  name         String
+  originalName String    // Original filename
+  type         String    // invoice, contract, quote, receipt, other
+  mimeType     String    // MIME type
+  size         Int       // Size in bytes
+  path         String    // Storage path
+  thumbnail    String?   // Thumbnail path
+  extracted    Json?     // Extracted data (OCR, AI results)
+  tags         String[]
+  status       String    @default("processing") // processing, completed, failed
+  confidence   Float?    // OCR/AI extraction confidence score
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  processedAt  DateTime?
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@map("documents")
+}
+
+// Audio notes and transcriptions
+model NoteAudio {
+  id          String    @id @default(cuid())
+  userId      String
+  projectId   String?
+  name        String
+  path        String    // Storage path for audio file
+  duration    Int       // Duration in seconds
+  size        Int       // File size in bytes
+  mimeType    String    // audio/webm, audio/mp3, etc.
+  transcript  Json?     // Transcription results
+  summary     Json?     // AI-generated summary
+  entities    Json?     // Extracted entities (people, places, amounts)
+  actions     Json?     // Suggested actions
+  language    String    @default("en") // Detected language
+  confidence  Float?    // Transcription confidence
+  status      String    @default("processing") // processing, completed, failed
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@map("note_audio")
+}
+
+// Task management
+model Task {
+  id          String    @id @default(cuid())
+  userId      String
+  projectId   String?
+  clientId    String?  // Client associated with task
+  title       String
+  description String?
+  status      String    @default("open") // open, in_progress, completed, cancelled
+  priority    Int       @default(0) // 0-5 priority level
+  dueDate     DateTime?
+  completedAt DateTime?
+  tags        String[]
+  source      String?   // "manual", "ai_generated", "audio", "document"
+  sourceId    String?   // ID of source (audio note, document, etc.)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@map("tasks")
+}
+
+// Automation rules and workflows
+model AutomationRule {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  type      String   // follow_up, invoice_reminder, auto_classify, scheduled_callback
+  trigger   Json     // Trigger conditions
+  actions   Json     // Actions to perform
+  enabled   Boolean  @default(true)
+  schedule  String?  // Cron expression for scheduled rules
+  lastRun   DateTime?
+  nextRun   DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("automation_rules")
+}
+
+// Invoice management
+model Invoice {
+  id              String   @id @default(cuid())
+  userId          String
+  clientId        String?
+  projectId       String?
+  invoiceNumber   String   @unique
+  amountCents     Int      // Amount in cents
+  taxCents        Int      @default(0)
+  totalCents      Int      // Amount including tax
+  currency        String   @default("CAD")
+  status          String   @default("draft") // draft, sent, paid, overdue, cancelled
+  dueDate         DateTime?
+  paidAt          DateTime?
+  stripeInvoiceId String?  // Stripe invoice ID
+  items           Json     // Line items
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client   Client?   @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  project  Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  payments Payment[]
+
+  @@map("invoices")
+}
+
+// Payment records
+model Payment {
+  id                 String   @id @default(cuid())
+  userId             String
+  invoiceId          String
+  amountCents        Int
+  status             String   // pending, succeeded, failed, refunded
+  stripePaymentId    String? // Stripe Payment Intent ID
+  stripeChargeId     String? // Stripe Charge ID
+  failureReason      String?
+  refundAmountCents  Int?     // Refunded amount in cents
+  refundedAt         DateTime?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+// Third-party integrations
+model IntegrationAccount {
+  id           String   @id @default(cuid())
+  userId       String
+  provider     String   // google_drive, onedrive
+  accountId    String   // Provider's account ID
+  displayName  String?
+  email        String?
+  scopes       String[] // Granted permissions
+  refreshToken String  // For refresh token flow
+  accessToken  String?  // Current access token
+  expiresAt    DateTime?
+  isActive     Boolean  @default(true)
+  lastSync     DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider, accountId])
+  @@map("integration_accounts")
+}
+
+// System logs for audit trail
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String   // create, update, delete, login, export, etc.
+  resource  String   // user, document, client, etc.
+  resourceId String? // ID of the resource
+  details   Json?    // Additional details about the action
+  ipAddress String?  // IP address
+  userAgent String?  // User agent
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}

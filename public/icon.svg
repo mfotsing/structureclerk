@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon version - SC monogram only -->
+  <path d="M16 2L4 7V17C4 23.5 9.5 29 16 31C22.5 29 28 23.5 28 17V7L16 2Z" fill="url(#iconGradient)" stroke="url(#iconBorder)" stroke-width="1.5"/>
+
+  <!-- SC Letters for icon -->
+  <text x="16" y="20" font-family="Inter, sans-serif" font-size="10" font-weight="700" text-anchor="middle" fill="white">SC</text>
+
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A84FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F62FE;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="iconBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F62FE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0A84FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

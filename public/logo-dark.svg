@@ -1,0 +1,31 @@
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Monogram "SC" in a shield-like shape -->
+  <g id="monogram">
+    <!-- Shield background -->
+    <path d="M20 5L8 10V20C8 26.5 13.5 32 20 34C26.5 32 32 26.5 32 20V10L20 5Z" fill="url(#shieldGradient)" stroke="url(#borderGradient)" stroke-width="1.5"/>
+
+    <!-- SC Letters -->
+    <text x="20" y="24" font-family="Inter, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="white">SC</text>
+  </g>
+
+  <!-- Wordmark "StructureClerk" -->
+  <text x="45" y="26" font-family="Sora, sans-serif" font-size="18" font-weight="600" fill="url(#textGradient)">StructureClerk</text>
+
+  <!-- Definitions for gradients -->
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A84FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F62FE;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F62FE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0A84FF;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F8FAFC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E2E8F0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
