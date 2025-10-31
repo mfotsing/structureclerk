@@ -106,9 +106,17 @@ function HomePageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div
+      className="min-h-screen text-white overflow-hidden"
+      style={{ backgroundColor: '#000' }}
+    >
       {/* Animated Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+      <div
+        className="fixed inset-0"
+        style={{
+          background: 'linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%)'
+        }}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(120,119,198,0.3),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.2),transparent_50%)]" />
         <div
