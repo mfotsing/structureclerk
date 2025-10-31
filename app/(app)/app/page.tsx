@@ -1,27 +1,7 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
-import {
-  FileText,
-  Mic,
-  DollarSign,
-  Send,
-  BarChart3,
-  Clock,
-  Upload,
-  Plus,
-  CheckCircle,
-  TrendingUp,
-  Users,
-  Zap,
-} from 'lucide-react';
-import UsageMeters from '@/components/ui/UsageMeters';
-import SearchBar from '@/components/SearchBar';
-import SearchResults from '@/components/SearchResults';
-import type { SearchResult } from '@/types/search';
-import Link from 'next/link';
+import { useState, useEffect } from 'react'
+import BusinessDashboard from '@/components/analytics/BusinessDashboard'
 
 interface DashboardStats {
   documentsProcessed: number;
@@ -40,7 +20,6 @@ interface RecentActivity {
 }
 
 export default function DashboardPage() {
-  const t = useTranslations('app.dashboard');
   const [stats, setStats] = useState<DashboardStats>({
     documentsProcessed: 0,
     audioMinutesTranscribed: 0,
@@ -52,396 +31,165 @@ export default function DashboardPage() {
   const [userPlan, setUserPlan] = useState<string>('free');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Search state
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [showSearchResults, setShowSearchResults] = useState(false);
-
   // Fetch dashboard data
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        // Fetch user stats
-        const statsResponse = await fetch('/api/user/stats');
-        if (statsResponse.ok) {
-          const data = await statsResponse.json();
-          setStats(data);
-        }
+        // Simulate API calls
+        setStats({
+          documentsProcessed: 1247,
+          audioMinutesTranscribed: 456,
+          tasksCreated: 89,
+          emailsSent: 234,
+        })
 
-        // Fetch recent activity
-        const activityResponse = await fetch('/api/user/activity');
-        if (activityResponse.ok) {
-          const data = await activityResponse.json();
-          setRecentActivity(data);
-        }
+        setRecentActivity([
+          {
+            id: '1',
+            type: 'document',
+            title: 'Contract Review - Project Alpha',
+            description: 'AI analysis complete. Key terms identified and flagged for review.',
+            timestamp: new Date('2024-01-15T10:30:00'),
+            status: 'completed'
+          },
+          {
+            id: '2',
+            type: 'audio',
+            title: 'Client Meeting - Q1 Planning',
+            description: '45-minute transcription with action items extracted.',
+            timestamp: new Date('2024-01-15T09:15:00'),
+            status: 'completed'
+          },
+          {
+            id: '3',
+            type: 'invoice',
+            title: 'Invoice #2024-001',
+            description: 'Generated automatically from contract terms discussion.',
+            timestamp: new Date('2024-01-14T14:20:00'),
+            status: 'completed'
+          }
+        ])
 
-        // Fetch usage data
-        const usageResponse = await fetch('/api/stripe/customer-portal');
-        if (usageResponse.ok) {
-          const data = await usageResponse.json();
-          setCurrentUsage(data.currentUsage);
-          setUserPlan(data.plan.toLowerCase());
-        }
+        setCurrentUsage({
+          documents: 847,
+          audio: 234,
+          emails: 156
+        })
+        setUserPlan('pro')
       } catch (error) {
-        console.error('Failed to fetch dashboard data:', error);
+        console.error('Failed to fetch dashboard data:', error)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    };
-
-    fetchDashboardData();
-  }, []);
-
-  // Search handlers
-  const handleSearch = async (response: any) => {
-    setSearchResults(response.results);
-    setSearchQuery(response.query);
-    setShowSearchResults(true);
-  };
-
-  const handleResultClick = (result: SearchResult) => {
-    console.log('Result clicked:', result);
-    // Handle navigation to the result
-    if (result.url) {
-      window.open(result.url, '_blank');
     }
-  };
 
-  const handleResultAction = (result: SearchResult, action: string) => {
-    console.log('Action clicked:', action, 'for result:', result);
-    // Handle different actions based on type
-    switch (action) {
-      case 'open':
-        if (result.url) window.open(result.url, '_blank');
-        break;
-      case 'summarize':
-        // Navigate to summary view
-        break;
-      case 'share':
-        // Open share dialog
-        break;
-      default:
-        console.log('Unknown action:', action);
-    }
-  };
-
-  const clearSearch = () => {
-    setSearchResults([]);
-    setSearchQuery('');
-    setShowSearchResults(false);
-  };
+    fetchDashboardData()
+  }, [])
 
   const quickActions = [
     {
       id: 'upload',
-      title: t('upload_document'),
+      title: 'Upload Document',
       description: 'Upload and process documents with AI',
-      icon: Upload,
+      icon: '📄',
       href: '/app/documents',
-      color: 'blue',
+      color: '#3b82f6',
     },
     {
       id: 'record',
-      title: t('record_audio'),
+      title: 'Record Audio',
       description: 'Record and transcribe audio',
-      icon: Mic,
+      icon: '🎙️',
       href: '/app/audio',
-      color: 'green',
+      color: '#10b981',
     },
     {
       id: 'invoice',
-      title: t('create_invoice'),
+      title: 'Create Invoice',
       description: 'Generate and send invoices',
-      icon: DollarSign,
+      icon: '💰',
       href: '/app/invoices',
-      color: 'purple',
+      color: '#8b5cf6',
+    },
+    {
+      id: 'calendar',
+      title: 'Manage Calendar',
+      description: 'Schedule meetings and sync calendars',
+      icon: '📅',
+      href: '/app/calendar',
+      color: '#ef4444',
     },
     {
       id: 'followup',
-      title: t('send_followup'),
+      title: 'Send Follow-up',
       description: 'Send automated follow-ups',
-      icon: Send,
+      icon: '📤',
       href: '/app/automations',
-      color: 'orange',
+      color: '#f59e0b',
     },
   ];
 
   const getActivityIcon = (type: string) => {
     switch (type) {
-      case 'document': return FileText;
-      case 'audio': return Mic;
-      case 'task': return CheckCircle;
-      case 'invoice': return DollarSign;
-      default: return FileText;
+      case 'document': return '📄';
+      case 'audio': return '🎙️';
+      case 'task': return '✅';
+      case 'invoice': return '💰';
+      default: return '📄';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-50';
-      case 'processing': return 'text-blue-600 bg-blue-50';
-      case 'pending': return 'text-orange-600 bg-orange-50';
-      default: return 'text-gray-600 bg-gray-50';
+      case 'completed': return { background: 'rgba(34, 197, 94, 0.2)', color: '#22c55e' };
+      case 'processing': return { background: 'rgba(59, 130, 246, 0.2)', color: '#3b82f6' };
+      case 'pending': return { background: 'rgba(245, 158, 11, 0.2)', color: '#f59e0b' };
+      default: return { background: 'rgba(156, 163, 175, 0.2)', color: '#9ca3af' };
     }
   };
 
   if (isLoading) {
     return (
-      <div className="p-8">
-        <div className="animate-pulse space-y-6">
-          <div className="h-8 bg-muted rounded w-1/3" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div style={{ padding: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{
+            height: '2rem',
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '0.5rem',
+            width: '33%'
+          }} />
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '1rem'
+          }}>
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-card p-6 rounded-lg border">
-                <div className="h-4 bg-muted rounded w-2/3 mb-4" />
-                <div className="h-8 bg-muted rounded w-1/2" />
+              <div key={i} style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '0.5rem',
+                padding: '1.5rem'
+              }}>
+                <div style={{
+                  height: '1rem',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: '0.25rem',
+                  width: '66%',
+                  marginBottom: '1rem'
+                }} />
+                <div style={{
+                  height: '2rem',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: '0.25rem',
+                  width: '50%'
+                }} />
               </div>
             ))}
           </div>
         </div>
       </div>
-    );
+    )
   }
 
-  return (
-    <div className="p-8 space-y-8">
-      {/* Welcome Header with Search */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="space-y-6"
-      >
-        <div>
-          <h1 className="text-3xl font-bold font-heading mb-2">
-            {t('welcome')}
-          </h1>
-          <p className="text-muted-foreground">
-            Here's what's happening with your account today.
-          </p>
-        </div>
-
-        {/* Global Search Bar */}
-        <SearchBar
-          userId="demo-user" // In production, get from auth context
-          onResultClick={handleResultClick}
-          onSearch={handleSearch}
-          placeholder="Search documents, emails, invoices, projects..."
-          className="max-w-2xl"
-        />
-      </motion.div>
-
-      {/* Search Results */}
-      {showSearchResults && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-4"
-        >
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">
-              Search Results for "{searchQuery}"
-            </h2>
-            <button
-              onClick={clearSearch}
-              className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-            >
-              Clear Search
-            </button>
-          </div>
-
-          <SearchResults
-            results={searchResults}
-            query={searchQuery}
-            onResultClick={handleResultClick}
-            onResultAction={handleResultAction}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6"
-          />
-        </motion.div>
-      )}
-
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-card p-6 rounded-lg border"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <FileText className="h-8 w-8 text-brand-blue" />
-            <TrendingUp className="h-4 w-4 text-green-500" />
-          </div>
-          <div className="text-2xl font-bold">{stats.documentsProcessed}</div>
-          <div className="text-sm text-muted-foreground">Documents Processed</div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-card p-6 rounded-lg border"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <Clock className="h-8 w-8 text-brand-green" />
-            <TrendingUp className="h-4 w-4 text-green-500" />
-          </div>
-          <div className="text-2xl font-bold">{stats.audioMinutesTranscribed}</div>
-          <div className="text-sm text-muted-foreground">Minutes Transcribed</div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-card p-6 rounded-lg border"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <CheckCircle className="h-8 w-8 text-brand-purple" />
-            <TrendingUp className="h-4 w-4 text-green-500" />
-          </div>
-          <div className="text-2xl font-bold">{stats.tasksCreated}</div>
-          <div className="text-sm text-muted-foreground">Tasks Created</div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="bg-card p-6 rounded-lg border"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <Send className="h-8 w-8 text-brand-orange" />
-            <TrendingUp className="h-4 w-4 text-green-500" />
-          </div>
-          <div className="text-2xl font-bold">{stats.emailsSent}</div>
-          <div className="text-sm text-muted-foreground">Emails Sent</div>
-        </motion.div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-          className="lg:col-span-2"
-        >
-          <h2 className="text-xl font-bold font-heading mb-6 flex items-center gap-2">
-            <Zap className="h-5 w-5 text-brand-blue" />
-            {t('quick_actions')}
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {quickActions.map((action, index) => {
-              const Icon = action.icon;
-              return (
-                <Link
-                  key={action.id}
-                  href={action.href}
-                  className="group bg-card p-6 rounded-lg border hover:shadow-md transition-all hover:-translate-y-1"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 bg-${action.color}-10 rounded-lg flex items-center justify-center group-hover:bg-${action.color}-20 transition-colors`}>
-                      <Icon className={`h-6 w-6 text-${action.color}-600`} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold mb-1">{action.title}</h3>
-                      <p className="text-sm text-muted-foreground">{action.description}</p>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Usage Meters */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <UsageMeters
-            currentUsage={currentUsage}
-            plan={userPlan}
-          />
-        </motion.div>
-      </div>
-
-      {/* Recent Activity */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-      >
-        <h2 className="text-xl font-bold font-heading mb-6 flex items-center gap-2">
-          <BarChart3 className="h-5 w-5 text-brand-blue" />
-          {t('recent_activity')}
-        </h2>
-
-        {recentActivity.length > 0 ? (
-          <div className="bg-card rounded-lg border">
-            <div className="divide-y">
-              {recentActivity.map((activity, index) => {
-                const Icon = getActivityIcon(activity.type);
-                return (
-                  <div
-                    key={activity.id}
-                    className="p-4 hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon className="h-5 w-5 text-muted-foreground" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium truncate">{activity.title}</h4>
-                          <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(activity.status)}`}>
-                            {activity.status}
-                          </span>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          {activity.description}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {new Date(activity.timestamp).toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {recentActivity.length > 0 && (
-              <div className="p-4 border-t">
-                <Link
-                  href="/app/activity"
-                  className="text-sm text-brand-blue hover:text-brand-blue-dark font-medium"
-                >
-                  View all activity →
-                </Link>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="bg-card p-12 rounded-lg border text-center">
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2">No recent activity</h3>
-            <p className="text-muted-foreground mb-6">
-              Get started by uploading your first document or recording audio.
-            </p>
-            <Link
-              href="/app/documents"
-              className="btn-primary"
-            >
-              Get Started
-            </Link>
-          </div>
-        )}
-      </motion.div>
-    </div>
-  );
+  return <BusinessDashboard />
 }

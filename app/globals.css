@@ -53,3 +53,215 @@ html, body {
   background: #000 !important;
   color: #fff !important;
 }
+
+/* ACCESSIBILITY STYLES */
+.accessibility-large-fonts {
+  font-size: 150% !important;
+  line-height: 1.8 !important;
+}
+
+.accessibility-large-fonts * {
+  font-size: inherit !important;
+}
+
+.accessibility-high-contrast {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.accessibility-high-contrast .glass-effect {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 2px solid #fff !important;
+}
+
+.accessibility-high-contrast .blue-gradient {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+.accessibility-high-contrast button,
+.accessibility-high-contrast input,
+.accessibility-high-strong-contrast textarea {
+  border: 2px solid #fff !important;
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.accessibility-simplified {
+  /* Hide complex UI elements */
+}
+
+.accessibility-simplified .complex-sidebar,
+.accessibility-simplified .secondary-nav,
+.accessibility-simplified .advanced-filters {
+  display: none !important;
+}
+
+.accessibility-simplified .main-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 2rem !important;
+}
+
+.accessibility-simplified .action-button {
+  font-size: 1.25rem !important;
+  padding: 1rem 2rem !important;
+  margin: 1rem 0 !important;
+  min-height: 3rem !important;
+}
+
+.accessibility-reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Focus indicators for keyboard navigation */
+.accessibility-high-contrast *:focus {
+  outline: 3px solid #ffeb3b !important;
+  outline-offset: 2px !important;
+}
+
+/* MOBILE OPTIMIZATIONS */
+.mobile-one-handed {
+  /* Push content to one side for thumb reach */
+}
+
+.mobile-one-handed .main-content {
+  padding-left: 1rem !important;
+  padding-right: 3rem !important;
+}
+
+.mobile-one-handed .sidebar {
+  width: 3rem !important;
+}
+
+.mobile-one-handed .sidebar .sidebar-text {
+  display: none !important;
+}
+
+.mobile-large-touch button,
+.mobile-large-touch .action-button,
+.mobile-large-touch input,
+.mobile-large-touch textarea,
+.mobile-large-touch select {
+  min-height: 3.5rem !important;
+  min-width: 3.5rem !important;
+  padding: 1rem 1.5rem !important;
+  font-size: 1.125rem !important;
+  border-radius: 1rem !important;
+}
+
+.mobile-large-touch .quick-action-card {
+  padding: 1.5rem !important;
+  border-radius: 1.25rem !important;
+}
+
+.mobile-thumb-optimized {
+  /* Important actions in thumb reach zone (bottom-right area) */
+}
+
+.mobile-thumb-optimized .primary-actions {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 1rem !important;
+  z-index: 1000 !important;
+}
+
+.mobile-thumb-optimized .secondary-actions {
+  position: fixed !important;
+  bottom: 6rem !important;
+  right: 1rem !important;
+  z-index: 999 !important;
+}
+
+.mobile-floating-actions .floating-button {
+  position: fixed !important;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  width: 4rem !important;
+  height: 4rem !important;
+  border-radius: 50% !important;
+  z-index: 1001 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.mobile-reduced-animations * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* MOBILE-FIRST RESPONSIVE */
+@media (max-width: 768px) {
+  .mobile-large-touch .metric-card {
+    padding: 1.5rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .mobile-large-touch .navigation-item {
+    min-height: 4rem !important;
+    padding: 1rem !important;
+  }
+
+  .mobile-thumb-optimized .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .mobile-one-handed .sidebar {
+    transform: translateX(-2rem);
+  }
+
+  .mobile-floating-actions .floating-menu {
+    position: fixed !important;
+    bottom: 5rem !important;
+    right: 1rem !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border-radius: 1.5rem !important;
+    padding: 1rem !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+/* TOUCH TARGET OPTIMIZATIONS */
+@media (hover: none) and (pointer: coarse) {
+  .mobile-large-touch button,
+  .mobile-large-touch .clickable {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  .mobile-large-touch .interactive-element {
+    padding: 12px !important;
+    margin: 8px !important;
+  }
+}
+
+/* THUMB ZONE OPTIMIZATION */
+.mobile-thumb-optimized .thumb-zone-primary {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 1rem !important;
+  width: 8rem !important;
+  height: 8rem !important;
+  z-index: 1000 !important;
+}
+
+.mobile-thumb-optimized .thumb-zone-secondary {
+  position: fixed !important;
+  bottom: 10rem !important;
+  right: 1rem !important;
+  width: 6rem !important;
+  height: 6rem !important;
+  z-index: 999 !important;
+}
+
+/* SAFE AREA HANDLING */
+.mobile-one-handed {
+  padding-left: env(safe-area-inset-left) !important;
+  padding-right: env(safe-area-inset-right) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
