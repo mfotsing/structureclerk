@@ -10,12 +10,22 @@ const anthropic = new Anthropic({
 
 // Initialize Supabase client
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || 'https://placeholder.supabase.co',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'placeholder-key'
 );
 
 export async function POST(req: NextRequest) {
   try {
+    // Check if required environment variables are available
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.SUPABASE_URL) {
+      return NextResponse.json({
+        error: 'Search service configuration error',
+        results: [],
+        total_count: 0,
+        search_time: 0,
+      }, { status: 503 });
+    }
+
     const startTime = Date.now();
     const body = await req.json();
     const {
