@@ -1,6 +1,7 @@
 import { Inter, Sora } from 'next/font/google';
 import { ReactNode } from 'react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import '../styles/globals.css';
 
 // Font configurations
 const inter = Inter({
