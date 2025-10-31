@@ -11,13 +11,13 @@
     "languageToggle": "FR"
   },
   "hero": {
-    "badge": "🎉 Join 500+ entrepreneurs saving 10+ hours/week",
-    "title": "Your Business,",
-    "titleHighlight": "Automated.",
-    "subtitle": "Transform documents and calls into actions: summaries, tasks, follow-ups, contracts, invoices.",
-    "subtitleHighlight": "Focus on growth. Let AI handle the paperwork.",
-    "ctaPrimary": "Start Free 30-Day Trial",
-    "ctaSecondary": "Watch 2-Min Demo"
+    "badge": "🤖 Your AI Workspace for Business Productivity",
+    "title": "Your AI Workspace",
+    "titleHighlight": "for Business Productivity",
+    "subtitle": "Search anything. Capture everything. Automate admin with AI.",
+    "subtitleHighlight": "The complete AI-powered platform for modern businesses.",
+    "ctaPrimary": "Start Free",
+    "ctaSecondary": "See AI Demo"
   },
   "stats": {
     "documents": {
@@ -38,45 +38,71 @@
     }
   },
   "features": {
-    "title": "AI That Works",
-    "titleHighlight": "For Your Business",
-    "subtitle": "Three core capabilities that handle 80% of your admin workload",
-    "documentExtraction": {
-      "title": "Scan & AI Extraction",
-      "description": "Upload documents and extract data with 99% accuracy",
-      "demo": "Extracts invoice data in seconds",
+    "title": "AI-Powered",
+    "titleHighlight": "Business Tools",
+    "subtitle": "Two breakthrough AI capabilities that transform how you work",
+    "clerkSearch": {
+      "title": "ClerkSearch AI",
+      "description": "Find anything instantly across your files, emails and history",
+      "demo": "Semantic search with AI reasoning",
       "features": [
-        "OCR technology",
-        "Automatic data extraction",
-        "Smart categorization",
-        "Batch processing",
-        "Cloud storage"
+        "Natural language queries",
+        "Cross-content search",
+        "AI-powered results",
+        "Smart filtering",
+        "Instant answers"
       ]
     },
-    "meetingIntelligence": {
-      "title": "AI Meeting Intelligence",
-      "description": "Transform meetings into actionable insights",
-      "demo": "2-hour meeting → 5 key actions",
+    "smartInbox": {
+      "title": "Smart Inbox AI",
+      "description": "Auto-detect invoices, contracts and important emails",
+      "demo": "AI processes and prioritizes your inbox",
       "features": [
-        "Speech-to-text",
-        "Meeting summaries",
-        "Action items extraction",
-        "Speaker identification",
-        "Export to multiple formats"
-      ]
-    },
-    "automation": {
-      "title": "Smart Automations",
-      "description": "Workflows that adapt to your business",
-      "demo": "Automate 80% of admin tasks",
-      "features": [
-        "Custom triggers",
-        "Multi-step workflows",
-        "Conditional logic",
-        "Integration with tools",
-        "Error handling"
+        "Multi-provider support",
+        "AI email detection",
+        "Automatic extraction",
+        "Smart suggestions",
+        "Secure processing"
       ]
     }
+  },
+  "benefits": {
+    "connect": "Connect Email",
+    "aiSearch": "AI Search",
+    "aiSummary": "AI Summary",
+    "smartFiling": "Smart Filing"
+  },
+  "whyChoose": {
+    "title": "Why Teams Choose StructureClerk",
+    "subtitle": "The modern alternative to traditional admin tools",
+    "points": [
+      {
+        "title": "AI-First Approach",
+        "description": "Built from the ground up with AI, not bolted on as an afterthought"
+      },
+      {
+        "title": "All-in-One Platform",
+        "description": "Search, capture, and automate in one seamless workflow"
+      },
+      {
+        "title": "Enterprise Security",
+        "description": "Bank-level encryption with GDPR and SOC 2 compliance"
+      },
+      {
+        "title": "Proven Results",
+        "description": "500+ businesses save 10+ hours per week on average"
+      }
+    ]
+  },
+  "searchDemo": {
+    "placeholder": "Try it: 'facture Bell mars 2022' or 'contrat signé avec Hugo'",
+    "examples": [
+      "facture Bell mars 2022",
+      "contrat signé avec Hugo Tremblay",
+      "montant total abonnements 2023",
+      "emails client XYZ",
+      "réunion projet alpha"
+    ]
   },
   "demo": {
     "title": "See It In Action",

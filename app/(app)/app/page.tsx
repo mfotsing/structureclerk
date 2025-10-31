@@ -18,6 +18,9 @@ import {
   Zap,
 } from 'lucide-react';
 import UsageMeters from '@/components/ui/UsageMeters';
+import SearchBar from '@/components/SearchBar';
+import SearchResults from '@/components/SearchResults';
+import { SearchResult } from '@/app/api/search/route';
 import Link from 'next/link';
 
 interface DashboardStats {
@@ -48,6 +51,11 @@ export default function DashboardPage() {
   const [currentUsage, setCurrentUsage] = useState<any>(null);
   const [userPlan, setUserPlan] = useState<string>('free');
   const [isLoading, setIsLoading] = useState(true);
+
+  // Search state
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   // Fetch dashboard data
   useEffect(() => {
@@ -83,6 +91,45 @@ export default function DashboardPage() {
 
     fetchDashboardData();
   }, []);
+
+  // Search handlers
+  const handleSearch = async (response: any) => {
+    setSearchResults(response.results);
+    setSearchQuery(response.query);
+    setShowSearchResults(true);
+  };
+
+  const handleResultClick = (result: SearchResult) => {
+    console.log('Result clicked:', result);
+    // Handle navigation to the result
+    if (result.url) {
+      window.open(result.url, '_blank');
+    }
+  };
+
+  const handleResultAction = (result: SearchResult, action: string) => {
+    console.log('Action clicked:', action, 'for result:', result);
+    // Handle different actions based on type
+    switch (action) {
+      case 'open':
+        if (result.url) window.open(result.url, '_blank');
+        break;
+      case 'summarize':
+        // Navigate to summary view
+        break;
+      case 'share':
+        // Open share dialog
+        break;
+      default:
+        console.log('Unknown action:', action);
+    }
+  };
+
+  const clearSearch = () => {
+    setSearchResults([]);
+    setSearchQuery('');
+    setShowSearchResults(false);
+  };
 
   const quickActions = [
     {
@@ -158,18 +205,59 @@ export default function DashboardPage() {
 
   return (
     <div className="p-8 space-y-8">
-      {/* Welcome Header */}
+      {/* Welcome Header with Search */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
+        className="space-y-6"
       >
-        <h1 className="text-3xl font-bold font-heading mb-2">
-          {t('welcome')}
-        </h1>
-        <p className="text-muted-foreground">
-          Here's what's happening with your account today.
-        </p>
+        <div>
+          <h1 className="text-3xl font-bold font-heading mb-2">
+            {t('welcome')}
+          </h1>
+          <p className="text-muted-foreground">
+            Here's what's happening with your account today.
+          </p>
+        </div>
+
+        {/* Global Search Bar */}
+        <SearchBar
+          userId="demo-user" // In production, get from auth context
+          onResultClick={handleResultClick}
+          onSearch={handleSearch}
+          placeholder="Search documents, emails, invoices, projects..."
+          className="max-w-2xl"
+        />
       </motion.div>
+
+      {/* Search Results */}
+      {showSearchResults && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-4"
+        >
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold">
+              Search Results for "{searchQuery}"
+            </h2>
+            <button
+              onClick={clearSearch}
+              className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              Clear Search
+            </button>
+          </div>
+
+          <SearchResults
+            results={searchResults}
+            query={searchQuery}
+            onResultClick={handleResultClick}
+            onResultAction={handleResultAction}
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6"
+          />
+        </motion.div>
+      )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

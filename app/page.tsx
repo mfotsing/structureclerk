@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Star, Shield, Users, Zap, Globe, FileText, BarChart3, Lock, Award, Sparkles, Play, ChevronRight, TrendingUp, Brain, Clock, DollarSign, MessageSquare, Mic, Languages } from 'lucide-react';
+import { ArrowRight, Check, Star, Shield, Users, Zap, Globe, FileText, BarChart3, Lock, Award, Sparkles, Play, ChevronRight, TrendingUp, Brain, Clock, DollarSign, MessageSquare, Mic, Languages, Search, Inbox, Mail, FileSearch, Bot, Zap as FastIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { LanguageProvider, useLanguage } from '../contexts/LanguageContext';
@@ -36,28 +36,20 @@ function HomePageContent() {
   useEffect(() => {
     setFeatures([
       {
-        icon: FileText,
-        title: t('features.documentExtraction.title'),
-        description: t('features.documentExtraction.description'),
-        features: (t('features.documentExtraction.features') as any) || [],
+        icon: Search,
+        title: t('features.clerkSearch.title'),
+        description: t('features.clerkSearch.description'),
+        features: (t('features.clerkSearch.features') as any) || [],
         gradient: "from-blue-600 to-indigo-600",
-        demo: t('features.documentExtraction.demo')
+        demo: t('features.clerkSearch.demo')
       },
       {
-        icon: Brain,
-        title: t('features.meetingIntelligence.title'),
-        description: t('features.meetingIntelligence.description'),
-        features: (t('features.meetingIntelligence.features') as any) || [],
+        icon: Inbox,
+        title: t('features.smartInbox.title'),
+        description: t('features.smartInbox.description'),
+        features: (t('features.smartInbox.features') as any) || [],
         gradient: "from-purple-600 to-pink-600",
-        demo: t('features.meetingIntelligence.demo')
-      },
-      {
-        icon: Zap,
-        title: t('features.automation.title'),
-        description: t('features.automation.description'),
-        features: (t('features.automation.features') as any) || [],
-        gradient: "from-green-600 to-teal-600",
-        demo: t('features.automation.demo')
+        demo: t('features.smartInbox.demo')
       }
     ]);
   }, [t, language]);
@@ -249,6 +241,74 @@ function HomePageContent() {
           </motion.div>
         </div>
 
+        {/* Benefits Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-xl border-y border-white/10"
+        >
+          <div className="max-w-6xl mx-auto px-6 py-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-blue-400" />
+                </div>
+                <span className="text-white font-medium">{t('benefits.connect')}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                  <Search className="w-5 h-5 text-purple-400" />
+                </div>
+                <span className="text-white font-medium">{t('benefits.aiSearch')}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                  <Brain className="w-5 h-5 text-indigo-400" />
+                </div>
+                <span className="text-white font-medium">{t('benefits.aiSummary')}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-pink-500/20 rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-pink-400" />
+                </div>
+                <span className="text-white font-medium">{t('benefits.smartFiling')}</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Interactive Search Demo */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="absolute bottom-24 left-1/2 transform -translate-x-1/2"
+        >
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl">
+            <div className="flex items-center space-x-4">
+              <Search className="w-6 h-6 text-blue-400" />
+              <input
+                type="text"
+                placeholder={t('searchDemo.placeholder')}
+                className="bg-transparent text-white placeholder-gray-400 outline-none w-64 md:w-96"
+                onClick={(e) => e.preventDefault()}
+              />
+              <Bot className="w-6 h-6 text-purple-400 animate-pulse" />
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {(t('searchDemo.examples') as string[]).slice(0, 3).map((example, index) => (
+                <span
+                  key={index}
+                  className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-300 hover:bg-white/20 transition-colors cursor-pointer"
+                >
+                  {example}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
         {/* Floating elements */}
         <motion.div
           animate={{
@@ -389,6 +449,49 @@ function HomePageContent() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Why Teams Choose Section */}
+      <section className="relative py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                {t('whyChoose.title')}
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              {t('whyChoose.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {(t('whyChoose.points') as any[]).map((point, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative group"
+              >
+                <div className="h-full bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/15 transition-all duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <FastIcon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{point.title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{point.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
