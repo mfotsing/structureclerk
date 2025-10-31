@@ -38,7 +38,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-black text-white" suppressHydrationWarning>
         <LanguageProvider>
           {children}
         </LanguageProvider>
