@@ -1,24 +1,55 @@
+/* RESET AND BASE STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* TAILWIND CSS IMPORTS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Critical base styles for immediate effect */
-* {
-  box-sizing: border-box;
+/* CRITICAL STYLES - Override everything */
+.dark-theme {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%) !important;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+}
+
+/* FORCE DARK THEME */
+:root {
+  color-scheme: dark;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  background-color: #000;
-  color: #fff;
-}
-
-/* Test utility classes to verify Tailwind is working */
-.test-tailwind {
-  @apply bg-black text-white p-4 rounded-lg;
-}
-
-.test-gradient {
-  @apply bg-gradient-to-r from-blue-500 to-purple-600;
+  background: #000 !important;
+  color: #fff !important;
 }

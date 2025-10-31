@@ -1,814 +1,203 @@
-'use client';
+'use client'
 
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Star, Shield, Users, Zap, Globe, FileText, BarChart3, Lock, Award, Sparkles, Play, ChevronRight, TrendingUp, Brain, Clock, DollarSign, MessageSquare, Mic, Languages, Search, Inbox, Mail, FileSearch, Bot, Zap as FastIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { LanguageProvider, useLanguage } from '../contexts/LanguageContext';
-import AIChatbot from '../components/AIChatbot';
-import AudioRecorder from '../components/AudioRecorder';
-
-function HomePageContent() {
-  const [activeFeature, setActiveFeature] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
-  const [showAudioRecorder, setShowAudioRecorder] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const { t, language, setLanguage } = useLanguage();
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    const handleScroll = () => setScrollY(window.scrollY);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const [features, setFeatures] = useState<any[]>([]);
-
-  useEffect(() => {
-    // Helper function to safely get features array from translations
-    const getFeaturesArray = (key: string): string[] => {
-      try {
-        const result = t(key);
-        return Array.isArray(result) ? result : [];
-      } catch (error) {
-        console.error(`Error getting features for ${key}:`, error);
-        return [];
-      }
-    };
-
-    setFeatures([
-      {
-        icon: Search,
-        title: t('features.clerkSearch.title'),
-        description: t('features.clerkSearch.description'),
-        features: getFeaturesArray('features.clerkSearch.features'),
-        gradient: "from-blue-600 to-indigo-600",
-        demo: t('features.clerkSearch.demo')
-      },
-      {
-        icon: Inbox,
-        title: t('features.smartInbox.title'),
-        description: t('features.smartInbox.description'),
-        features: getFeaturesArray('features.smartInbox.features'),
-        gradient: "from-purple-600 to-pink-600",
-        demo: t('features.smartInbox.demo')
-      }
-    ]);
-  }, [t, language]);
-
-  const stats = [
-    { value: t('stats.documents.value'), label: t('stats.documents.label'), icon: FileText },
-    { value: t('stats.timeSaved.value'), label: t('stats.timeSaved.label'), icon: Clock },
-    { value: t('stats.invoices.value'), label: t('stats.invoices.label'), icon: DollarSign },
-    { value: t('stats.users.value'), label: t('stats.users.label'), icon: Users }
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Founder, TechStart Inc.",
-      content: t('testimonials.sarah.content'),
-      rating: 5,
-      avatar: "SC"
-    },
-    {
-      name: "Marcus Rodriguez",
-      role: "CEO, Creative Agency",
-      content: t('testimonials.marcus.content'),
-      rating: 5,
-      avatar: "MR"
-    },
-    {
-      name: "Emily Watson",
-      role: "Freelance Consultant",
-      content: t('testimonials.emily.content'),
-      rating: 5,
-      avatar: "EW"
-    }
-  ];
-
-  if (showAudioRecorder) {
-    return (
-      <>
-        <AudioRecorder />
-        <AIChatbot />
-      </>
-    );
-  }
-
-  return (
-    <div
-      className="min-h-screen text-white overflow-hidden"
-      style={{ backgroundColor: '#000' }}
-    >
-      {/* Animated Background */}
-      <div
-        className="fixed inset-0"
-        style={{
-          background: 'linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%)'
-        }}
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(120,119,198,0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.2),transparent_50%)]" />
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.1), transparent 40%)`
-          }}
-        />
-      </div>
-
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/20 border-b border-white/10"
-      >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <motion.div
-            className="flex items-center space-x-2"
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">SC</span>
-            </div>
-            <span className="text-xl font-bold">{t('navigation.logo')}</span>
-          </motion.div>
-
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">{t('navigation.product')}</a>
-            <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors">{t('navigation.testimonials')}</a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t('navigation.pricing')}</a>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
-              className="flex items-center space-x-1 px-3 py-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg hover:bg-white/20 transition-all"
-            >
-              <Languages className="w-4 h-4" />
-              <span className="text-sm font-medium">{t('navigation.languageToggle')}</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all"
-            >
-              {t('navigation.signup')}
-            </motion.button>
-          </div>
-        </div>
-      </motion.nav>
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3">
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-medium">{t('hero.badge')}</span>
-            </div>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
-          >
-            <span className="bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
-              {t('hero.title')}<br/>
-            </span>
-            <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              {t('hero.titleHighlight')}
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
-          >
-            {t('hero.subtitle')}<br/>
-            <span className="text-blue-400 font-semibold">{t('hero.subtitleHighlight')}</span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 40px rgba(59, 130, 246, 0.4)" }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative px-10 py-5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl font-semibold text-lg hover:shadow-2xl transition-all overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative flex items-center">
-                {t('hero.ctaPrimary')}
-                <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowAudioRecorder(true)}
-              className="group px-10 py-5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl font-semibold text-lg hover:bg-white/20 transition-all"
-            >
-              <Mic className="inline-block w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              {t('hero.ctaSecondary')}
-            </motion.button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
-          >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
-                className="text-center"
-              >
-                <stat.icon className="w-6 h-6 mx-auto mb-2 text-blue-400" />
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Benefits Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-xl border-y border-white/10"
-        >
-          <div className="max-w-6xl mx-auto px-6 py-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-blue-400" />
-                </div>
-                <span className="text-white font-medium">{t('benefits.connect')}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <Search className="w-5 h-5 text-purple-400" />
-                </div>
-                <span className="text-white font-medium">{t('benefits.aiSearch')}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-                  <Brain className="w-5 h-5 text-indigo-400" />
-                </div>
-                <span className="text-white font-medium">{t('benefits.aiSummary')}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-pink-500/20 rounded-lg flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-pink-400" />
-                </div>
-                <span className="text-white font-medium">{t('benefits.smartFiling')}</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Interactive Search Demo */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="absolute bottom-24 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl">
-            <div className="flex items-center space-x-4">
-              <Search className="w-6 h-6 text-blue-400" />
-              <input
-                type="text"
-                placeholder={t('searchDemo.placeholder')}
-                className="bg-transparent text-white placeholder-gray-400 outline-none w-64 md:w-96"
-                onClick={(e) => e.preventDefault()}
-              />
-              <Bot className="w-6 h-6 text-purple-400 animate-pulse" />
-            </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {(() => {
-                const examples = t('searchDemo.examples');
-                if (Array.isArray(examples)) {
-                  return (examples as string[]).slice(0, 3).map((example, index) => (
-                    <span
-                      key={index}
-                      className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-300 hover:bg-white/20 transition-colors cursor-pointer"
-                    >
-                      {example}
-                    </span>
-                  ));
-                }
-                return null;
-              })()}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Floating elements */}
-        <motion.div
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, -5, 0]
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-32 left-10 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl rounded-2xl border border-white/10"
-        />
-        <motion.div
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, -5, 5, 0]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-32 right-10 w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-xl rounded-2xl border border-white/10"
-        />
-      </section>
-
-      {/* Interactive Features Section */}
-      <section id="features" className="relative py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                {t('features.title')}
-              </span>
-              <br />
-              <span className="text-white">{t('features.titleHighlight')}</span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {t('features.subtitle')}
-            </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                onMouseEnter={() => setActiveFeature(index)}
-                className={`relative group cursor-pointer ${activeFeature === index ? 'scale-105' : ''} transition-all duration-300`}
-              >
-                <div className={`relative h-full bg-gradient-to-br ${feature.gradient} p-8 rounded-3xl border border-white/10 backdrop-blur-xl hover:shadow-2xl`}>
-                  <div className="absolute top-4 right-4 w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </div>
-
-                  <div className="mb-6">
-                    <div className="inline-flex items-center px-3 py-1 bg-white/20 rounded-full text-sm text-white mb-4">
-                      {feature.demo}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{feature.title}</h3>
-                    <p className="text-white/80">{feature.description}</p>
-                  </div>
-
-                  <ul className="space-y-3">
-                    {Array.isArray(feature.features) && feature.features.map((item: string, i: number) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + i * 0.05 }}
-                        viewport={{ once: true }}
-                        className="flex items-start"
-                      >
-                        <Check className="w-5 h-5 mr-3 mt-0.5 text-white/90 flex-shrink-0" />
-                        <span className="text-white/90 text-sm">{item}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    className="absolute bottom-4 right-4 bg-white/20 px-4 py-2 rounded-full text-sm text-white"
-                  >
-                    {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Interactive Demo Preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="relative bg-gradient-to-r from-purple-900/20 to-blue-900/20 backdrop-blur-xl border border-white/10 rounded-3xl p-12"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  {t('demo.title')}
-                </h3>
-                <p className="text-gray-300 mb-6 text-lg">
-                  {t('demo.description')}
-                </p>
-                <div className="space-y-4">
-                  {(() => {
-                    const features = t('demo.features');
-                    if (Array.isArray(features)) {
-                      return (features as string[]).map((item: string, i: number) => (
-                        <div key={i} className="flex items-center space-x-3">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                          <span className="text-gray-300">{item}</span>
-                        </div>
-                      ));
-                    }
-                    return null;
-                  })()}
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="mt-8 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl font-semibold text-lg hover:shadow-2xl transition-all"
-                >
-                  {t('demo.cta')}
-                </motion.button>
-              </div>
-              <div className="relative">
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8">
-                  <div className="space-y-4">
-                    <div className="h-4 bg-white/20 rounded-full w-3/4 animate-pulse" />
-                    <div className="h-4 bg-white/20 rounded-full w-full animate-pulse" />
-                    <div className="h-4 bg-white/20 rounded-full w-5/6 animate-pulse" />
-                    <div className="grid grid-cols-2 gap-4 mt-6">
-                      <div className="h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl border border-white/10" />
-                      <div className="h-32 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl border border-white/10" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Why Teams Choose Section */}
-      <section className="relative py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                {t('whyChoose.title')}
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {t('whyChoose.subtitle')}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {(() => {
-              const points = t('whyChoose.points');
-              if (Array.isArray(points)) {
-                return (points as any[]).map((point: any, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="relative group"
-              >
-                <div className="h-full bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/15 transition-all duration-300">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <FastIcon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{point.title}</h3>
-                  <p className="text-gray-300 leading-relaxed">{point.description}</p>
-                </div>
-              </motion.div>
-                ));
-              }
-              return null;
-            })()}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="relative py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-white">{t('testimonials.title')}</span>
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                {t('testimonials.titleHighlight')}
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {t('testimonials.subtitle')}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="relative group"
-              >
-                <div className="h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:bg-white/15 transition-all duration-300">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                      {testimonial.avatar}
-                    </div>
-                    <div>
-                      <div className="text-white font-semibold">{testimonial.name}</div>
-                      <div className="text-gray-400 text-sm">{testimonial.role}</div>
-                    </div>
-                  </div>
-
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-
-                  <p className="text-gray-300 leading-relaxed">"{testimonial.content}"</p>
-
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    className="absolute top-8 right-8 bg-green-500 w-3 h-3 rounded-full"
-                  >
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-ping" />
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="relative py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-white">{t('pricing.title')}</span>
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                {t('pricing.titleHighlight')}
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {t('pricing.subtitle')}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Pro Plan */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative group"
-            >
-              <div className="h-full bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 border border-white/20 hover:scale-105 transition-all duration-300">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">{t('pricing.pro.title')}</h3>
-                  <div className="text-5xl font-bold text-white mb-2">{t('pricing.pro.price')}<span className="text-xl text-white/70">{t('pricing.pro.period')}</span></div>
-                  <p className="text-white/80">{t('pricing.pro.description')}</p>
-                </div>
-                <ul className="space-y-4 mb-8">
-                  {(() => {
-                    const features = t('pricing.pro.features');
-                    if (Array.isArray(features)) {
-                      return (features as any[]).map((feature: any, i: number) => (
-                    <li key={i} className="flex items-center text-white">
-                      <Check className="w-5 h-5 mr-3 text-green-400" />
-                      {feature}
-                    </li>
-                      ));
-                    }
-                    return null;
-                  })()}
-                </ul>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full py-4 bg-white text-blue-600 rounded-2xl font-semibold hover:bg-gray-100 transition-all"
-                >
-                  {t('pricing.pro.cta')}
-                </motion.button>
-              </div>
-            </motion.div>
-
-            {/* Enterprise Plan */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="relative group"
-            >
-              <div className="h-full bg-gradient-to-br from-purple-600 to-pink-600 rounded-3xl p-8 border border-white/20 hover:scale-105 transition-all duration-300">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">{t('pricing.enterprise.title')}</h3>
-                  <div className="text-5xl font-bold text-white mb-2">{t('pricing.enterprise.price')}<span className="text-xl text-white/70">{t('pricing.enterprise.period')}</span></div>
-                  <p className="text-white/80">{t('pricing.enterprise.description')}</p>
-                </div>
-                <ul className="space-y-4 mb-8">
-                  {(() => {
-                    const features = t('pricing.enterprise.features');
-                    if (Array.isArray(features)) {
-                      return (features as any[]).map((feature: any, i: number) => (
-                    <li key={i} className="flex items-center text-white">
-                      <Check className="w-5 h-5 mr-3 text-green-400" />
-                      {feature}
-                    </li>
-                      ));
-                    }
-                    return null;
-                  })()}
-                </ul>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full py-4 bg-white text-purple-600 rounded-2xl font-semibold hover:bg-gray-100 transition-all"
-                >
-                  {t('pricing.enterprise.cta')}
-                </motion.button>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="relative py-32 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-16 backdrop-blur-xl border border-white/20"
-          >
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              {t('finalCTA.title')}
-            </h2>
-            <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
-              {t('finalCTA.subtitle')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 20px 60px rgba(59, 130, 246, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
-                className="px-12 py-6 bg-white text-blue-600 rounded-2xl font-bold text-xl hover:shadow-2xl transition-all"
-              >
-                {t('finalCTA.ctaPrimary')}
-                <ArrowRight className="inline-block ml-3 h-6 w-6" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-12 py-6 bg-white/20 backdrop-blur-xl border border-white/30 text-white rounded-2xl font-bold text-xl hover:bg-white/30 transition-all"
-              >
-                {t('finalCTA.ctaSecondary')}
-              </motion.button>
-            </div>
-            <div className="mt-8 flex items-center justify-center space-x-6 text-white/80">
-              <div className="flex items-center">
-                <Shield className="w-5 h-5 mr-2" />
-                {t('finalCTA.trust1')}
-              </div>
-              <div className="flex items-center">
-                <Clock className="w-5 h-5 mr-2" />
-                {t('finalCTA.trust2')}
-              </div>
-              <div className="flex items-center">
-                <Users className="w-5 h-5 mr-2" />
-                {t('finalCTA.trust3')}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative py-16 px-6 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">SC</span>
-                </div>
-                <span className="text-xl font-bold text-white">{t('navigation.logo')}</span>
-              </div>
-              <p className="text-gray-400">
-                {t('footer.tagline')}
-              </p>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">{t('footer.product')}</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#features" className="hover:text-white transition-colors">{t('navigation.product')}</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">{t('navigation.pricing')}</a></li>
-                <li><a href="#testimonials" className="hover:text-white transition-colors">{t('navigation.testimonials')}</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">{t('footer.company')}</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">{t('navigation.about')}</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">{t('footer.legal')}</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-white/10 pt-8 text-center text-gray-400">
-            <p>{t('footer.copyright')}</p>
-          </div>
-        </div>
-      </footer>
-
-      <AIChatbot />
-    </div>
-  );
-}
+import { useState } from 'react'
 
 export default function HomePage() {
+  const [email, setEmail] = useState('')
+
   return (
-    <LanguageProvider>
-      <HomePageContent />
-    </LanguageProvider>
-  );
+    <div style={{
+      minHeight: '100vh',
+      background: '#000',
+      color: '#fff',
+      fontFamily: 'Inter, system-ui, sans-serif'
+    }}>
+      {/* Background with gradient */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%)',
+        zIndex: 1
+      }} />
+
+      {/* Content */}
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        {/* Navigation */}
+        <nav style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '1rem 2rem',
+          background: 'rgba(0, 0, 0, 0.5)',
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold'
+            }}>
+              SC
+            </div>
+            <span style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>StructureClerk</span>
+          </div>
+
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <button style={{
+              background: 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: '#fff',
+              padding: '0.5rem 1rem',
+              borderRadius: '0.5rem',
+              cursor: 'pointer'
+            }}>
+              Features
+            </button>
+            <button style={{
+              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+              border: 'none',
+              color: '#fff',
+              padding: '0.5rem 1.5rem',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              fontWeight: '600'
+            }}>
+              Start Free
+            </button>
+          </div>
+        </nav>
+
+        {/* Hero Section */}
+        <section style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          padding: '2rem',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '1rem',
+            padding: '3rem',
+            maxWidth: '800px',
+            margin: '0 auto'
+          }}>
+            <div style={{
+              display: 'inline-block',
+              background: 'rgba(59, 130, 246, 0.2)',
+              color: '#60a5fa',
+              padding: '0.25rem 1rem',
+              borderRadius: '9999px',
+              fontSize: '0.875rem',
+              marginBottom: '1rem'
+            }}>
+              🤖 Your AI Workspace for Business Productivity
+            </div>
+
+            <h1 style={{
+              fontSize: '3rem',
+              fontWeight: 'bold',
+              marginBottom: '1rem',
+              background: 'linear-gradient(135deg, #fff, #60a5fa, #a78bfa)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              Your AI Workspace<br />
+              <span style={{ color: '#a78bfa' }}>for Business Productivity</span>
+            </h1>
+
+            <p style={{
+              fontSize: '1.25rem',
+              marginBottom: '2rem',
+              color: '#d1d5db',
+              lineHeight: 1.6
+            }}>
+              Search anything. Capture everything. Automate admin with AI.
+              <br />
+              <span style={{ color: '#60a5fa', fontWeight: '600' }}>
+                The complete AI-powered platform for modern businesses.
+              </span>
+            </p>
+
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '2rem' }}>
+              <button style={{
+                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                border: 'none',
+                color: '#fff',
+                padding: '1rem 2rem',
+                borderRadius: '0.75rem',
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                boxShadow: '0 10px 25px rgba(59, 130, 246, 0.3)',
+                transition: 'transform 0.2s'
+              }}>
+                Start Free Trial
+              </button>
+              <button style={{
+                background: 'transparent',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                color: '#fff',
+                padding: '1rem 2rem',
+                borderRadius: '0.75rem',
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}>
+                Watch Demo
+              </button>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '2rem',
+            maxWidth: '1000px',
+            margin: '4rem auto 0'
+          }}>
+            {[
+              { value: '10K+', label: 'Documents Processed Daily' },
+              { value: '95%', label: 'Time Saved' },
+              { value: '$2.5M', label: 'Invoices Processed' },
+              { value: '500+', label: 'Happy Entrepreneurs' }
+            ].map((stat, index) => (
+              <div key={index} style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '1rem',
+                padding: '2rem',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#60a5fa', marginBottom: '0.5rem' }}>
+                  {stat.value}
+                </div>
+                <div style={{ color: '#9ca3af' }}>
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  )
 }
