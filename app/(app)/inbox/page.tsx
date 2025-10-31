@@ -5,56 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Inbox, Send, Calendar, DollarSign, FileText, Clock, Star, Trash2, Archive, Reply, Forward, Filter, Search, Plus, Settings, Zap, AlertCircle, CheckCircle, XCircle } from 'lucide-react';
 import EmailCard from '@/components/inbox/EmailCard';
 import { EmailConnection, Email } from '@/lib/email/types';
-
-// Temporary translations for inbox page (will be properly integrated later)
-const useTempTranslations = () => {
-  const translations = {
-    inbox: {
-      title: "Smart Inbox AI",
-      connect: "Connect Email",
-      noEmails: "No emails found",
-      noEmailsDesc: "Your inbox is empty or emails are still being processed.",
-      connectFirst: "Get Started",
-      searchPlaceholder: "Search emails...",
-      all: "All",
-      invoice: "Invoice",
-      contract: "Contract",
-      important: "Important",
-      urgent: "Urgent",
-      unread: "Unread",
-      processed: "Processed",
-      total: "Total Emails",
-      importantCount: "Important",
-      invoiceCount: "Invoices",
-      contractCount: "Contracts",
-      aiInsights: "AI Insights",
-      noConnections: "Connect Your Email Accounts",
-      noConnectionsDesc: "Securely connect your email accounts to let AI detect invoices, contracts, and important business communications automatically.",
-      processing: "Processing...",
-      resultsFound: "results found",
-      noResultsFor: `No results found for`,
-      providers: [
-        { id: 'gmail', name: 'Gmail', icon: '📧', description: 'Connect your Gmail account' },
-        { id: 'outlook', name: 'Outlook', icon: '📨', description: 'Connect your Outlook/Office 365 account' },
-        { id: 'yahoo', name: 'Yahoo Mail', icon: '📭', description: 'Connect your Yahoo Mail account' },
-        { id: 'icloud', name: 'iCloud Mail', icon: '☁️', description: 'Connect your iCloud Mail account' },
-        { id: 'proton', name: 'ProtonMail', icon: '🔒', description: 'Connect your ProtonMail account' },
-        { id: 'imap', name: 'Custom IMAP', icon: '⚙️', description: 'Connect any IMAP email server' },
-      ],
-    },
-  };
-
-  const t = (key: string) => {
-    const keys = key.split('.');
-    let value: any = translations;
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    return value || key;
-  };
-
-  return { t };
-};
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface EmailStats {
   total: number;
@@ -65,9 +16,7 @@ interface EmailStats {
 }
 
 export default function InboxPage() {
-  // Use temporary translations to avoid static generation issues
-  const { t } = useTempTranslations();
-  const language = 'en';
+  const { t, language } = useLanguage();
   const [emails, setEmails] = useState<Email[]>([]);
   const [connections, setConnections] = useState<EmailConnection[]>([]);
   const [stats, setStats] = useState<EmailStats>({
@@ -165,15 +114,13 @@ export default function InboxPage() {
     return matchesFilter && matchesSearch;
   });
 
-  // Email providers
-  const emailProviders = [
-    { id: 'gmail', name: 'Gmail', icon: '📧', description: 'Connect your Gmail account' },
-    { id: 'outlook', name: 'Outlook', icon: '📨', description: 'Connect your Outlook/Office 365 account' },
-    { id: 'yahoo', name: 'Yahoo Mail', icon: '📭', description: 'Connect your Yahoo Mail account' },
-    { id: 'icloud', name: 'iCloud Mail', icon: '☁️', description: 'Connect your iCloud Mail account' },
-    { id: 'proton', name: 'ProtonMail', icon: '🔒', description: 'Connect your ProtonMail account' },
-    { id: 'imap', name: 'Custom IMAP', icon: '⚙️', description: 'Connect any IMAP email server' },
-  ];
+  // Email providers from translations
+  const emailProviders = (t('app.inbox.providers') as unknown) as Array<{
+    id: string;
+    name: string;
+    icon: string;
+    description: string;
+  }>;
 
   if (isLoading) {
     return (
@@ -204,7 +151,7 @@ export default function InboxPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">
-              Smart Inbox AI
+              {t('app.inbox.title')}
             </h1>
             <p className="text-gray-300">
               AI-powered email processing for invoices, contracts, and important communications
@@ -241,7 +188,7 @@ export default function InboxPage() {
               <Mail className="w-6 h-6 text-blue-400" />
               <span className="text-2xl font-bold text-white">{stats.total}</span>
             </div>
-            <div className="text-sm text-gray-300">Total Emails</div>
+            <div className="text-sm text-gray-300">{t('app.inbox.total')}</div>
           </motion.div>
 
           <motion.div
@@ -254,7 +201,7 @@ export default function InboxPage() {
               <AlertCircle className="w-6 h-6 text-yellow-400" />
               <span className="text-2xl font-bold text-white">{stats.unread}</span>
             </div>
-            <div className="text-sm text-gray-300">Unread</div>
+            <div className="text-sm text-gray-300">{t('app.inbox.unread')}</div>
           </motion.div>
 
           <motion.div
@@ -267,7 +214,7 @@ export default function InboxPage() {
               <Star className="w-6 h-6 text-purple-400" />
               <span className="text-2xl font-bold text-white">{stats.important}</span>
             </div>
-            <div className="text-sm text-gray-300">Important</div>
+            <div className="text-sm text-gray-300">{t('app.inbox.important')}</div>
           </motion.div>
 
           <motion.div
@@ -280,7 +227,7 @@ export default function InboxPage() {
               <DollarSign className="w-6 h-6 text-green-400" />
               <span className="text-2xl font-bold text-white">{stats.invoices}</span>
             </div>
-            <div className="text-sm text-gray-300">Invoices</div>
+            <div className="text-sm text-gray-300">{t('app.inbox.invoiceCount')}</div>
           </motion.div>
 
           <motion.div
@@ -293,7 +240,7 @@ export default function InboxPage() {
               <FileText className="w-6 h-6 text-orange-400" />
               <span className="text-2xl font-bold text-white">{stats.contracts}</span>
             </div>
-            <div className="text-sm text-gray-300">Contracts</div>
+            <div className="text-sm text-gray-300">{t('app.inbox.contractCount')}</div>
           </motion.div>
         </div>
 
@@ -308,10 +255,10 @@ export default function InboxPage() {
               <Inbox className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-white mb-4">
-              Connect Your Email Accounts
+              {t('app.inbox.noConnections')}
             </h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              Securely connect your email accounts to let AI detect invoices, contracts, and important business communications automatically.
+              {t('app.inbox.noConnectionsDesc')}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -357,7 +304,7 @@ export default function InboxPage() {
                         : 'bg-white/10 text-gray-300 hover:bg-white/20'
                     }`}
                   >
-                    {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+                    {t(`app.inbox.${filterOption}`)}
                   </button>
                 ))}
               </div>
@@ -369,7 +316,7 @@ export default function InboxPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search emails..."
+                placeholder={t('app.inbox.searchPlaceholder')}
                 className="pl-10 pr-4 py-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg text-white placeholder-gray-400 outline-none focus:border-blue-400 transition-colors"
               />
             </div>
@@ -406,12 +353,12 @@ export default function InboxPage() {
           >
             <Mail className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">
-              No emails found
+              {t('app.inbox.noEmails')}
             </h3>
             <p className="text-gray-400">
               {searchQuery
-                ? `No results found for "${searchQuery}"`
-                : 'Your inbox is empty or emails are still being processed.'
+                ? `${t('app.inbox.noResultsFor')} "${searchQuery}"`
+                : t('app.inbox.noEmailsDesc')
               }
             </p>
           </motion.div>

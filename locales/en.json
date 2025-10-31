@@ -177,6 +177,50 @@
     "trust2": "2-minute setup",
     "trust3": "500+ happy users"
   },
+  "app": {
+    "dashboard": {
+      "welcome": "Welcome back",
+      "quick_actions": "Quick Actions",
+      "recent_activity": "Recent Activity",
+      "upload_document": "Upload Document",
+      "record_audio": "Record Audio",
+      "create_invoice": "Create Invoice",
+      "send_followup": "Send Follow-up"
+    },
+    "inbox": {
+      "title": "Smart Inbox AI",
+      "connect": "Connect Email",
+      "noEmails": "No emails found",
+      "noEmailsDesc": "Your inbox is empty or emails are still being processed.",
+      "connectFirst": "Get Started",
+      "searchPlaceholder": "Search emails...",
+      "all": "All",
+      "invoice": "Invoice",
+      "contract": "Contract",
+      "important": "Important",
+      "urgent": "Urgent",
+      "unread": "Unread",
+      "processed": "Processed",
+      "total": "Total Emails",
+      "importantCount": "Important",
+      "invoiceCount": "Invoices",
+      "contractCount": "Contracts",
+      "aiInsights": "AI Insights",
+      "noConnections": "Connect Your Email Accounts",
+      "noConnectionsDesc": "Securely connect your email accounts to let AI detect invoices, contracts, and important business communications automatically.",
+      "processing": "Processing...",
+      "resultsFound": "results found",
+      "noResultsFor": "No results found for",
+      "providers": [
+        { "id": "gmail", "name": "Gmail", "icon": "📧", "description": "Connect your Gmail account" },
+        { "id": "outlook", "name": "Outlook", "icon": "📨", "description": "Connect your Outlook/Office 365 account" },
+        { "id": "yahoo", "name": "Yahoo Mail", "icon": "📭", "description": "Connect your Yahoo Mail account" },
+        { "id": "icloud", "name": "iCloud Mail", "icon": "☁️", "description": "Connect your iCloud Mail account" },
+        { "id": "proton", "name": "ProtonMail", "icon": "🔒", "description": "Connect your ProtonMail account" },
+        { "id": "imap", "name": "Custom IMAP", "icon": "⚙️", "description": "Connect any IMAP email server" }
+      ]
+    }
+  },
   "footer": {
     "tagline": "Your AI-powered admin assistant. Focus on what matters.",
     "product": "Product",

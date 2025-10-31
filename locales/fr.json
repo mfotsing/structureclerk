@@ -183,5 +183,49 @@
       "emails client XYZ",
       "réunion projet alpha"
     ]
+  },
+  "app": {
+    "dashboard": {
+      "welcome": "Bon retour",
+      "quick_actions": "Actions Rapides",
+      "recent_activity": "Activité Récente",
+      "upload_document": "Télécharger Document",
+      "record_audio": "Enregistrer Audio",
+      "create_invoice": "Créer Facture",
+      "send_followup": "Envoyer Suivi"
+    },
+    "inbox": {
+      "title": "Boîte de Réception IA",
+      "connect": "Connecter Email",
+      "noEmails": "Aucun email trouvé",
+      "noEmailsDesc": "Votre boîte de réception est vide ou les emails sont en cours de traitement.",
+      "connectFirst": "Commencer",
+      "searchPlaceholder": "Rechercher des emails...",
+      "all": "Tous",
+      "invoice": "Facture",
+      "contract": "Contrat",
+      "important": "Important",
+      "urgent": "Urgent",
+      "unread": "Non lu",
+      "processed": "Traité",
+      "total": "Total Emails",
+      "importantCount": "Importants",
+      "invoiceCount": "Factures",
+      "contractCount": "Contrats",
+      "aiInsights": "Aperçus IA",
+      "noConnections": "Connectez Vos Comptes Email",
+      "noConnectionsDesc": "Connectez en toute sécurité vos comptes email pour laisser l'IA détecter les factures, contrats et communications commerciales importantes automatiquement.",
+      "processing": "Traitement...",
+      "resultsFound": "résultats trouvés",
+      "noResultsFor": "Aucun résultat pour",
+      "providers": [
+        { "id": "gmail", "name": "Gmail", "icon": "📧", "description": "Connectez votre compte Gmail" },
+        { "id": "outlook", "name": "Outlook", "icon": "📨", "description": "Connectez votre compte Outlook/Office 365" },
+        { "id": "yahoo", "name": "Yahoo Mail", "icon": "📭", "description": "Connectez votre compte Yahoo Mail" },
+        { "id": "icloud", "name": "iCloud Mail", "icon": "☁️", "description": "Connectez votre compte iCloud Mail" },
+        { "id": "proton", "name": "ProtonMail", "icon": "🔒", "description": "Connectez votre compte ProtonMail" },
+        { "id": "imap", "name": "IMAP Personnalisé", "icon": "⚙️", "description": "Connectez n'importe quel serveur email IMAP" }
+      ]
+    }
   }
 }
