@@ -34,12 +34,23 @@ function HomePageContent() {
   const [features, setFeatures] = useState<any[]>([]);
 
   useEffect(() => {
+    // Helper function to safely get features array from translations
+    const getFeaturesArray = (key: string): string[] => {
+      try {
+        const result = t(key);
+        return Array.isArray(result) ? result : [];
+      } catch (error) {
+        console.error(`Error getting features for ${key}:`, error);
+        return [];
+      }
+    };
+
     setFeatures([
       {
         icon: Search,
         title: t('features.clerkSearch.title'),
         description: t('features.clerkSearch.description'),
-        features: (t('features.clerkSearch.features') as any) || [],
+        features: getFeaturesArray('features.clerkSearch.features'),
         gradient: "from-blue-600 to-indigo-600",
         demo: t('features.clerkSearch.demo')
       },
@@ -47,7 +58,7 @@ function HomePageContent() {
         icon: Inbox,
         title: t('features.smartInbox.title'),
         description: t('features.smartInbox.description'),
-        features: (t('features.smartInbox.features') as any) || [],
+        features: getFeaturesArray('features.smartInbox.features'),
         gradient: "from-purple-600 to-pink-600",
         demo: t('features.smartInbox.demo')
       }
@@ -381,7 +392,7 @@ function HomePageContent() {
                   </div>
 
                   <ul className="space-y-3">
-                    {feature.features.map((item: string, i: number) => (
+                    {Array.isArray(feature.features) && feature.features.map((item: string, i: number) => (
                       <motion.li
                         key={i}
                         initial={{ opacity: 0, x: -10 }}

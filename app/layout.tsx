@@ -1,5 +1,6 @@
 import { Inter, Sora } from 'next/font/google';
 import { ReactNode } from 'react';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 // Font configurations
 const inter = Inter({
@@ -37,7 +38,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
