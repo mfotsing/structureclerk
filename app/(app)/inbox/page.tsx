@@ -3,9 +3,58 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Inbox, Send, Calendar, DollarSign, FileText, Clock, Star, Trash2, Archive, Reply, Forward, Filter, Search, Plus, Settings, Zap, AlertCircle, CheckCircle, XCircle } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import EmailCard from '@/components/inbox/EmailCard';
 import { EmailConnection, Email } from '@/lib/email/types';
+
+// Temporary translations for inbox page (will be properly integrated later)
+const useTempTranslations = () => {
+  const translations = {
+    inbox: {
+      title: "Smart Inbox AI",
+      connect: "Connect Email",
+      noEmails: "No emails found",
+      noEmailsDesc: "Your inbox is empty or emails are still being processed.",
+      connectFirst: "Get Started",
+      searchPlaceholder: "Search emails...",
+      all: "All",
+      invoice: "Invoice",
+      contract: "Contract",
+      important: "Important",
+      urgent: "Urgent",
+      unread: "Unread",
+      processed: "Processed",
+      total: "Total Emails",
+      importantCount: "Important",
+      invoiceCount: "Invoices",
+      contractCount: "Contracts",
+      aiInsights: "AI Insights",
+      noConnections: "Connect Your Email Accounts",
+      noConnectionsDesc: "Securely connect your email accounts to let AI detect invoices, contracts, and important business communications automatically.",
+      processing: "Processing...",
+      resultsFound: "results found",
+      noResultsFor: `No results found for`,
+      providers: [
+        { id: 'gmail', name: 'Gmail', icon: '📧', description: 'Connect your Gmail account' },
+        { id: 'outlook', name: 'Outlook', icon: '📨', description: 'Connect your Outlook/Office 365 account' },
+        { id: 'yahoo', name: 'Yahoo Mail', icon: '📭', description: 'Connect your Yahoo Mail account' },
+        { id: 'icloud', name: 'iCloud Mail', icon: '☁️', description: 'Connect your iCloud Mail account' },
+        { id: 'proton', name: 'ProtonMail', icon: '🔒', description: 'Connect your ProtonMail account' },
+        { id: 'imap', name: 'Custom IMAP', icon: '⚙️', description: 'Connect any IMAP email server' },
+      ],
+    },
+  };
+
+  const t = (key: string) => {
+    const keys = key.split('.');
+    let value: any = translations;
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
+
+  return { t };
+};
 
 interface EmailStats {
   total: number;
@@ -16,7 +65,9 @@ interface EmailStats {
 }
 
 export default function InboxPage() {
-  const { t, language } = useLanguage();
+  // Use temporary translations to avoid static generation issues
+  const { t } = useTempTranslations();
+  const language = 'en';
   const [emails, setEmails] = useState<Email[]>([]);
   const [connections, setConnections] = useState<EmailConnection[]>([]);
   const [stats, setStats] = useState<EmailStats>({
