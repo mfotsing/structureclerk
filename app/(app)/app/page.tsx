@@ -20,7 +20,7 @@ import {
 import UsageMeters from '@/components/ui/UsageMeters';
 import SearchBar from '@/components/SearchBar';
 import SearchResults from '@/components/SearchResults';
-import { SearchResult } from '@/app/api/search/route';
+import type { SearchResult } from '@/types/search';
 import Link from 'next/link';
 
 interface DashboardStats {

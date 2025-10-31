@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { SearchResult, SearchResponse } from '@/app/api/search/route';
+import type { SearchResult, SearchResponse } from '@/types/search';
 
 export class ClerkSearchEngine {
   private baseUrl: string;

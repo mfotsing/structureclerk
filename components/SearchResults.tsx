@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, FileText, Mail, Receipt, Mic, Folder, User, ExternalLink, Share2, Download, Reply, ArrowRight, Star, Calendar, TrendingUp } from 'lucide-react';
-import { SearchResult } from '@/app/api/search/route';
+import type { SearchResult } from '@/types/search';
 import { clerkSearch } from '@/lib/ai/search-engine';
 import { useLanguage } from '@/contexts/LanguageContext';
 

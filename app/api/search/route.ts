@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
+import { SearchResult, SearchResponse } from '@/types/search';
 
 // Initialize Anthropic client
 const anthropic = new Anthropic({
@@ -12,27 +13,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
-
-// Search result interface
-interface SearchResult {
-  id: string;
-  type: 'document' | 'email' | 'invoice' | 'audio' | 'project' | 'client';
-  title: string;
-  content: string;
-  url?: string;
-  metadata?: Record<string, any>;
-  confidence_score: number;
-  highlights: string[];
-  created_at: string;
-}
-
-interface SearchResponse {
-  query: string;
-  results: SearchResult[];
-  total_count: number;
-  search_time: number;
-  suggestions?: string[];
-}
 
 export async function POST(req: NextRequest) {
   try {

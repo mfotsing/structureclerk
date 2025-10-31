@@ -297,14 +297,20 @@ function HomePageContent() {
               <Bot className="w-6 h-6 text-purple-400 animate-pulse" />
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              {(t('searchDemo.examples') as string[]).slice(0, 3).map((example, index) => (
-                <span
-                  key={index}
-                  className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-300 hover:bg-white/20 transition-colors cursor-pointer"
-                >
-                  {example}
-                </span>
-              ))}
+              {(() => {
+                const examples = t('searchDemo.examples');
+                if (Array.isArray(examples)) {
+                  return (examples as string[]).slice(0, 3).map((example, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-300 hover:bg-white/20 transition-colors cursor-pointer"
+                    >
+                      {example}
+                    </span>
+                  ));
+                }
+                return null;
+              })()}
             </div>
           </div>
         </motion.div>
@@ -375,7 +381,7 @@ function HomePageContent() {
                   </div>
 
                   <ul className="space-y-3">
-                    {feature.features.map((item, i) => (
+                    {feature.features.map((item: string, i: number) => (
                       <motion.li
                         key={i}
                         initial={{ opacity: 0, x: -10 }}
@@ -419,12 +425,18 @@ function HomePageContent() {
                   {t('demo.description')}
                 </p>
                 <div className="space-y-4">
-                  {Array.isArray(t('demo.features')) ? (t('demo.features') as string[]).map((item, i) => (
-                    <div key={i} className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span className="text-gray-300">{item}</span>
-                    </div>
-                  )) : null}
+                  {(() => {
+                    const features = t('demo.features');
+                    if (Array.isArray(features)) {
+                      return (features as string[]).map((item: string, i: number) => (
+                        <div key={i} className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                          <span className="text-gray-300">{item}</span>
+                        </div>
+                      ));
+                    }
+                    return null;
+                  })()}
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -473,7 +485,10 @@ function HomePageContent() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {(t('whyChoose.points') as any[]).map((point, index) => (
+            {(() => {
+              const points = t('whyChoose.points');
+              if (Array.isArray(points)) {
+                return (points as any[]).map((point: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -490,7 +505,10 @@ function HomePageContent() {
                   <p className="text-gray-300 leading-relaxed">{point.description}</p>
                 </div>
               </motion.div>
-            ))}
+                ));
+              }
+              return null;
+            })()}
           </div>
         </div>
       </section>
@@ -598,12 +616,18 @@ function HomePageContent() {
                   <p className="text-white/80">{t('pricing.pro.description')}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
-                  {Array.isArray(t('pricing.pro.features')) ? (t('pricing.pro.features') as string[]).map((feature, i) => (
+                  {(() => {
+                    const features = t('pricing.pro.features');
+                    if (Array.isArray(features)) {
+                      return (features as any[]).map((feature: any, i: number) => (
                     <li key={i} className="flex items-center text-white">
                       <Check className="w-5 h-5 mr-3 text-green-400" />
                       {feature}
                     </li>
-                  )) : null}
+                      ));
+                    }
+                    return null;
+                  })()}
                 </ul>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -630,12 +654,18 @@ function HomePageContent() {
                   <p className="text-white/80">{t('pricing.enterprise.description')}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
-                  {Array.isArray(t('pricing.enterprise.features')) ? (t('pricing.enterprise.features') as string[]).map((feature, i) => (
+                  {(() => {
+                    const features = t('pricing.enterprise.features');
+                    if (Array.isArray(features)) {
+                      return (features as any[]).map((feature: any, i: number) => (
                     <li key={i} className="flex items-center text-white">
                       <Check className="w-5 h-5 mr-3 text-green-400" />
                       {feature}
                     </li>
-                  )) : null}
+                      ));
+                    }
+                    return null;
+                  })()}
                 </ul>
                 <motion.button
                   whileHover={{ scale: 1.05 }}

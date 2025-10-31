@@ -38,43 +38,31 @@
     }
   },
   "features": {
-    "title": "L'IA Qui Fonctionne",
-    "titleHighlight": "Pour Votre Entreprise",
-    "subtitle": "Trois capacités clés qui gèrent 80% de votre charge administrative",
-    "documentExtraction": {
-      "title": "Scan & Extraction IA",
-      "description": "Téléchargez des documents et extrayez les données avec 99% de précision",
-      "demo": "Extrait les données de factures en secondes",
+    "title": "Outils IA",
+    "titleHighlight": "Pour Entreprise",
+    "subtitle": "Deux capacités IA de pointe qui transforment votre façon de travailler",
+    "clerkSearch": {
+      "title": "ClerkSearch IA",
+      "description": "Trouvez tout instantanément dans vos fichiers, emails et historique",
+      "demo": "Recherche sémantique avec raisonnement IA",
       "features": [
-        "Technologie OCR",
-        "Extraction automatique de données",
-        "Catégorisation intelligente",
-        "Traitement par lot",
-        "Stockage cloud"
+        "Requêtes en langage naturel",
+        "Recherche cross-contenu",
+        "Résultats alimentés par l'IA",
+        "Filtrage intelligent",
+        "Réponses instantanées"
       ]
     },
-    "meetingIntelligence": {
-      "title": "Intelligence IA des Réunions",
-      "description": "Transformez les réunions en informations exploitables",
-      "demo": "Réunion de 2h → 5 actions clés",
+    "smartInbox": {
+      "title": "Smart Inbox IA",
+      "description": "Détectez automatiquement les factures, contrats et emails importants",
+      "demo": "L'IA traite et priorise votre boîte de réception",
       "features": [
-        "Speech-to-text",
-        "Résumés de réunion",
-        "Extraction d'actions",
-        "Identification des intervenants",
-        "Export vers plusieurs formats"
-      ]
-    },
-    "automation": {
-      "title": "Automatisations Intelligentes",
-      "description": "Workflows qui s'adaptent à votre entreprise",
-      "demo": "Automatise 80% des tâches admin",
-      "features": [
-        "Déclencheurs personnalisés",
-        "Workflows multi-étapes",
-        "Logique conditionnelle",
-        "Intégration avec outils",
-        "Gestion d'erreurs"
+        "Support multi-fournisseurs",
+        "Détection d'emails par IA",
+        "Extraction automatique",
+        "Suggestions intelligentes",
+        "Traitement sécurisé"
       ]
     }
   },
@@ -157,5 +145,43 @@
     "company": "Entreprise",
     "legal": "Légal",
     "copyright": "© 2024 StructureClerk. Tous droits réservés. Créé avec 🧠 au Canada."
+  },
+  "benefits": {
+    "connect": "Connecter Email",
+    "aiSearch": "Recherche IA",
+    "aiSummary": "Résumé IA",
+    "smartFiling": "Classement Intelligent"
+  },
+  "whyChoose": {
+    "title": "Pourquoi les Équipes Choisissent StructureClerk",
+    "subtitle": "L'alternative moderne aux outils administratifs traditionnels",
+    "points": [
+      {
+        "title": "Approche IA d'Abord",
+        "description": "Conçu dès le départ avec l'IA, pas ajouté comme une après-pensée"
+      },
+      {
+        "title": "Plateforme Tout-en-Un",
+        "description": "Recherchez, capturez et automatisez dans un flux de travail transparent"
+      },
+      {
+        "title": "Sécurité d'Entreprise",
+        "description": "Chiffrement de niveau bancaire avec conformité GDPR et SOC 2"
+      },
+      {
+        "title": "Résultats Prouvés",
+        "description": "500+ entreprises économisent 10+ heures par semaine en moyenne"
+      }
+    ]
+  },
+  "searchDemo": {
+    "placeholder": "Essayez : 'facture Bell mars 2022' ou 'contrat signé avec Hugo'",
+    "examples": [
+      "facture Bell mars 2022",
+      "contrat signé avec Hugo Tremblay",
+      "montant total abonnements 2023",
+      "emails client XYZ",
+      "réunion projet alpha"
+    ]
   }
 }
