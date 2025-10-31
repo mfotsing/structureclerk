@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import '../styles/globals.css';
 import './simple-test.css';
+import './globals.css';
 
 // Font configurations
 const inter = Inter({

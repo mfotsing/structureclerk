@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Critical base styles for immediate effect */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+}
+
+/* Test utility classes to verify Tailwind is working */
+.test-tailwind {
+  @apply bg-black text-white p-4 rounded-lg;
+}
+
+.test-gradient {
+  @apply bg-gradient-to-r from-blue-500 to-purple-600;
+}
