@@ -1,0 +1,213 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings",
+    "help": "Help",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "done": "Done"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "documents": "Documents",
+    "projects": "Projects",
+    "invoices": "Invoices",
+    "reports": "Reports",
+    "audio": "Audio & Meetings",
+    "inbox": "Inbox",
+    "calendar": "Calendar",
+    "automations": "Automations"
+  },
+  "dashboard": {
+    "title": "Business Dashboard",
+    "subtitle": "Real-time metrics and AI-powered business insights",
+    "timeRange": {
+      "7d": "7 Days",
+      "30d": "30 Days",
+      "90d": "90 Days",
+      "1y": "1 Year"
+    },
+    "metrics": {
+      "totalRevenue": "Total Revenue",
+      "netProfit": "Net Profit",
+      "hoursSaved": "Hours Saved",
+      "documentsProcessed": "Documents Processed",
+      "activeClients": "Active Clients",
+      "meetingsTranscribed": "Meetings Transcribed"
+    },
+    "insights": {
+      "title": "AI Business Insights",
+      "revenueGrowth": {
+        "title": "Revenue Growth",
+        "action": "Focus on upselling to existing clients"
+      },
+      "expenseAlert": {
+        "title": "Expense Alert",
+        "action": "Audit and optimize recurring expenses"
+      },
+      "productivityWin": {
+        "title": "Productivity Win",
+        "action": "Invest time saved in business development"
+      },
+      "cashFlow": {
+        "title": "Cash Flow",
+        "action": "Automate payment reminders"
+      }
+    },
+    "actions": {
+      "exportReport": "Export Detailed Report",
+      "customizeDashboard": "Customize Dashboard"
+    }
+  },
+  "ai": {
+    "assistant": "AI Assistant",
+    "explanation": "AI Explanation",
+    "transparency": "AI Transparency",
+    "confidence": "Confidence",
+    "reasoning": "AI Reasoning Process",
+    "feedback": {
+      "title": "Is this explanation helpful?",
+      "helpful": "Helpful",
+      "notHelpful": "Not Helpful",
+      "improve": "Needs Improvement",
+      "submit": "Submit Feedback",
+      "additionalComments": "Additional comments (optional)..."
+    },
+    "chat": {
+      "welcome": "Hello! I'm your StructureClerk AI assistant. I can help you analyze documents, understand finances, optimize operations, and make informed decisions. What would you like to know today?",
+      "placeholder": "Ask your question...",
+      "send": "Send",
+      "quickQueries": {
+        "title": "Frequent Questions",
+        "revenueTrend": "What's my revenue trend this month?",
+        "unpaidInvoices": "Which invoices are awaiting payment?",
+        "recentDocuments": "What documents have I processed recently?",
+        "meetingSummary": "Summarize my meetings this week",
+        "taxDeadlines": "What are my important tax deadlines?",
+        "costOptimization": "How can I optimize my expenses?"
+      }
+    },
+    "confidence": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "average": "Average",
+      "low": "Low"
+    },
+    "status": {
+      "processing": "Processing",
+      "completed": "Completed",
+      "error": "Error",
+      "thinking": "Thinking"
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "upload": "Upload Document",
+    "capture": "Capture Document",
+    "dragDrop": "Drag & drop your files here",
+    "supportedFormats": "Supported: PDF, JPG, PNG, DOC, DOCX",
+    "aiProcessing": "AI Processing",
+    "classification": "Classification",
+    "extraction": "Data Extraction",
+    "autoOrganize": "Auto-Organize",
+    "recent": "Recent Documents",
+    "all": "All Documents",
+    "search": "Search documents..."
+  },
+  "invoices": {
+    "title": "Invoices",
+    "create": "Create Invoice",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "overdue": "Overdue",
+    "draft": "Draft",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "client": "Client",
+    "number": "Invoice #",
+    "total": "Total",
+    "subtotal": "Subtotal",
+      "tax": "Tax",
+    "balance": "Balance"
+  },
+  "canada": {
+    "currency": {
+      "cad": "CAD",
+      "usd": "USD",
+      "format": {
+        "cad": "$",
+        "usd": "$"
+      }
+    },
+    "taxes": {
+      "gst": "GST",
+      "hst": "HST",
+      "pst": "PST",
+      "qst": "QST",
+      "federal": "Federal",
+      "provincial": "Provincial"
+    },
+    "provinces": {
+      "AB": "Alberta",
+      "BC": "British Columbia",
+      "MB": "Manitoba",
+      "NB": "New Brunswick",
+      "NL": "Newfoundland and Labrador",
+      "NS": "Nova Scotia",
+      "ON": "Ontario",
+      "PE": "Prince Edward Island",
+      "QC": "Quebec",
+      "SK": "Saskatchewan",
+      "NT": "Northwest Territories",
+      "NU": "Nunavut",
+      "YT": "Yukon"
+    }
+  },
+  "finance": {
+    "revenue": "Revenue",
+    "expenses": "Expenses",
+    "profit": "Profit",
+    "loss": "Loss",
+    "cashFlow": "Cash Flow",
+    "profitMargin": "Profit Margin",
+    "growth": "Growth",
+    "trends": "Trends",
+    "forecast": "Forecast",
+    "budget": "Budget",
+    "actual": "Actual",
+    "variance": "Variance"
+  },
+  "security": {
+    "dataProtection": "Data Protection",
+    "privacy": "Privacy",
+    "canadianData": "100% Canadian Data",
+    "encrypted": "Encrypted",
+    "secure": "Secure",
+    "compliance": "Compliance",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "support": {
+    "contact": "Contact Support",
+    "documentation": "Documentation",
+    "faq": "FAQ",
+    "tutorials": "Tutorials",
+    "community": "Community",
+    "email": "Email",
+    "phone": "Phone",
+    "chat": "Live Chat"
+  }
+}

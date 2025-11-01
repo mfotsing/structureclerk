@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import AIExplanationPanel from '@/components/ai/AIExplanationPanel'
+import ConversationalAI from '@/components/ai/ConversationalAI'
 
 interface BusinessMetrics {
   totalRevenue: number
@@ -33,6 +35,7 @@ export default function BusinessDashboard() {
   const [metrics, setMetrics] = useState<BusinessMetrics | null>(null)
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d' | '1y'>('30d')
   const [isLoading, setIsLoading] = useState(true)
+  const [showAIExplanation, setShowAIExplanation] = useState(false)
 
   useEffect(() => {
     // Simulate loading business metrics
@@ -414,6 +417,71 @@ export default function BusinessDashboard() {
             </div>
           ))}
         </div>
+
+        {/* AI Transparency Toggle */}
+        <div style={{
+          marginTop: '1.5rem',
+          paddingTop: '1rem',
+          borderTop: '1px solid rgba(139, 92, 246, 0.2)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div>
+            <h4 style={{
+              fontSize: '1rem',
+              fontWeight: '600',
+              color: '#fff',
+              margin: '0 0 0.25rem 0'
+            }}>
+              🔍 Transparence IA
+            </h4>
+            <p style={{
+              fontSize: '0.875rem',
+              color: '#a78bfa',
+              margin: 0
+            }}>
+              Découvrez comment l'IA génère ces insights
+            </p>
+          </div>
+          <button
+            onClick={() => setShowAIExplanation(!showAIExplanation)}
+            style={{
+              padding: '0.5rem 1rem',
+              background: showAIExplanation ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(139, 92, 246, 0.3)',
+              borderRadius: '0.375rem',
+              color: showAIExplanation ? '#a78bfa' : '#fff',
+              fontSize: '0.875rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}
+          >
+            {showAIExplanation ? 'Masquer' : 'Afficher'} l'explication
+            <span style={{ fontSize: '0.75rem' }}>
+              {showAIExplanation ? '↑' : '↓'}
+            </span>
+          </button>
+        </div>
+
+        {/* AI Explanation Panel */}
+        {showAIExplanation && (
+          <div style={{
+            marginTop: '1rem'
+          }}>
+            <AIExplanationPanel
+              documentId="dashboard-insights"
+              onFeedback={(feedback) => {
+                console.log('AI explanation feedback:', feedback)
+              }}
+              onRequestExplanation={(documentId) => {
+                console.log('Requesting new AI analysis for:', documentId)
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Quick Actions */}
@@ -445,6 +513,9 @@ export default function BusinessDashboard() {
           ⚙️ Customize Dashboard
         </button>
       </div>
+
+      {/* Conversational AI Assistant */}
+      <ConversationalAI />
     </div>
   )
 }

@@ -1,0 +1,213 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "settings": "Paramètres",
+    "help": "Aide",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "done": "Terminé"
+  },
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "documents": "Documents",
+    "projects": "Projets",
+    "invoices": "Factures",
+    "reports": "Rapports",
+    "audio": "Audio & Réunions",
+    "inbox": "Boîte de réception",
+    "calendar": "Calendrier",
+    "automations": "Automatisations"
+  },
+  "dashboard": {
+    "title": "Tableau de bord d'affaires",
+    "subtitle": "Métriques en temps réel et informations commerciales alimentées par l'IA",
+    "timeRange": {
+      "7d": "7 jours",
+      "30d": "30 jours",
+      "90d": "90 jours",
+      "1y": "1 an"
+    },
+    "metrics": {
+      "totalRevenue": "Revenus totaux",
+      "netProfit": "Profit net",
+      "hoursSaved": "Heures économisées",
+      "documentsProcessed": "Documents traités",
+      "activeClients": "Clients actifs",
+      "meetingsTranscribed": "Réunions transcrites"
+    },
+    "insights": {
+      "title": "Informations commerciales IA",
+      "revenueGrowth": {
+        "title": "Croissance des revenus",
+        "action": "Concentrez-vous sur la vente croisée aux clients existants"
+      },
+      "expenseAlert": {
+        "title": "Alerte de dépenses",
+        "action": "Auditez et optimisez les dépenses récurrentes"
+      },
+      "productivityWin": {
+        "title": "Gain de productivité",
+        "action": "Investissez le temps économisé dans le développement commercial"
+      },
+      "cashFlow": {
+        "title": "Flux de trésorerie",
+        "action": "Automatisez les rappels de paiement"
+      }
+    },
+    "actions": {
+      "exportReport": "Exporter le rapport détaillé",
+      "customizeDashboard": "Personnaliser le tableau de bord"
+    }
+  },
+  "ai": {
+    "assistant": "Assistant IA",
+    "explanation": "Explication IA",
+    "transparency": "Transparence IA",
+    "confidence": "Confiance",
+    "reasoning": "Processus de raisonnement IA",
+    "feedback": {
+      "title": "Cette explication est-elle utile?",
+      "helpful": "Utile",
+      "notHelpful": "Pas utile",
+      "improve": "À améliorer",
+      "submit": "Soumettre le feedback",
+      "additionalComments": "Commentaires supplémentaires (optionnel)..."
+    },
+    "chat": {
+      "welcome": "Bonjour ! Je suis votre assistant IA StructureClerk. Je peux vous aider à analyser des documents, comprendre vos finances, optimiser vos opérations et prendre des décisions éclairées. Que souhaitez-vous savoir aujourd'hui ?",
+      "placeholder": "Posez votre question...",
+      "send": "Envoyer",
+      "quickQueries": {
+        "title": "Questions fréquentes",
+        "revenueTrend": "Quel est le trend de mes revenus ce mois-ci ?",
+        "unpaidInvoices": "Quelles factures sont en attente de paiement ?",
+        "recentDocuments": "Quels documents ai-je récemment traités ?",
+        "meetingSummary": "Résume mes réunions cette semaine",
+        "taxDeadlines": "Quelles sont mes échéances fiscales importantes ?",
+        "costOptimization": "Comment puis-je optimiser mes dépenses ?"
+      }
+    },
+    "confidence": {
+      "excellent": "Excellente",
+      "good": "Bonne",
+      "average": "Moyenne",
+      "low": "Faible"
+    },
+    "status": {
+      "processing": "En cours",
+      "completed": "Terminé",
+      "error": "Erreur",
+      "thinking": "Réflexion"
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "upload": "Télécharger document",
+    "capture": "Capturer document",
+    "dragDrop": "Glissez-déposez vos fichiers ici",
+    "supportedFormats": "Supportés : PDF, JPG, PNG, DOC, DOCX",
+    "aiProcessing": "Traitement IA",
+    "classification": "Classification",
+    "extraction": "Extraction de données",
+    "autoOrganize": "Organisation automatique",
+    "recent": "Documents récents",
+    "all": "Tous les documents",
+    "search": "Rechercher des documents..."
+  },
+  "invoices": {
+    "title": "Factures",
+    "create": "Créer facture",
+    "paid": "Payée",
+    "unpaid": "Non payée",
+    "overdue": "En retard",
+    "draft": "Brouillon",
+    "amount": "Montant",
+    "dueDate": "Date d'échéance",
+    "client": "Client",
+    "number": "Facture #",
+    "total": "Total",
+    "subtotal": "Sous-total",
+    "tax": "Taxe",
+    "balance": "Solde"
+  },
+  "canada": {
+    "currency": {
+      "cad": "CAD",
+      "usd": "USD",
+      "format": {
+        "cad": "$",
+        "usd": "$US"
+      }
+    },
+    "taxes": {
+      "gst": "TPS",
+      "hst": "TVH",
+      "pst": "TVProvinciale",
+      "qst": "TVQ",
+      "federal": "Fédéral",
+      "provincial": "Provincial"
+    },
+    "provinces": {
+      "AB": "Alberta",
+      "BC": "Colombie-Britannique",
+      "MB": "Manitoba",
+      "NB": "Nouveau-Brunswick",
+      "NL": "Terre-Neuve-et-Labrador",
+      "NS": "Nouvelle-Écosse",
+      "ON": "Ontario",
+      "PE": "Île-du-Prince-Édouard",
+      "QC": "Québec",
+      "SK": "Saskatchewan",
+      "NT": "Territoires du Nord-Ouest",
+      "NU": "Nunavut",
+      "YT": "Yukon"
+    }
+  },
+  "finance": {
+    "revenue": "Revenus",
+    "expenses": "Dépenses",
+    "profit": "Profit",
+    "loss": "Perte",
+    "cashFlow": "Flux de trésorerie",
+    "profitMargin": "Marge de profit",
+    "growth": "Croissance",
+    "trends": "Tendances",
+    "forecast": "Prévisions",
+    "budget": "Budget",
+    "actual": "Réel",
+    "variance": "Écart"
+  },
+  "security": {
+    "dataProtection": "Protection des données",
+    "privacy": "Confidentialité",
+    "canadianData": "Données 100% canadiennes",
+    "encrypted": "Chiffré",
+    "secure": "Sécurisé",
+    "compliance": "Conformité",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation"
+  },
+  "support": {
+    "contact": "Contacter le support",
+    "documentation": "Documentation",
+    "faq": "FAQ",
+    "tutorials": "Tutoriels",
+    "community": "Communauté",
+    "email": "Courriel",
+    "phone": "Téléphone",
+    "chat": "Clavardage en direct"
+  }
+}
