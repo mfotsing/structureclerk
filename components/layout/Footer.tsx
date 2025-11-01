@@ -32,7 +32,7 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center text-gray-300">
                 <Mail className="h-4 w-4 mr-3" style={{ color: BRAND_COLORS.accentTeal }} />
-                <span className="text-sm">hello@structureclerk.ca</span>
+                <span className="text-sm">info@structureclerk.ca</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="h-4 w-4 mr-3" style={{ color: BRAND_COLORS.accentTeal }} />

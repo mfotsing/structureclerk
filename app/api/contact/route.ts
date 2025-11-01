@@ -255,7 +255,7 @@ export async function POST(req: NextRequest) {
     // Send email to StructureClerk
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'noreply@structureclerk.ca',
-      to: 'hello@structureclerk.ca',
+      to: 'info@structureclerk.ca',
       ...emailTemplate,
       reply_to: email,
     });
@@ -286,7 +286,7 @@ export async function POST(req: NextRequest) {
     console.error('Contact form error:', error);
     return NextResponse.json(
       {
-        error: 'Failed to send message. Please try again or contact us directly at hello@structureclerk.ca',
+        error: 'Failed to send message. Please try again or contact us directly at info@structureclerk.ca',
         success: false
       },
       { status: 500 }

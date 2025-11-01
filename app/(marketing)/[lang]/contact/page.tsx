@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
 import Logo from '@/components/brand/Logo';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export default function ContactPage() {
   const router = useRouter();
@@ -40,6 +41,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -51,17 +53,35 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA verification.');
+      return;
+    }
+
     setIsSubmitting(true);
     setError('');
 
     try {
-      // TODO: Implement actual contact form submission
-      console.log('Contact form submission:', formData);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          captchaToken,
+          language: 'en'
+        }),
+      });
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const data = await response.json();
 
-      setIsSubmitted(true);
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        setError(data.error || 'Failed to send message. Please try again.');
+      }
     } catch (err) {
       setError('Failed to send message. Please try again.');
       console.error('Contact form error:', err);
@@ -389,9 +409,19 @@ export default function ContactPage() {
                 </select>
               </div>
 
+              {/* hCaptcha */}
+              <div className="mb-6">
+                <HCaptcha
+                  sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || '00000000-0000-0000-0000-000000000000'}
+                  onVerify={(token) => setCaptchaToken(token)}
+                  onExpire={() => setCaptchaToken(null)}
+                  onError={() => setCaptchaToken(null)}
+                />
+              </div>
+
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !captchaToken}
                 className="w-full py-4 text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 style={{ backgroundColor: BRAND_COLORS.accentTeal, color: BRAND_COLORS.white }}
               >

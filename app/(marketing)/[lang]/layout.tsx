@@ -1,5 +1,6 @@
 import { Inter, Sora } from 'next/font/google';
 import { ReactNode } from 'react';
+import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 // Font configuration
@@ -22,6 +23,8 @@ export default function LocaleLayout({
 }) {
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <Header />
       {/* Main content will be rendered here */}
       <main className="flex-1">
         {children}

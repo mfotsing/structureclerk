@@ -21,6 +21,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",
     "@clerk/nextjs": "^5.7.5",
+    "@hcaptcha/react-hcaptcha": "^1.14.0",
     "@headlessui/react": "^1.7.19",
     "@hookform/resolvers": "^3.3.3",
     "@huggingface/inference": "^2.6.4",
