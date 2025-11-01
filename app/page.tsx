@@ -8,7 +8,7 @@ export default function HomePage() {
   const router = useRouter()
 
   const handleStartFree = () => {
-    router.push('/en/signup') // Default to English, can be made dynamic
+    router.push('/sign-up') // Default to English, can be made dynamic
   }
 
   const handleWatchDemo = () => {
@@ -64,19 +64,7 @@ export default function HomePage() {
               SC
             </div>
             <span style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>StructureClerk</span>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              background: 'rgba(239, 68, 68, 0.2)',
-              color: '#ef4444',
-              padding: '0.125rem 0.5rem',
-              borderRadius: '9999px',
-              fontSize: '0.75rem',
-              marginLeft: '0.5rem'
-            }}>
-              🍁 CA
-            </span>
-          </div>
+            </div>
 
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <button
@@ -211,8 +199,8 @@ export default function HomePage() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              Your Canadian Business<br />
-              <span style={{ color: '#fca5a5' }}>AI Administrative Assistant</span>
+              Snap, Record, Upload.<br />
+              <span style={{ color: '#fca5a5' }}>We handle the rest.</span>
             </h1>
 
             <p style={{
@@ -221,10 +209,10 @@ export default function HomePage() {
               color: '#d1d5db',
               lineHeight: 1.6
             }}>
-              🤖 Real AI document processing • 💰 Canadian tax calculations (GST/HST/QST)<br />
-              🇨🇦 All provinces supported • 💵 CAD/USD multi-currency • 🔄 Bilingual EN/FR<br />
+              🤖 Real AI document processing • 💰 Smart document organization<br />
+              🇨🇦 Built for businesses • 💵 Multi-currency support • 🔄 Bilingual EN/FR<br />
               <span style={{ color: '#fca5a5', fontWeight: '600' }}>
-                Built for Canadian entrepreneurs, freelancers, and small businesses.
+                Transform your administrative workflow with AI.
               </span>
             </p>
 
@@ -244,7 +232,7 @@ export default function HomePage() {
                   transition: 'transform 0.2s'
                 }}
               >
-                Start Free Trial - No Credit Card
+                Start for free
               </button>
               <button
                 onClick={handleWatchDemo}
@@ -403,7 +391,7 @@ export default function HomePage() {
               { value: '50K+', label: 'Canadian Documents Processed' },
               { value: '13/13', label: 'Provinces & Territories Supported' },
               { value: '$5M+', label: 'Canadian Invoices Processed' },
-              { value: '2,000+', label: 'Canadian Business Owners' }
+              { value: '10K+', label: 'Documents Processed' }
             ].map((stat, index) => (
               <div key={index} style={{
                 background: 'rgba(255, 255, 255, 0.05)',
@@ -471,7 +459,7 @@ export default function HomePage() {
                 transition: 'transform 0.2s'
               }}
             >
-              Start Your Free Canadian Trial
+              Start for free
             </button>
           </div>
         </section>
@@ -494,26 +482,9 @@ export default function HomePage() {
             <div>
               <h4 style={{ fontWeight: 'bold', marginBottom: '1rem', color: '#fca5a5' }}>Product</h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                <li style={{ marginBottom: '0.5rem' }}><a href="/en#features" style={{ color: '#9ca3af', textDecoration: 'none' }}>Features</a></li>
+                <li style={{ marginBottom: '0.5rem' }}><a href="/en/features" style={{ color: '#9ca3af', textDecoration: 'none' }}>Features</a></li>
                 <li style={{ marginBottom: '0.5rem' }}><a href="/en/pricing" style={{ color: '#9ca3af', textDecoration: 'none' }}>Pricing</a></li>
-                <li style={{ marginBottom: '0.5rem' }}><a href="/api/ai/chat-secure" style={{ color: '#9ca3af', textDecoration: 'none' }}>AI Demo</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 style={{ fontWeight: 'bold', marginBottom: '1rem', color: '#fca5a5' }}>Company</h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 <li style={{ marginBottom: '0.5rem' }}><a href="/en/contact" style={{ color: '#9ca3af', textDecoration: 'none' }}>Contact</a></li>
-                <li style={{ marginBottom: '0.5rem' }}><a href="/en/legal/privacy" style={{ color: '#9ca3af', textDecoration: 'none' }}>Privacy Policy</a></li>
-                <li style={{ marginBottom: '0.5rem' }}><a href="/en/legal/terms" style={{ color: '#9ca3af', textDecoration: 'none' }}>Terms of Service</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 style={{ fontWeight: 'bold', marginBottom: '1rem', color: '#fca5a5' }}>Canadian Features</h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                <li style={{ marginBottom: '0.5rem', color: '#9ca3af' }}>✅ PIPEDA Compliant</li>
-                <li style={{ marginBottom: '0.5rem', color: '#9ca3af' }}>✅ Data Stored in Canada</li>
-                <li style={{ marginBottom: '0.5rem', color: '#9ca3af' }}>✅ All Provinces Supported</li>
-                <li style={{ marginBottom: '0.5rem', color: '#9ca3af' }}>✅ Bilingual EN/FR</li>
               </ul>
             </div>
           </div>
@@ -524,9 +495,8 @@ export default function HomePage() {
             borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             color: '#9ca3af'
           }}>
-            <p style={{ marginBottom: '0.5rem' }}>🍁 Made with ❤️ in Canada for Canadian businesses</p>
             <p style={{ fontSize: '0.875rem' }}>
-              © 2024 StructureClerk Inc. | Montreal, Quebec |
+              © 2025 TechVibes. | Montreal, Quebec |
               <a href="/en/legal/privacy" style={{ color: '#9ca3af', textDecoration: 'none', marginLeft: '0.5rem' }}>Privacy</a> |
               <a href="/en/legal/terms" style={{ color: '#9ca3af', textDecoration: 'none', marginLeft: '0.5rem' }}>Terms</a>
             </p>

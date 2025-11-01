@@ -22,8 +22,8 @@ export default function PrivacyPage() {
         {/* Last Updated */}
         <div className="bg-muted/50 p-6 rounded-lg mb-12">
           <p className="text-sm">
-            <strong>Last Updated:</strong> January 27, 2024 |
-            <strong>Effective Date:</strong> January 27, 2024
+            <strong>Last Updated:</strong> November 1, 2024 |
+            <strong>Effective Date:</strong> November 1, 2024
           </p>
         </div>
 

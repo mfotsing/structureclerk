@@ -49,7 +49,7 @@ export default function AccessibilityToggle() {
   }
 
   return (
-    <div style={{ position: 'fixed', top: '1rem', right: '1rem', zIndex: 9999 }}>
+    <div style={{ position: 'fixed', bottom: '1rem', right: '1rem', zIndex: 9999 }}>
       {/* Accessibility Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -77,7 +77,7 @@ export default function AccessibilityToggle() {
       {isOpen && (
         <div style={{
           position: 'absolute',
-          top: '4rem',
+          bottom: '4rem',
           right: 0,
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(10px)',

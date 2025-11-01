@@ -209,5 +209,213 @@
     "email": "Email",
     "phone": "Phone",
     "chat": "Live Chat"
+  },
+  "hero": {
+    "badge": "🤖 Your AI Workspace for Business Productivity",
+    "title": "Your AI Workspace",
+    "titleHighlight": "for Business Productivity",
+    "subtitle": "Search anything. Capture everything. Automate admin with AI.",
+    "subtitleHighlight": "The complete AI-powered platform for modern businesses.",
+    "cta": "Start Free",
+    "ctaSecondary": "See AI Demo",
+    "tagline": "The modern alternative to traditional admin tools",
+    "contact": "Contact"
+  },
+  "features": {
+    "title": "AI-Powered",
+    "titleHighlight": "Business Tools",
+    "subtitle": "Two breakthrough AI capabilities that transform how you work",
+    "scan_ai": {
+      "title": "ClerkSearch AI",
+      "description": "Find anything instantly across your files, emails and history",
+      "features": [
+        "Natural language queries",
+        "Cross-content search",
+        "AI-powered results",
+        "Smart filtering",
+        "Instant answers"
+      ]
+    },
+    "smartInbox": {
+      "title": "Smart Inbox AI",
+      "description": "Auto-detect invoices, contracts and important emails",
+      "features": [
+        "Multi-provider support",
+        "AI email detection",
+        "Automatic extraction",
+        "Smart suggestions",
+        "Secure processing"
+      ]
+    },
+    "audio_actions": {
+      "title": "Audio Actions AI",
+      "description": "Automatic transcription and action generation from meetings",
+      "features": [
+        "Real-time transcription",
+        "Speaker identification",
+        "Action extraction",
+        "Smart summaries",
+        "Multi-language support"
+      ]
+    },
+    "automations": {
+      "title": "Automations AI",
+      "description": "Create custom workflows with intelligent triggers",
+      "features": [
+        "Custom triggers",
+        "Conditional actions",
+        "Third-party integrations",
+        "Automatic scheduling",
+        "Performance tracking"
+      ]
+    }
+  },
+  "demo": {
+    "title": "See It In Action",
+    "subtitle": "Upload any document → AI extracts everything → Ready for your accounting software",
+    "features": [
+      "PDFs, images, scans",
+      "Multi-language support",
+      "99.5% accuracy",
+      "GDPR & PIPEDA compliant"
+    ],
+    "cta": "Try Live Demo Now",
+    "watch_demo": "Watch Demo",
+    "no_credit_card": "No credit card required",
+    "try_now": "Try Now"
+  },
+  "social_proof": {
+    "title": "Loved by",
+    "titleHighlight": "Entrepreneurs",
+    "subtitle": "Join hundreds of business owners who've reclaimed their time",
+    "testimonial": "StructureClerk transformed our entire document workflow. What used to take hours now takes minutes.",
+    "author": "Sarah Chen",
+    "role": "Founder, TechStart Inc.",
+    "stats": [
+      { "number": "10K+", "label": "Documents Processed Daily" },
+      { "number": "95%", "label": "Time Saved" },
+      { "number": "$2.5M", "label": "Invoices Processed" },
+      { "number": "500+", "label": "Happy Entrepreneurs" }
+    ]
+  },
+  "canada_first": {
+    "title": "🍁 Built for Canada",
+    "subtitle": "Canadian features and compliance",
+    "features": [
+      "Full PIPEDA compliance",
+      "Data hosted in Canada",
+      "Support for all 13 provinces and territories",
+      "Automatic GST/HST/QST calculations",
+      "Bilingual French/English interface",
+      "Canadian customer support"
+    ]
+  },
+  "pricing": {
+    "title": "Simple, Transparent",
+    "titleHighlight": "Pricing",
+    "subtitle": "Start free, scale as you grow. No hidden fees.",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "price": "$0",
+        "period": "/month",
+        "description": "Perfect for getting started",
+        "features": [
+          "10 documents/month",
+          "30 minutes audio",
+          "1 GB storage",
+          "Email support"
+        ],
+        "cta": "Start Free"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$29",
+        "period": "/month",
+        "description": "For freelancers",
+        "features": [
+          "100 documents/month",
+          "180 minutes audio",
+          "20 GB storage",
+          "Advanced features",
+          "Priority support"
+        ],
+        "cta": "Start Trial"
+      },
+      "business": {
+        "name": "Business",
+        "price": "$79",
+        "period": "/month",
+        "description": "For small businesses",
+        "features": [
+          "1000 documents/month",
+          "600 minutes audio",
+          "100 GB storage",
+          "Team features",
+          "Phone support"
+        ],
+        "cta": "Start Trial"
+      },
+      "teams": {
+        "name": "Teams",
+        "price": "$149",
+        "period": "/month + $19/user",
+        "description": "For teams",
+        "features": [
+          "Unlimited documents",
+          "Unlimited audio",
+          "500 GB storage",
+          "Advanced collaboration",
+          "Dedicated support"
+        ],
+        "cta": "Contact Sales"
+      }
+    },
+    "add_ons": {
+      "title": "Additional Features",
+      "audio_minutes": {
+        "title": "Extra Audio Minutes",
+        "price": "$0.06/minute",
+        "description": "Audio transcription and processing"
+      },
+      "storage": {
+        "title": "Extra Storage",
+        "price": "$0.12/GB/month",
+        "description": "Additional storage space"
+      },
+      "branding": {
+        "title": "White Label",
+        "price": "$9/month",
+        "description": "Custom branded documents"
+      },
+      "automation": {
+        "title": "Advanced Automation",
+        "price": "$19/month",
+        "description": "Custom workflows and automations"
+      },
+      "signatures": {
+        "title": "Digital Signatures",
+        "price": "$0.90/signature",
+        "description": "Secure digital signatures"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions? We're here to help.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "company": "Company",
+      "message": "Message",
+      "submit": "Send Message"
+    }
+  },
+  "footer": {
+    "tagline": "Your AI-powered admin assistant. Focus on what matters.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "copyright": "© 2025 TechVibes. All rights reserved."
   }
 }

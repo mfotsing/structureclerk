@@ -209,5 +209,213 @@
     "email": "Courriel",
     "phone": "Téléphone",
     "chat": "Clavardage en direct"
+  },
+  "hero": {
+    "badge": "🤖 Votre espace de travail IA pour la productivité d'affaires",
+    "title": "Votre espace de travail IA",
+    "titleHighlight": "pour la productivité d'affaires",
+    "subtitle": "Recherchez n'importe quoi. Capturez tout. Automatisez l'administration avec l'IA.",
+    "subtitleHighlight": "La plateforme complète alimentée par l'IA pour les entreprises modernes.",
+    "cta": "Commencer gratuitement",
+    "ctaSecondary": "Voir la démo IA",
+    "tagline": "L'alternative moderne aux outils administratifs traditionnels",
+    "contact": "Contacter"
+  },
+  "features": {
+    "title": "Outils alimentés par",
+    "titleHighlight": "l'IA",
+    "subtitle": "Deux capacités IA révolutionnaires qui transforment votre façon de travailler",
+    "scan_ai": {
+      "title": "ClerkSearch IA",
+      "description": "Trouvez n'importe quoi instantanément dans vos fichiers, courriels et historique",
+      "features": [
+        "Requêtes en langage naturel",
+        "Recherche inter-contenu",
+        "Résultats alimentés par l'IA",
+        "Filtrage intelligent",
+        "Réponses instantanées"
+      ]
+    },
+    "smartInbox": {
+      "title": "Boîte de réception intelligente IA",
+      "description": "Détection automatique des factures, contrats et courriels importants",
+      "features": [
+        "Support multi-fournisseurs",
+        "Détection de courriels par IA",
+        "Extraction automatique",
+        "Suggestions intelligentes",
+        "Traitement sécurisé"
+      ]
+    },
+    "audio_actions": {
+      "title": "Actions audio IA",
+      "description": "Transcription automatique et génération d'actions à partir de réunions",
+      "features": [
+        "Transcription en temps réel",
+        "Identification des intervenants",
+        "Extraction d'actions",
+        "Résumés intelligents",
+        "Support multilingue"
+      ]
+    },
+    "automations": {
+      "title": "Automatisations IA",
+      "description": "Créez des flux de travail personnalisés avec des déclencheurs intelligents",
+      "features": [
+        "Déclencheurs personnalisés",
+        "Actions conditionnelles",
+        "Intégrations tierces",
+        "Planification automatique",
+        "Suivi des performances"
+      ]
+    }
+  },
+  "demo": {
+    "title": "Voyez-le en action",
+    "subtitle": "Téléchargez un document → L'IA extrait tout → Prêt pour votre logiciel comptable",
+    "features": [
+      "PDFs, images, scans",
+      "Support multilingue",
+      "Précision de 99.5%",
+      "Conforme GDPR et PIPEDA"
+    ],
+    "cta": "Essayer la démo en direct maintenant",
+    "watch_demo": "Regarder la démo",
+    "no_credit_card": "Aucune carte de crédit requise",
+    "try_now": "Essayer maintenant"
+  },
+  "social_proof": {
+    "title": "Approuvé par",
+    "titleHighlight": "les entrepreneurs",
+    "subtitle": "Rejoignez des centaines de propriétaires d'entreprise qui ont retrouvé leur temps",
+    "testimonial": "StructureClerk a transformé tout notre flux de travail de documents. Ce qui prenait des heures prend maintenant des minutes.",
+    "author": "Sarah Chen",
+    "role": "Fondatrice, TechStart Inc.",
+    "stats": [
+      { "number": "10K+", "label": "Documents traités quotidiennement" },
+      { "number": "95%", "label": "Temps économisé" },
+      { "number": "$2.5M", "label": "Factures traitées" },
+      { "number": "500+", "label": "Entrepreneurs satisfaits" }
+    ]
+  },
+  "canada_first": {
+    "title": "🍁 Conçu pour le Canada",
+    "subtitle": "Caractéristiques canadiennes et conformité",
+    "features": [
+      "Conformité PIPEDA complète",
+      "Données hébergées au Canada",
+      "Support des 13 provinces et territoires",
+      "Calculs automatiques TPS/TVQ/TVH",
+      "Interface bilingue français/anglais",
+      "Support client canadien"
+    ]
+  },
+  "pricing": {
+    "title": "Tarification simple, transparente",
+    "titleHighlight": "pour votre entreprise",
+    "subtitle": "Commencez gratuitement, évoluez selon vos besoins. Aucuns frais cachés.",
+    "plans": {
+      "free": {
+        "name": "Gratuit",
+        "price": "0$",
+        "period": "/mois",
+        "description": "Parfait pour démarrer",
+        "features": [
+          "10 documents/mois",
+          "30 minutes d'audio",
+          "1 GB de stockage",
+          "Support par courriel"
+        ],
+        "cta": "Commencer gratuitement"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "29$",
+        "period": "/mois",
+        "description": "Pour les travailleurs autonomes",
+        "features": [
+          "100 documents/mois",
+          "180 minutes d'audio",
+          "20 GB de stockage",
+          "Fonctionnalités avancées",
+          "Support prioritaire"
+        ],
+        "cta": "Commencer l'essai"
+      },
+      "business": {
+        "name": "Business",
+        "price": "79$",
+        "period": "/mois",
+        "description": "Pour les PME",
+        "features": [
+          "1000 documents/mois",
+          "600 minutes d'audio",
+          "100 GB de stockage",
+          "Fonctionnalités d'équipe",
+          "Support téléphonique"
+        ],
+        "cta": "Commencer l'essai"
+      },
+      "teams": {
+        "name": "Teams",
+        "price": "149$",
+        "period": "/mois + 19$/utilisateur",
+        "description": "Pour les équipes",
+        "features": [
+          "Documents illimités",
+          "Audio illimité",
+          "500 GB de stockage",
+          "Collaboration avancée",
+          "Support dédié"
+        ],
+        "cta": "Contacter les ventes"
+      }
+    },
+    "add_ons": {
+      "title": "Fonctionnalités additionnelles",
+      "audio_minutes": {
+        "title": "Minutes audio supplémentaires",
+        "price": "0.06$/minute",
+        "description": "Transcription et traitement audio"
+      },
+      "storage": {
+        "title": "Stockage supplémentaire",
+        "price": "0.12$/GB/mois",
+        "description": "Espace de stockage additionnel"
+      },
+      "branding": {
+        "title": "Marque blanche",
+        "price": "9$/mois",
+        "description": "Documents personnalisés avec votre marque"
+      },
+      "automation": {
+        "title": "Automatisation avancée",
+        "price": "19$/mois",
+        "description": "Workflows et automatisations personnalisées"
+      },
+      "signatures": {
+        "title": "Signatures électroniques",
+        "price": "0.90$/signature",
+        "description": "Signatures numériques sécurisées"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Des questions? Nous sommes là pour vous aider.",
+    "form": {
+      "name": "Nom",
+      "email": "Courriel",
+      "company": "Entreprise",
+      "message": "Message",
+      "submit": "Envoyer le message"
+    }
+  },
+  "footer": {
+    "tagline": "Votre assistant administratif alimenté par l'IA. Concentrez-vous sur l'essentiel.",
+    "product": "Produit",
+    "company": "Entreprise",
+    "legal": "Légal",
+    "copyright": "© 2025 TechVibes. Tous droits réservés."
   }
 }

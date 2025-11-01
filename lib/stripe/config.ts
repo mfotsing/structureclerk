@@ -16,70 +16,78 @@ export const PRICING = {
       currency: 'cad',
       interval: 'month',
     },
-    pro: {
-      id: 'pro',
-      name: 'Pro',
-      price: 1200, // $12.00 CAD
+    starter: {
+      id: 'starter',
+      name: 'Starter',
+      price: 999, // $9.99 CAD/month
       currency: 'cad',
       interval: 'month',
-      annualPrice: 10000, // $100.00 CAD/year ($8.33/month)
+      annualPrice: 9900, // $99.00 CAD/year ($8.25/month)
+    },
+    pro: {
+      id: 'pro',
+      name: 'Professional',
+      price: 2900, // $29.00 CAD/month
+      currency: 'cad',
+      interval: 'month',
+      annualPrice: 19000, // $190.00 CAD/year ($15.83/month)
     },
     business: {
       id: 'business',
       name: 'Business',
-      price: 2400, // $24.00 CAD
+      price: 7900, // $79.00 CAD/month
       currency: 'cad',
       interval: 'month',
-      annualPrice: 20000, // $200.00 CAD/year ($16.67/month)
+      annualPrice: 59000, // $590.00 CAD/year ($49.17/month)
     },
     teams: {
       id: 'teams',
-      name: 'Teams',
-      basePrice: 4900, // $49.00 CAD base
-      perUserPrice: 900, // $9.00 CAD per user
+      name: 'Enterprise',
+      basePrice: 14900, // $149.00 CAD base
+      perUserPrice: 1900, // $19.00 CAD per user
       currency: 'cad',
       interval: 'month',
-      annualBasePrice: 45000, // $450.00 CAD/year base
-      annualPerUserPrice: 9000, // $90.00 CAD/year per user
+      annualBasePrice: 149000, // $1,490.00 CAD/year base
+      annualPerUserPrice: 19000, // $190.00 CAD/year per user
     },
   },
   addOns: {
     audioMinutes: {
       id: 'audio_minutes',
-      name: 'Extra Audio Minutes',
-      price: 500, // $5.00 CAD
+      name: 'Audio Minutes',
+      price: 6, // $0.06 CAD per minute
       currency: 'cad',
       interval: 'month',
-      minutes: 200,
+      unit: 'minute',
     },
     storage: {
       id: 'storage',
       name: 'Extra Storage',
-      price: 400, // $4.00 CAD
+      price: 12, // $0.12 CAD per GB/month
       currency: 'cad',
       interval: 'month',
-      gigabytes: 50,
+      unit: 'GB',
     },
     branding: {
       id: 'branding',
-      name: 'Branding Pro',
-      price: 500, // $5.00 CAD
+      name: 'Branding',
+      price: 900, // $9.00 CAD/month
       currency: 'cad',
       interval: 'month',
     },
     automation: {
       id: 'automation',
-      name: 'Automation Power Pack',
-      price: 900, // $9.00 CAD
+      name: 'Automation',
+      price: 1900, // $19.00 CAD/month
       currency: 'cad',
       interval: 'month',
     },
     signatures: {
       id: 'signatures',
       name: 'Digital Signatures',
-      price: 600, // $6.00 CAD
+      price: 90, // $0.90 CAD per signature
       currency: 'cad',
-      interval: 'month',
+      interval: 'per_use',
     },
   },
 } as const;
@@ -87,12 +95,14 @@ export const PRICING = {
 // Stripe product and price IDs (to be set from Stripe dashboard)
 export const STRIPE_PRODUCTS = {
   // Monthly prices
+  STARTER_MONTHLY: process.env.STRIPE_PRICE_STARTER_MONTHLY,
   PRO_MONTHLY: process.env.STRIPE_PRICE_PRO_MONTHLY,
   BUSINESS_MONTHLY: process.env.STRIPE_PRICE_BUSINESS_MONTHLY,
   TEAMS_BASE_MONTHLY: process.env.STRIPE_PRICE_TEAMS_BASE_MONTHLY,
   TEAMS_USER_MONTHLY: process.env.STRIPE_PRICE_TEAMS_USER_MONTHLY,
 
   // Annual prices
+  STARTER_ANNUAL: process.env.STRIPE_PRICE_STARTER_ANNUAL,
   PRO_ANNUAL: process.env.STRIPE_PRICE_PRO_ANNUAL,
   BUSINESS_ANNUAL: process.env.STRIPE_PRICE_BUSINESS_ANNUAL,
   TEAMS_BASE_ANNUAL: process.env.STRIPE_PRICE_TEAMS_BASE_ANNUAL,
@@ -127,12 +137,20 @@ export const TAX_CONFIG = {
 // Plan limits and entitlements
 export const PLAN_LIMITS = {
   free: {
+    documents: 3,
+    audioMinutes: 10,
+    storageGB: 0.25,
+    aiRequests: 10,
+    teamMembers: 1,
+    features: ['basic_ocr'],
+  },
+  starter: {
     documents: 10,
     audioMinutes: 30,
     storageGB: 1,
     aiRequests: 50,
     teamMembers: 1,
-    features: ['basic_ocr', 'email_support'],
+    features: ['basic_ocr', 'email_support', 'templates'],
   },
   pro: {
     documents: 100,
@@ -143,10 +161,10 @@ export const PLAN_LIMITS = {
     features: ['advanced_ai', 'templates', 'drive_import', 'priority_support'],
   },
   business: {
-    documents: 1000,
-    audioMinutes: 600,
+    documents: -1, // Unlimited
+    audioMinutes: -1, // Unlimited
     storageGB: 100,
-    aiRequests: 2000,
+    aiRequests: -1, // Unlimited
     teamMembers: 10,
     features: ['advanced_ai', 'templates', 'drive_import', 'automations', 'api_access', 'phone_support'],
   },
@@ -175,6 +193,8 @@ export function formatPrice(cents: number, currency: string = 'cad'): string {
 
 export function getPriceId(planId: string, billingCycle: 'monthly' | 'annual'): string | null {
   const mapping: Record<string, string> = {
+    'starter_monthly': STRIPE_PRODUCTS.STARTER_MONTHLY!,
+    'starter_annual': STRIPE_PRODUCTS.STARTER_ANNUAL!,
     'pro_monthly': STRIPE_PRODUCTS.PRO_MONTHLY!,
     'pro_annual': STRIPE_PRODUCTS.PRO_ANNUAL!,
     'business_monthly': STRIPE_PRODUCTS.BUSINESS_MONTHLY!,
