@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Check, Star, Zap, Shield, ArrowRight, Info } from 'lucide-react';
 import Link from 'next/link';
@@ -28,7 +27,6 @@ interface AddOn {
 }
 
 export default function PricingPage() {
-  const t = useTranslations('pricing');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
@@ -135,33 +133,33 @@ export default function PricingPage() {
   const addOns: AddOn[] = [
     {
       id: 'audio',
-      title: t('add_ons.audio_minutes.title'),
-      price: t('add_ons.audio_minutes.price'),
-      description: t('add_ons.audio_minutes.description'),
+      title: 'Audio Minutes',
+      price: '$0.06/minute',
+      description: 'Additional transcription minutes for your meetings and calls',
     },
     {
       id: 'storage',
-      title: t('add_ons.storage.title'),
-      price: t('add_ons.storage.price'),
-      description: t('add_ons.storage.description'),
+      title: 'Extra Storage',
+      price: '$0.12/GB/month',
+      description: 'Additional cloud storage for your documents and files',
     },
     {
       id: 'branding',
-      title: t('add_ons.branding.title'),
-      price: t('add_ons.branding.price'),
-      description: t('add_ons.branding.description'),
+      title: 'Custom Branding',
+      price: '$9/month',
+      description: 'Add your logo and custom colors to documents and emails',
     },
     {
       id: 'automation',
-      title: t('add_ons.automation.title'),
-      price: t('add_ons.automation.price'),
-      description: t('add_ons.automation.description'),
+      title: 'Advanced Automation',
+      price: '$19/month',
+      description: 'Create custom workflows and automated document processing',
     },
     {
       id: 'signatures',
-      title: t('add_ons.signatures.title'),
-      price: t('add_ons.signatures.price'),
-      description: t('add_ons.signatures.description'),
+      title: 'Digital Signatures',
+      price: '$0.90/signature',
+      description: 'Legally binding electronic signatures for your documents',
     },
   ];
 
@@ -207,10 +205,10 @@ export default function PricingPage() {
               animate={{ opacity: 1, y: 0 }}
             >
               <h1 className="text-4xl md:text-5xl font-bold font-heading mb-6">
-                {t('title')}
+                Simple, Transparent Pricing
               </h1>
               <p className="text-xl text-muted-foreground text-balance">
-                {t('subtitle')}
+                Choose the perfect plan for your Canadian business. No hidden fees.
               </p>
             </motion.div>
 
