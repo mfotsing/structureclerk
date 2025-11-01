@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-);
+// Initialize Supabase client lazily to avoid build-time errors
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    return null;
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
+}
 
 interface AnalyticsEvent {
   event_name: string;
@@ -53,14 +59,19 @@ export async function POST(request: NextRequest) {
       created_at: serverTimestamp
     };
 
-    // Store in Supabase analytics_events table
-    const { error: dbError } = await supabase
-      .from('analytics_events')
-      .insert([eventRecord]);
+    // Store in Supabase analytics_events table if available
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      const { error: dbError } = await supabase
+        .from('analytics_events')
+        .insert([eventRecord]);
 
-    if (dbError) {
-      console.error('Failed to store analytics event:', dbError);
-      // Continue even if DB storage fails - we'll still log it
+      if (dbError) {
+        console.error('Failed to store analytics event:', dbError);
+        // Continue even if DB storage fails - we'll still log it
+      }
+    } else {
+      console.warn('Supabase not configured - analytics event not stored in database');
     }
 
     // Log to console for development/debugging
