@@ -17,16 +17,26 @@ export default function MobileLandingPage() {
   const router = useRouter();
 
   useEffect(() => {
-    analytics.pageView('/landing');
+    // Only run analytics on client side
+    if (typeof window !== 'undefined') {
+      analytics.pageView('/landing');
+    }
   }, []);
 
   const handleStartFree = () => {
-    analytics.trackConversion('trial_started', 'anonymous', { source: 'landing_page_cta' });
-    router.push('/sign-up');
+    // Only run analytics on client side
+    if (typeof window !== 'undefined') {
+      analytics.trackConversion('trial_started', 'anonymous', { source: 'landing_page_cta' });
+    }
+    // Navigate to contact page for now until sign-up is created
+    router.push('/contact');
   };
 
   const handleWatchDemo = () => {
-    analytics.trackFeature('demo_video_watched', 'anonymous');
+    // Only run analytics on client side
+    if (typeof window !== 'undefined') {
+      analytics.trackFeature('demo_video_watched', 'anonymous');
+    }
     setIsPlaying(true);
   };
 

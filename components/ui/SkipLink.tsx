@@ -6,6 +6,9 @@ export default function SkipLink() {
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
         setIsFocused(true);
