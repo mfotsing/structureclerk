@@ -160,7 +160,7 @@ class StructureClerkAnalytics {
         case 'investor_action':
           gtag('event', 'investor_action', {
             action: event.event_params?.action,
-            ...data
+            ...event.event_params
           });
           break;
         case 'scroll_depth':
