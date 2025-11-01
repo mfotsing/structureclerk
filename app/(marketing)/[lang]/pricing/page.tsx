@@ -331,7 +331,7 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold font-heading mb-4">
-              {t('add_ons.title')}
+              Enhance Your Plan
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Enhance your plan with powerful add-ons to meet your specific needs
@@ -349,7 +349,7 @@ export default function PricingPage() {
                 className="bg-card p-6 rounded-lg border text-center"
               >
                 <h3 className="font-semibold mb-2">{addOn.title}</h3>
-                <div className="text-2xl font-bold text-brand-blue mb-3">{addOn.price}</div>
+                <div className="text-2xl font-bold mb-3" style={{ color: BRAND_COLORS.primaryNavy }}>{addOn.price}</div>
                 <p className="text-sm text-muted-foreground">{addOn.description}</p>
               </motion.div>
             ))}
@@ -371,19 +371,29 @@ export default function PricingPage() {
 
           <div className="space-y-8">
             {[
-              'security',
-              'data_residency',
-              'loi25',
-              'pipeda',
-              'stripe',
-              'export',
-              'limits',
-              'integrations',
-              'accuracy',
-              'support'
-            ].map((key, index) => (
+              {
+                question: "Is my data secure with StructureClerk?",
+                answer: "Yes, we use bank-level encryption and Canadian data residency. All data is encrypted at rest and in transit."
+              },
+              {
+                question: "Where is my data stored?",
+                answer: "Your data is stored in Canada, ensuring compliance with Canadian privacy laws including PIPEDA."
+              },
+              {
+                question: "Can I cancel my subscription anytime?",
+                answer: "Yes, you can cancel your subscription at any time. No long-term commitments or cancellation fees."
+              },
+              {
+                question: "What payment methods do you accept?",
+                answer: "We accept all major credit cards through Stripe, including Visa, Mastercard, and American Express."
+              },
+              {
+                question: "Can I export my data?",
+                answer: "Yes, you can export all your data at any time in various formats including PDF, CSV, and more."
+              }
+            ].map((faq, index) => (
               <motion.div
-                key={key}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -391,11 +401,11 @@ export default function PricingPage() {
                 className="bg-card p-8 rounded-lg border"
               >
                 <h3 className="text-lg font-semibold font-heading mb-3 flex items-center gap-3">
-                  <Info className="h-5 w-5 text-brand-blue flex-shrink-0" />
-                  {t(`faq.${key}.question`)}
+                  <Info className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                  {faq.question}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  {t(`faq.${key}.answer`)}
+                  {faq.answer}
                 </p>
               </motion.div>
             ))}
@@ -404,7 +414,8 @@ export default function PricingPage() {
       </section>
 
       {/* Enterprise CTA */}
-      <section className="py-20 bg-gradient-to-r from-brand-blue to-brand-green text-white">
+      <section className="py-20 text-white"
+                   style={{ background: `linear-gradient(to right, ${BRAND_COLORS.primaryNavy}, #10b981)` }}>
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold font-heading mb-6">
             Need a custom solution?
@@ -415,7 +426,8 @@ export default function PricingPage() {
           </p>
           <Link
             href="/contact"
-            className="bg-white text-brand-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors inline-flex items-center gap-2"
+            className="text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors inline-flex items-center gap-2"
+            style={{ backgroundColor: BRAND_COLORS.white, color: BRAND_COLORS.primaryNavy }}
           >
             Contact Sales
             <ArrowRight className="h-5 w-5" />
@@ -445,8 +457,9 @@ export default function PricingPage() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="h-8 w-8 text-brand-blue" />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                     style={{ backgroundColor: `${BRAND_COLORS.primaryNavy}10` }}>
+                  <item.icon className="h-8 w-8" style={{ color: BRAND_COLORS.primaryNavy }} />
                 </div>
                 <p className="text-sm font-medium">{item.label}</p>
               </motion.div>
