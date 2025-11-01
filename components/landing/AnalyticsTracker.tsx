@@ -31,7 +31,7 @@ class StructureClerkAnalytics {
     this.sendEvent({
       event_name: 'cta_click',
       event_params: {
-        cta_name,
+        ctaName,
         location,
         variant,
         timestamp: new Date().toISOString(),
