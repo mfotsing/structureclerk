@@ -4,101 +4,105 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
 import Logo from '@/components/brand/Logo';
-import { Mail, Phone, MapPin, Shield, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, Shield, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 py-12">
 
-          {/* Logo Column */}
+          {/* Logo and Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-1"
+            className="flex-1 text-center md:text-left"
           >
             <div className="mb-6">
-              <Logo className="h-8 w-auto" />
+              <Logo className="h-8 w-auto inline-block" />
             </div>
-            <p className="text-gray-300 mb-6 leading-relaxed">
+            <p className="text-gray-300 mb-6 leading-relaxed max-w-md">
               AI-powered business automation platform designed for Canadian entrepreneurs.
-              Save time, increase productivity, and scale your business with confidence.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center text-gray-300">
+            <div className="space-y-2">
+              <div className="flex items-center justify-center md:justify-start text-gray-300">
                 <Mail className="h-4 w-4 mr-3" style={{ color: BRAND_COLORS.accentTeal }} />
                 <span className="text-sm">info@structureclerk.ca</span>
               </div>
-              <div className="flex items-center text-gray-300">
+              <div className="flex items-center justify-center md:justify-start text-gray-300">
                 <Phone className="h-4 w-4 mr-3" style={{ color: BRAND_COLORS.accentTeal }} />
                 <span className="text-sm">1-833-STRUCTURE</span>
-              </div>
-              <div className="flex items-center text-gray-300">
-                <MapPin className="h-4 w-4 mr-3" style={{ color: BRAND_COLORS.accentTeal }} />
-                <span className="text-sm">Toronto, ON, Canada</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Product Column */}
+          {/* Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
+            className="flex flex-wrap gap-8 justify-center"
           >
-            <h3 className="text-lg font-semibold mb-6" style={{ color: BRAND_COLORS.accentTeal }}>
-              Product
-            </h3>
-            <ul className="space-y-3">
-              {[
-                { name: 'Features', href: '/en/features' },
-                { name: 'Pricing', href: '/en/pricing' },
-                { name: 'Contact', href: '/en/contact' }
-              ].map((item, index) => (
-                <li key={index}>
+            <div>
+              <h3 className="text-lg font-semibold mb-4" style={{ color: BRAND_COLORS.accentTeal }}>
+                Product
+              </h3>
+              <ul className="space-y-2">
+                <li>
                   <Link
-                    href={item.href}
+                    href="/en/features"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    {item.name}
+                    Features
                   </Link>
                 </li>
-              ))}
-            </ul>
-          </motion.div>
+                <li>
+                  <Link
+                    href="/en/pricing"
+                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/en/contact"
+                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          {/* Company Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <h3 className="text-lg font-semibold mb-6" style={{ color: BRAND_COLORS.accentTeal }}>
-              Company
-            </h3>
-            <ul className="space-y-3">
-              {[
-                { name: 'Blog', href: '/en/blog' },
-                { name: 'Privacy Policy', href: '/en/privacy' },
-                { name: 'Terms of Service', href: '/en/terms' }
-              ].map((item, index) => (
-                <li key={index}>
+            <div>
+              <h3 className="text-lg font-semibold mb-4" style={{ color: BRAND_COLORS.accentTeal }}>
+                Legal
+              </h3>
+              <ul className="space-y-2">
+                <li>
                   <Link
-                    href={item.href}
+                    href="/en/privacy"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    {item.name}
+                    Privacy Policy
                   </Link>
                 </li>
-              ))}
-            </ul>
+                <li>
+                  <Link
+                    href="/en/terms"
+                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </motion.div>
         </div>
 
