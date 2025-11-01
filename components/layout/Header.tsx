@@ -5,17 +5,20 @@ import Link from 'next/link';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
+import { useTranslation } from '@/hooks/useTranslation';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navItems = [
-    { name: 'Features', href: '/en/features' },
-    { name: 'Pricing', href: '/en/pricing' },
-    { name: 'Contact', href: '/en/contact' },
-    { name: 'Blog', href: '/en/blog' }
+    { name: t('nav.features'), href: '/en/features' },
+    { name: t('nav.pricing'), href: '/en/pricing' },
+    { name: t('nav.contact'), href: '/en/contact' },
+    { name: t('nav.blog'), href: '/en/blog' }
   ];
 
   return (
@@ -38,6 +41,7 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
+            <LanguageSwitcher />
             <Link
               href="/en/sign-up"
               className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-lg transition-colors"
@@ -51,7 +55,7 @@ export default function Header() {
                 target.style.backgroundColor = BRAND_COLORS.primaryNavy;
               }}
             >
-              Get Started
+              {t('nav.getStarted')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </nav>
@@ -84,13 +88,16 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
+              <div className="px-3 py-2">
+                <LanguageSwitcher />
+              </div>
               <Link
                 href="/en/sign-up"
                 className="block px-3 py-2 rounded-lg text-white transition-colors font-medium"
                 style={{ backgroundColor: BRAND_COLORS.primaryNavy }}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Get Started
+                {t('nav.getStarted')}
               </Link>
             </div>
           </div>

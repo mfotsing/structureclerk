@@ -2,29 +2,23 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Lock, User, Eye, EyeOff, Check } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, User } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useSignUp } from '@clerk/nextjs';
-import { useTranslation } from '@/hooks/useTranslation';
-import AccessibleButton from '@/components/ui/AccessibleButton';
+import { useSignIn } from '@clerk/nextjs';
 import Logo from '@/components/brand/Logo';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
 
-export default function SignUpPage() {
-  const { t } = useTranslation();
+export default function SignInPage() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
-    password: '',
-    agreeToTerms: false
+    password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
-  const { isLoaded, signUp, setActive } = useSignUp();
+  const { isLoaded, signIn, setActive } = useSignIn();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,31 +28,28 @@ export default function SignUpPage() {
     setError('');
 
     try {
-      // Create sign-up attempt with Clerk
-      const result = await signUp.create({
-        emailAddress: formData.email,
+      // Attempt to sign in with Clerk
+      const result = await signIn.create({
+        identifier: formData.email,
         password: formData.password,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
       });
 
-      // Start email verification flow
       if (result.status === 'complete') {
+        // Set the active session and redirect
         await setActive({ session: result.createdSessionId });
         router.push('/app');
       } else if (result.status === 'missing_requirements') {
-        // Handle email verification if required
-        router.push('/verify-email');
+        // Handle additional verification requirements
+        setError('Additional verification required. Please check your email.');
       } else {
-        // Handle other cases
         setError('Something went wrong. Please try again.');
       }
     } catch (err: any) {
-      console.error('Sign up error:', err);
+      console.error('Sign in error:', err);
       if (err.errors && err.errors.length > 0) {
         setError(err.errors[0].message);
       } else {
-        setError('An error occurred during sign up. Please try again.');
+        setError('Invalid email or password. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -100,10 +91,10 @@ export default function SignUpPage() {
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900">
-              Start your free trial
+              Sign in to your account
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Transform your business documents with AI. No credit card required.
+              Welcome back! Please sign in to continue.
             </p>
           </div>
 
@@ -114,56 +105,6 @@ export default function SignUpPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    required
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    className="pl-10 block w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent"
-                    style={{
-                      '--tw-ring-color': BRAND_COLORS.primaryNavy
-                    } as React.CSSProperties}
-                    placeholder="John"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    required
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    className="pl-10 block w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent"
-                    style={{
-                      '--tw-ring-color': BRAND_COLORS.primaryNavy
-                    } as React.CSSProperties}
-                    placeholder="Doe"
-                  />
-                </div>
-              </div>
-            </div>
-
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email Address
@@ -207,7 +148,7 @@ export default function SignUpPage() {
                   style={{
                     '--tw-ring-color': BRAND_COLORS.primaryNavy
                   } as React.CSSProperties}
-                  placeholder="••••••••"
+                  placeholder="••••••••••"
                 />
                 <button
                   type="button"
@@ -223,42 +164,25 @@ export default function SignUpPage() {
               </div>
             </div>
 
-            <div className="flex items-center">
-              <input
-                id="agreeToTerms"
-                name="agreeToTerms"
-                type="checkbox"
-                required
-                checked={formData.agreeToTerms}
-                onChange={handleInputChange}
-                className="h-4 w-4 border-gray-300 rounded"
-                style={{
-                  '--tw-ring-color': BRAND_COLORS.primaryNavy
-                } as React.CSSProperties}
-              />
-              <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-700">
-                I agree to the{' '}
-                <Link href="/legal/terms" className="font-medium" style={{ color: BRAND_COLORS.primaryNavy }}>
-                  Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link href="/legal/privacy" className="font-medium" style={{ color: BRAND_COLORS.primaryNavy }}>
-                  Privacy Policy
-                </Link>
-              </label>
-            </div>
-
             <div>
-              <AccessibleButton
+              <button
                 type="submit"
-                disabled={isLoading || !formData.agreeToTerms}
-                loading={isLoading}
-                size="lg"
-                leftIcon={<ArrowRight className="h-5 w-5" />}
-                className="w-full"
+                disabled={isLoading}
+                className="w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                style={{ backgroundColor: BRAND_COLORS.primaryNavy }}
               >
-                {isLoading ? 'Creating Account...' : 'Create Account'}
-              </AccessibleButton>
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Signing In...
+                  </>
+                ) : (
+                  <>
+                    Sign In
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
+              </button>
             </div>
           </form>
 
@@ -280,7 +204,7 @@ export default function SignUpPage() {
                   '--tw-ring-color': BRAND_COLORS.primaryNavy
                 } as React.CSSProperties}
               >
-                <span className="sr-only">Sign up with Google</span>
+                <span className="sr-only">Sign in with Google</span>
                 Google
               </button>
 
@@ -291,16 +215,16 @@ export default function SignUpPage() {
                   '--tw-ring-color': BRAND_COLORS.primaryNavy
                 } as React.CSSProperties}
               >
-                <span className="sr-only">Sign up with Microsoft</span>
+                <span className="sr-only">Sign in with Microsoft</span>
                 Microsoft
               </button>
             </div>
           </div>
 
           <p className="mt-8 text-center text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link href="/en/sign-in" className="font-medium" style={{ color: BRAND_COLORS.primaryNavy }}>
-              Sign in
+            Don't have an account?{' '}
+            <Link href="/en/sign-up" className="font-medium" style={{ color: BRAND_COLORS.primaryNavy }}>
+              Sign up for free
             </Link>
           </p>
         </motion.div>

@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
 import Logo from '@/components/brand/Logo';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Mail, Phone, Shield, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer */}
@@ -50,7 +53,7 @@ export default function Footer() {
           >
             <div>
               <h3 className="text-lg font-semibold mb-4" style={{ color: BRAND_COLORS.accentTeal }}>
-                Product
+                {t('footer.product')}
               </h3>
               <ul className="space-y-2">
                 <li>
@@ -58,7 +61,7 @@ export default function Footer() {
                     href="/en/features"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    Features
+                    {t('common.features')}
                   </Link>
                 </li>
                 <li>
@@ -66,7 +69,7 @@ export default function Footer() {
                     href="/en/pricing"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    Pricing
+                    {t('common.pricing')}
                   </Link>
                 </li>
                 <li>
@@ -74,7 +77,7 @@ export default function Footer() {
                     href="/en/contact"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    Contact
+                    {t('nav.contact')}
                   </Link>
                 </li>
               </ul>
@@ -82,7 +85,7 @@ export default function Footer() {
 
             <div>
               <h3 className="text-lg font-semibold mb-4" style={{ color: BRAND_COLORS.accentTeal }}>
-                Legal
+                {t('footer.legal')}
               </h3>
               <ul className="space-y-2">
                 <li>
@@ -90,7 +93,7 @@ export default function Footer() {
                     href="/en/privacy"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    Privacy Policy
+                    {t('footer.privacy')}
                   </Link>
                 </li>
                 <li>
@@ -98,7 +101,7 @@ export default function Footer() {
                     href="/en/terms"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    Terms of Service
+                    {t('footer.terms')}
                   </Link>
                 </li>
               </ul>
@@ -144,7 +147,7 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-gray-400">
-              © {new Date().getFullYear()} StructureClerk Inc. All rights reserved.
+              {t('footer.copyright')}
             </div>
 
             {/* Social Links */}

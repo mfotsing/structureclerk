@@ -68,7 +68,7 @@ export default function AccessibilityToggle() {
           height: '3rem',
           transition: 'all 0.2s',
         }}
-        title="Accessibilité"
+        title="Accessibility"
       >
         ♿
       </button>
@@ -94,7 +94,7 @@ export default function AccessibilityToggle() {
             fontWeight: '600',
             color: '#1f2937'
           }}>
-            Accessibilité
+            Accessibility
           </h3>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -115,9 +115,9 @@ export default function AccessibilityToggle() {
                 style={{ width: '1.25rem', height: '1.25rem' }}
               />
               <div>
-                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Mode Simplifié</div>
+                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Simplified Mode</div>
                 <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                  Interface réduite pour plus de clarté
+                  Reduced interface for better clarity
                 </div>
               </div>
             </label>
@@ -139,9 +139,9 @@ export default function AccessibilityToggle() {
                 style={{ width: '1.25rem', height: '1.25rem' }}
               />
               <div>
-                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Polices Plus Grandes</div>
+                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Larger Fonts</div>
                 <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                  Augmente la taille du texte de 50%
+                  Increases text size by 50%
                 </div>
               </div>
             </label>
@@ -163,9 +163,9 @@ export default function AccessibilityToggle() {
                 style={{ width: '1.25rem', height: '1.25rem' }}
               />
               <div>
-                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Contraste Élevé</div>
+                <div style={{ fontWeight: '600', fontSize: '1rem' }}>High Contrast</div>
                 <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                  Améliore la lisibilité pour les yeux sensibles
+                  Improves readability for sensitive eyes
                 </div>
               </div>
             </label>
@@ -187,9 +187,9 @@ export default function AccessibilityToggle() {
                 style={{ width: '1.25rem', height: '1.25rem' }}
               />
               <div>
-                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Mouvements Réduits</div>
+                <div style={{ fontWeight: '600', fontSize: '1rem' }}>Reduced Motion</div>
                 <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                  Diminue les animations et transitions
+                  Reduces animations and transitions
                 </div>
               </div>
             </label>
@@ -203,7 +203,7 @@ export default function AccessibilityToggle() {
             color: '#6b7280',
             textAlign: 'center'
           }}>
-            Paramètres sauvegardés automatiquement
+            Settings saved automatically
           </div>
         </div>
       )}
