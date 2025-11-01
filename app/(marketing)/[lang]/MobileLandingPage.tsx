@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import AccessibleButton from '@/components/ui/AccessibleButton';
 import SkipLink from '@/components/ui/SkipLink';
 import Logo from '@/components/brand/Logo';
-import Footer from '@/components/layout/Footer';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
 import { analytics } from '@/lib/analytics';
 
@@ -453,7 +452,49 @@ export default function MobileLandingPage() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <footer className="bg-gray-900 text-white py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="font-bold mb-4">Product</h3>
+              <ul className="space-y-2">
+                <li><Link href="/features" className="text-gray-400 hover:text-white">Features</Link></li>
+                <li><Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link></li>
+                <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-4">Company</h3>
+              <ul className="space-y-2">
+                <li><Link href="/about" className="text-gray-400 hover:text-white">About</Link></li>
+                <li><Link href="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
+                <li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li><Link href="/legal/privacy" className="text-gray-400 hover:text-white">Privacy</Link></li>
+                <li><Link href="/legal/terms" className="text-gray-400 hover:text-white">Terms</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-4">Connect</h3>
+              <ul className="space-y-2">
+                <li><Link href="/support" className="text-gray-400 hover:text-white">Support</Link></li>
+                <li><Link href="/status" className="text-gray-400 hover:text-white">Status</Link></li>
+                <li><Link href="/api" className="text-gray-400 hover:text-white">API</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              © 2025 TechVibes. | Montreal, Quebec | <Link href="/legal/privacy" className="hover:text-white">Privacy</Link> | <Link href="/legal/terms" className="hover:text-white">Terms</Link>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
