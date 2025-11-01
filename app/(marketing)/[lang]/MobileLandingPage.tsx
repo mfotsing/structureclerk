@@ -142,7 +142,9 @@ export default function MobileLandingPage() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2"
-              style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+              style={{
+                '--tw-ring-color': BRAND_COLORS.primaryNavy
+              } as React.CSSProperties}
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
             >
