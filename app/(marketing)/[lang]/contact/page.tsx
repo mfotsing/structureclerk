@@ -1,367 +1,368 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { useRouter, useParams } from 'next/navigation';
-import HCaptcha from '@/components/ui/HCaptcha';
+import { useRouter } from 'next/navigation';
+import AccessibleButton from '@/components/ui/AccessibleButton';
+import Logo from '@/components/brand/Logo';
+import { BRAND_COLORS } from '@/components/brand/BrandColors';
 
 export default function ContactPage() {
-  const t = useTranslations('contact');
   const router = useRouter();
-  const params = useParams();
-  const locale = (params?.lang as string) || 'en';
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
     message: '',
+    phone: '',
+    subject: '',
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
-    message: string;
-  }>({ type: null, message: '' });
-
-  // hCaptcha state
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  // hCaptcha callback handlers
-  const handleCaptchaVerify = (token: string) => {
-    setCaptchaToken(token);
-  };
-
-  const handleCaptchaExpire = () => {
-    setCaptchaToken(null);
-  };
-
-  const handleCaptchaError = () => {
-    setCaptchaToken(null);
-    setSubmitStatus({
-      type: 'error',
-      message: 'Captcha verification failed. Please try again.'
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate form
-    if (!formData.name || !formData.email || !formData.message) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Please fill in all required fields.'
-      });
-      return;
-    }
-
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Please enter a valid email address.'
-      });
-      return;
-    }
-
     setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: '' });
+    setError('');
 
     try {
-      // Verify captcha token is present
-      if (!captchaToken) {
-        throw new Error('Please complete the captcha verification');
-      }
+      // TODO: Implement actual contact form submission
+      console.log('Contact form submission:', formData);
 
-      // Submit form
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          captchaToken: captchaToken,
-          language: locale,
-        }),
-      });
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setSubmitStatus({
-          type: 'success',
-          message: data.message || 'Your message has been sent successfully!'
-        });
-        // Reset form
-        setFormData({ name: '', email: '', company: '', message: '' });
-        setCaptchaToken(null);
-      } else {
-        setSubmitStatus({
-          type: 'error',
-          message: data.error || 'Failed to send message. Please try again.'
-        });
-      }
-    } catch (error) {
-      console.error('Contact form error:', error);
-      setSubmitStatus({
-        type: 'error',
-        message: 'An error occurred. Please try again or contact us directly.'
-      });
+      setIsSubmitted(true);
+    } catch (err) {
+      setError('Failed to send message. Please try again.');
+      console.error('Contact form error:', err);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white p-8 rounded-lg shadow-sm text-center max-w-md w-full"
+        >
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle className="h-8 w-8 text-green-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Message Sent Successfully!
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Thank you for contacting us. We'll get back to you within 24 hours.
+          </p>
+          <AccessibleButton
+            onClick={() => {
+              setIsSubmitted(false);
+              setFormData({
+                name: '',
+                email: '',
+                company: '',
+                message: '',
+                phone: '',
+                subject: '',
+              });
+            }}
+            className="w-full"
+          >
+            Send Another Message
+          </AccessibleButton>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-muted/30">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8"
-            >
-              <Mail className="h-16 w-16 text-brand-blue mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-bold font-heading mb-6">
-                Contact Us
-              </h1>
-              <p className="text-xl text-muted-foreground text-balance">
-                Have questions about StructureClerk? We're here to help. Reach out to our Canadian
-                support team and we'll get back to you within 24 business hours.
-              </p>
-            </motion.div>
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center">
+              <Logo
+                size={32}
+                variant="symbol"
+                color="navy"
+                className="mr-2"
+              />
+              <Logo
+                size={32}
+                variant="wordmark"
+                color="navy"
+              />
+            </Link>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Contact Form & Info */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="bg-card p-8 rounded-xl border shadow-sm">
-                <h2 className="text-2xl font-bold font-heading mb-6">Send us a message</h2>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold text-gray-900 mb-4"
+          >
+            Contact StructureClerk
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-gray-600"
+          >
+            Get in touch with our team. We're here to help your Canadian business succeed.
+          </motion.p>
+        </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Name Field */}
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
-                      placeholder="Your full name"
-                      disabled={isSubmitting}
-                    />
-                  </div>
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white p-8 rounded-lg shadow-sm"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h2>
 
-                  {/* Email Field */}
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
-                      placeholder="your.email@company.com"
-                      disabled={isSubmitting}
-                    />
-                  </div>
+            {error && (
+              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
+                <AlertCircle className="h-5 w-5 text-red-600" />
+                <p className="text-red-800">{error}</p>
+              </div>
+            )}
 
-                  {/* Company Field */}
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium mb-2">
-                      Company
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
-                      placeholder="Your company name (optional)"
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  {/* Message Field */}
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows={6}
-                      className="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent resize-none"
-                      placeholder="Tell us how we can help you..."
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  {/* hCaptcha */}
-                  <HCaptcha
-                    onVerify={handleCaptchaVerify}
-                    onExpire={handleCaptchaExpire}
-                    onError={handleCaptchaError}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
                   />
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting || !captchaToken}
-                    className="w-full btn-primary flex items-center justify-center gap-2 py-4 disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="h-4 w-4" />
-                        Send Message
-                      </>
-                    )}
-                  </button>
-
-                  {/* Status Message */}
-                  {submitStatus.type && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={`p-4 rounded-lg flex items-center gap-3 ${
-                        submitStatus.type === 'success'
-                          ? 'bg-green-50 text-green-800 border border-green-200'
-                          : 'bg-red-50 text-red-800 border border-red-200'
-                      }`}
-                    >
-                      {submitStatus.type === 'success' ? (
-                        <CheckCircle className="h-5 w-5 flex-shrink-0" />
-                      ) : (
-                        <AlertCircle className="h-5 w-5 flex-shrink-0" />
-                      )}
-                      <span className="text-sm">{submitStatus.message}</span>
-                    </motion.div>
-                  )}
-                </form>
-              </div>
-            </motion.div>
-
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              {/* Quick Contact */}
-              <div className="bg-card p-8 rounded-xl border shadow-sm">
-                <h3 className="text-xl font-bold font-heading mb-6">Get in touch</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <Mail className="h-5 w-5 text-brand-blue mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold mb-1">Email</h4>
-                      <p className="text-muted-foreground">hello@structureclerk.ca</p>
-                      <p className="text-sm text-muted-foreground">Response within 24 hours</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <Phone className="h-5 w-5 text-brand-blue mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold mb-1">Phone</h4>
-                      <p className="text-muted-foreground">+1 (514) 555-0123</p>
-                      <p className="text-sm text-muted-foreground">Mon-Fri, 9 AM - 6 PM EST</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <MapPin className="h-5 w-5 text-brand-blue mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold mb-1">Office</h4>
-                      <address className="text-muted-foreground not-italic">
-                        123 Rue Sainte-Catherine<br />
-                        Montréal, QC H3B 1B6<br />
-                        Canada
-                      </address>
-                    </div>
-                  </div>
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                  />
                 </div>
               </div>
 
-              {/* Other Ways to Reach Us */}
-              <div className="bg-card p-8 rounded-xl border shadow-sm">
-                <h3 className="text-xl font-bold font-heading mb-6">Other ways to connect</h3>
-                <div className="space-y-4">
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none resize-none"
+                />
+              </div>
+
+              <AccessibleButton
+                type="submit"
+                disabled={isSubmitting}
+                loading={isSubmitting}
+                leftIcon={<Send className="h-4 w-4" />}
+                className="w-full"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </AccessibleButton>
+            </form>
+          </motion.div>
+
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-8"
+          >
+            <div className="bg-white p-8 rounded-lg shadow-sm">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Get in Touch</h3>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail className="h-6 w-6 text-blue-600" />
+                  </div>
                   <div>
-                    <h4 className="font-semibold mb-2">Live Chat</h4>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      Chat with our AI assistant for instant answers to common questions.
-                    </p>
-                    <button className="text-brand-blue hover:text-brand-blue-dark text-sm font-medium">
-                      Open Chat →
-                    </button>
+                    <h4 className="font-semibold text-gray-900">Email</h4>
+                    <p className="text-gray-600">support@structureclerk.ca</p>
+                    <p className="text-sm text-gray-500">Response within 24 hours</p>
                   </div>
+                </div>
 
-                  <div className="pt-4 border-t">
-                    <h4 className="font-semibold mb-2">Schedule a Demo</h4>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      Book a personalized demo with our team to see StructureClerk in action.
-                    </p>
-                    <button className="text-brand-blue hover:text-brand-blue-dark text-sm font-medium">
-                      Schedule Demo →
-                    </button>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="h-6 w-6 text-green-600" />
                   </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Phone</h4>
+                    <p className="text-gray-600">1-800-STRUCTURE</p>
+                    <p className="text-sm text-gray-500">Mon-Fri 9AM-5PM EST</p>
+                  </div>
+                </div>
 
-                  <div className="pt-4 border-t">
-                    <h4 className="font-semibold mb-2">Technical Support</h4>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      For technical issues or account help, please email our support team.
-                    </p>
-                    <button className="text-brand-blue hover:text-brand-blue-dark text-sm font-medium">
-                      support@structureclerk.ca →
-                    </button>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Office</h4>
+                    <p className="text-gray-600">Montreal, Quebec, Canada</p>
+                    <p className="text-sm text-gray-500">By appointment only</p>
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 rounded-lg text-white">
+              <h3 className="text-xl font-bold mb-4">Need Immediate Help?</h3>
+              <p className="mb-6">
+                Check out our comprehensive FAQ section or join our community forum for quick answers.
+              </p>
+              <div className="space-y-3">
+                <Link
+                  href="/faq"
+                  className="block w-full text-center px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                >
+                  View FAQ
+                </Link>
+                <Link
+                  href="/support"
+                  className="block w-full text-center px-4 py-2 border border-white text-white rounded-lg font-medium hover:bg-white hover:text-blue-600 transition-colors"
+                >
+                  Support Center
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="font-bold mb-4">Product</h3>
+              <ul className="space-y-2">
+                <li><Link href="/features" className="text-gray-400 hover:text-white">Features</Link></li>
+                <li><Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link></li>
+                <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-4">Company</h3>
+              <ul className="space-y-2">
+                <li><Link href="/about" className="text-gray-400 hover:text-white">About</Link></li>
+                <li><Link href="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
+                <li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li><Link href="/legal/privacy" className="text-gray-400 hover:text-white">Privacy</Link></li>
+                <li><Link href="/legal/terms" className="text-gray-400 hover:text-white">Terms</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-4">Connect</h3>
+              <ul className="space-y-2">
+                <li><Link href="/support" className="text-gray-400 hover:text-white">Support</Link></li>
+                <li><Link href="/status" className="text-gray-400 hover:text-white">Status</Link></li>
+                <li><Link href="/api" className="text-gray-400 hover:text-white">API</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              © 2025 StructureClerk. Montreal, Quebec |
+              <Link href="/legal/privacy" className="hover:text-white ml-2">Privacy</Link> |
+              <Link href="/legal/terms" className="hover:text-white ml-2">Terms</Link>
+            </p>
           </div>
         </div>
-      </section>
+      </footer>
     </div>
   );
 }
