@@ -2,12 +2,27 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  AlertCircle,
+  Building2,
+  Users,
+  Clock,
+  MessageSquare,
+  Star,
+  TrendingUp,
+  Award,
+  Globe,
+  Shield
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import AccessibleButton from '@/components/ui/AccessibleButton';
-import Logo from '@/components/brand/Logo';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';
+import Logo from '@/components/brand/Logo';
 
 export default function ContactPage() {
   const router = useRouter();
@@ -18,6 +33,9 @@ export default function ContactPage() {
     message: '',
     phone: '',
     subject: '',
+    role: '',
+    employees: '',
+    timeline: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -54,44 +72,58 @@ export default function ContactPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4"
+           style={{ background: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)' }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white p-8 rounded-lg shadow-sm text-center max-w-md w-full"
+          className="bg-white p-12 rounded-2xl shadow-xl text-center max-w-lg w-full border border-gray-100"
         >
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle className="h-8 w-8 text-green-600" />
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="h-10 w-10 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Message Sent Successfully!
+          <h2 className="text-3xl font-bold mb-4" style={{ color: BRAND_COLORS.primaryNavy }}>
+            Thank You for Your Interest!
           </h2>
-          <p className="text-gray-600 mb-6">
-            Thank you for contacting us. We'll get back to you within 24 hours.
+          <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+            We've received your message and will contact you within 24 hours to discuss how StructureClerk can transform your business operations.
           </p>
-          <AccessibleButton
-            onClick={() => {
-              setIsSubmitted(false);
-              setFormData({
-                name: '',
-                email: '',
-                company: '',
-                message: '',
-                phone: '',
-                subject: '',
-              });
-            }}
-            className="w-full"
-          >
-            Send Another Message
-          </AccessibleButton>
+          <div className="flex gap-4">
+            <button
+              onClick={() => {
+                setIsSubmitted(false);
+                setFormData({
+                  name: '',
+                  email: '',
+                  company: '',
+                  message: '',
+                  phone: '',
+                  subject: '',
+                  role: '',
+                  employees: '',
+                  timeline: ''
+                });
+              }}
+              className="flex-1 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Send Another Message
+            </button>
+            <button
+              onClick={() => router.push('/en/sign-up')}
+              className="flex-1 px-6 py-3 text-white font-semibold rounded-lg transition-colors hover:scale-105"
+              style={{ backgroundColor: BRAND_COLORS.accentTeal }}
+            >
+              Start Free Trial
+            </button>
+          </div>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen"
+         style={{ background: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)' }}>
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,36 +145,79 @@ export default function ContactPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Hero Section */}
+        <div className="text-center mb-16">
+          <motion.div
+            className="inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold mb-8"
+            style={{ backgroundColor: `${BRAND_COLORS.primaryNavy}20`, color: BRAND_COLORS.primaryNavy }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <Building2 className="w-4 h-4 mr-2" />
+            Canadian Business Solutions
+          </motion.div>
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-bold text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{ color: BRAND_COLORS.primaryNavy }}
           >
-            Contact StructureClerk
+            Let's Transform Your Business Together
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-gray-600"
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Get in touch with our team. We're here to help your Canadian business succeed.
+            Join thousands of Canadian entrepreneurs who are saving 15+ hours per week with AI-powered document automation.
+            Schedule a personalized demo to see immediate ROI.
           </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        {/* Stats Section */}
+        <div className="grid md:grid-cols-4 gap-6 mb-16">
+          {[
+            { number: '10K+', label: 'Active Canadian Users' },
+            { number: '300%', label: 'Average Time Savings' },
+            { number: '99.5%', label: 'Accuracy Rate' },
+            { number: '24/7', label: 'AI Support Available' }
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              className="bg-white p-6 rounded-xl shadow-md text-center border border-gray-100"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <div className="text-3xl font-bold mb-2" style={{ color: BRAND_COLORS.accentTeal }}>
+                {stat.number}
+              </div>
+              <div className="text-sm text-gray-600">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-white p-8 rounded-lg shadow-sm"
+            className="lg:col-span-2 bg-white p-10 rounded-2xl shadow-xl border border-gray-100"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h2>
+            <h2 className="text-3xl font-bold mb-6" style={{ color: BRAND_COLORS.primaryNavy }}>
+              Schedule Your Personalized Demo
+            </h2>
+            <p className="text-gray-600 mb-8 text-lg">
+              Let us show you how StructureClerk can save you 15+ hours per week. Our Canadian team will create a custom demo based on your specific business needs.
+            </p>
 
             {error && (
-              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
                 <AlertCircle className="h-5 w-5 text-red-600" />
                 <p className="text-red-800">{error}</p>
               </div>
@@ -151,8 +226,8 @@ export default function ContactPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Name *
+                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Full Name *
                   </label>
                   <input
                     type="text"
@@ -161,12 +236,13 @@ export default function ContactPage() {
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                    placeholder="John Smith"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Business Email *
                   </label>
                   <input
                     type="email"
@@ -175,56 +251,111 @@ export default function ContactPage() {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                    placeholder="john@company.com"
                   />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
-                />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Company Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    required
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                    placeholder="StructureClerk Inc."
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="role" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Your Role
+                  </label>
+                  <select
+                    id="role"
+                    name="role"
+                    value={formData.role}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                  >
+                    <option value="">Select your role</option>
+                    <option value="owner">Business Owner</option>
+                    <option value="founder">Founder</option>
+                    <option value="manager">Operations Manager</option>
+                    <option value="freelancer">Freelancer</option>
+                    <option value="consultant">Consultant</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="employees" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Company Size
+                  </label>
+                  <select
+                    id="employees"
+                    name="employees"
+                    value={formData.employees}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                  >
+                    <option value="">Select company size</option>
+                    <option value="1">Just me</option>
+                    <option value="2-10">2-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="51-200">51-200 employees</option>
+                    <option value="201+">201+ employees</option>
+                  </select>
+                </div>
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone
+                <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">
+                  What are you most interested in?
                 </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
+                <select
                   id="subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
-                />
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Choose your primary interest</option>
+                  <option value="demo">Live Demo</option>
+                  <option value="pricing">Pricing Information</option>
+                  <option value="features">Specific Features</option>
+                  <option value="integration">Integration Options</option>
+                  <option value="enterprise">Enterprise Solution</option>
+                  <option value="partnership">Partnership Opportunities</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
+                <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Tell us about your business challenges *
                 </label>
                 <textarea
                   id="message"
@@ -233,84 +364,174 @@ export default function ContactPage() {
                   rows={5}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none resize-none"
+                  placeholder="What administrative tasks take up most of your time? What are you hoping to automate?"
                 />
               </div>
 
-              <AccessibleButton
+              <div>
+                <label htmlFor="timeline" className="block text-sm font-semibold text-gray-700 mb-2">
+                  When would you like to start?
+                </label>
+                <select
+                  id="timeline"
+                  name="timeline"
+                  value={formData.timeline}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="">Select timeline</option>
+                  <option value="immediately">Immediately</option>
+                  <option value="1-week">Within 1 week</option>
+                  <option value="1-month">Within 1 month</option>
+                  <option value="3-months">Within 3 months</option>
+                  <option value="exploring">Just exploring options</option>
+                </select>
+              </div>
+
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                loading={isSubmitting}
-                leftIcon={<Send className="h-4 w-4" />}
-                className="w-full"
+                className="w-full py-4 text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                style={{ backgroundColor: BRAND_COLORS.accentTeal, color: BRAND_COLORS.white }}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </AccessibleButton>
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Scheduling Your Demo...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-5 w-5" />
+                    Schedule Personalized Demo
+                  </>
+                )}
+              </button>
+
+              <p className="text-sm text-gray-500 text-center">
+                30-minute demo • No credit card required • Immediate ROI insights
+              </p>
             </form>
           </motion.div>
 
-          {/* Contact Information */}
+          {/* Value Proposition Sidebar */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-8"
           >
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Get in Touch</h3>
+            {/* Quick Stats */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+              <h3 className="text-2xl font-bold mb-6" style={{ color: BRAND_COLORS.primaryNavy }}>
+                Why Choose StructureClerk?
+              </h3>
+
+              <div className="space-y-6">
+                {[
+                  {
+                    icon: TrendingUp,
+                    title: '300-500% ROI',
+                    description: 'Average first-year return on investment'
+                  },
+                  {
+                    icon: Clock,
+                    title: '15+ Hours Saved',
+                    description: 'Per week on average for our customers'
+                  },
+                  {
+                    icon: Shield,
+                    title: '100% Canadian',
+                    description: 'Data residency and PIPEDA compliant'
+                  },
+                  {
+                    icon: Globe,
+                    title: 'Bilingual AI',
+                    description: 'English & French document processing'
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                         style={{ backgroundColor: `${BRAND_COLORS.primaryNavy}20` }}>
+                      <item.icon className="h-6 w-6" style={{ color: BRAND_COLORS.primaryNavy }} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                      <p className="text-sm text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact Information */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+              <h3 className="text-2xl font-bold mb-6" style={{ color: BRAND_COLORS.primaryNavy }}>
+                Get in Touch
+              </h3>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                       style={{ backgroundColor: `${BRAND_COLORS.accentTeal}20` }}>
+                    <Mail className="h-6 w-6" style={{ color: BRAND_COLORS.accentTeal }} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Email</h4>
-                    <p className="text-gray-600">support@structureclerk.ca</p>
-                    <p className="text-sm text-gray-500">Response within 24 hours</p>
+                    <h4 className="font-bold text-gray-900 mb-1">Email</h4>
+                    <p className="text-gray-600 font-medium">sales@structureclerk.ca</p>
+                    <p className="text-sm text-gray-500">Response within 2 hours</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-6 w-6 text-green-600" />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                       style={{ backgroundColor: `${BRAND_COLORS.primaryNavy}20` }}>
+                    <Phone className="h-6 w-6" style={{ color: BRAND_COLORS.primaryNavy }} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Phone</h4>
-                    <p className="text-gray-600">1-800-STRUCTURE</p>
-                    <p className="text-sm text-gray-500">Mon-Fri 9AM-5PM EST</p>
+                    <h4 className="font-bold text-gray-900 mb-1">Phone</h4>
+                    <p className="text-gray-600 font-medium">1-855-STRUCTURE</p>
+                    <p className="text-sm text-gray-500">Mon-Fri 8AM-6PM EST</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-6 w-6 text-purple-600" />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                       style={{ backgroundColor: '#F59E0B20' }}>
+                    <MapPin className="h-6 w-6" style={{ color: '#F59E0B' }} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Office</h4>
-                    <p className="text-gray-600">Montreal, Quebec, Canada</p>
-                    <p className="text-sm text-gray-500">By appointment only</p>
+                    <h4 className="font-bold text-gray-900 mb-1">Headquarters</h4>
+                    <p className="text-gray-600 font-medium">Montreal, Quebec</p>
+                    <p className="text-sm text-gray-500">Canadian-owned & operated</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 rounded-lg text-white">
-              <h3 className="text-xl font-bold mb-4">Need Immediate Help?</h3>
-              <p className="mb-6">
-                Check out our comprehensive FAQ section or join our community forum for quick answers.
-              </p>
+            {/* Quick Links */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+              <h3 className="text-xl font-bold mb-4" style={{ color: BRAND_COLORS.primaryNavy }}>
+                Quick Resources
+              </h3>
               <div className="space-y-3">
                 <Link
-                  href="/faq"
-                  className="block w-full text-center px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                  href="/en/features"
+                  className="block w-full text-center px-4 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
                 >
-                  View FAQ
+                  View All Features
                 </Link>
                 <Link
-                  href="/support"
-                  className="block w-full text-center px-4 py-2 border border-white text-white rounded-lg font-medium hover:bg-white hover:text-blue-600 transition-colors"
+                  href="/en/pricing"
+                  className="block w-full text-center px-4 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
                 >
-                  Support Center
+                  See Pricing Plans
+                </Link>
+                <Link
+                  href="/en/sign-up"
+                  className="block w-full text-center px-4 py-3 text-white font-semibold rounded-lg transition-all duration-200 hover:scale-105"
+                  style={{ backgroundColor: BRAND_COLORS.accentTeal }}
+                >
+                  Start Free Trial
                 </Link>
               </div>
             </div>
