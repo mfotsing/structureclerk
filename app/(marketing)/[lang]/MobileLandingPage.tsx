@@ -28,8 +28,7 @@ export default function MobileLandingPage() {
     if (typeof window !== 'undefined') {
       analytics.trackConversion('trial_started', 'anonymous', { source: 'landing_page_cta' });
     }
-    // Navigate to contact page for now until sign-up is created
-    router.push('/contact');
+    router.push('/sign-up');
   };
 
   const handleWatchDemo = () => {

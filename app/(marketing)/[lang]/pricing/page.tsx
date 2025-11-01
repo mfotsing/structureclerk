@@ -305,7 +305,7 @@ export default function PricingPage() {
 
                 {/* CTA Button */}
                 <Link
-                  href={plan.id === 'free' ? '/signup' : '#'}
+                  href={plan.id === 'free' ? '/sign-up' : '#'}
                   onClick={(e) => {
                     if (plan.id !== 'free') {
                       e.preventDefault();
