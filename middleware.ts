@@ -1,14 +1,16 @@
-// Simple middleware for language detection
-export default function middleware(req: Request) {
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export default function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const pathname = url.pathname;
 
   // Redirect root to /en
   if (pathname === '/') {
-    return Response.redirect(new URL('/en', req.url));
+    return NextResponse.redirect(new URL('/en', req.url));
   }
 
-  return;
+  return NextResponse.next();
 }
 
 export const config = {
