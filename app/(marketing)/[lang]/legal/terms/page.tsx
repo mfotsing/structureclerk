@@ -1,8 +1,6 @@
-import { useTranslations } from 'next-intl';
 import { FileText, Shield, AlertCircle, Users, Scale, Gavel } from 'lucide-react';
 
 export default function TermsPage() {
-  const t = useTranslations('terms');
 
   return (
     <div className="min-h-screen">

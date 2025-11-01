@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import AccessibleButton from '@/components/ui/AccessibleButton';
 import Logo from '@/components/brand/Logo';
 import { BRAND_COLORS } from '@/components/brand/BrandColors';

@@ -1,8 +1,6 @@
-import { useTranslations } from 'next-intl';
 import { Shield, Database, Lock, Users, FileText, CheckCircle } from 'lucide-react';
 
 export default function PrivacyPage() {
-  const t = useTranslations('privacy');
 
   return (
     <div className="min-h-screen">
