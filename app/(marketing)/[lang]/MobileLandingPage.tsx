@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import AccessibleButton from '@/components/ui/AccessibleButton';
 import SkipLink from '@/components/ui/SkipLink';
+import Logo from '@/components/brand/Logo';
+import { BRAND_COLORS } from '@/components/brand/BrandColors';
 import { analytics } from '@/lib/analytics';
 
 export default function MobileLandingPage() {
@@ -123,16 +125,24 @@ export default function MobileLandingPage() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">SC</span>
-              </div>
-              <span className="ml-2 text-xl font-bold text-gray-900">StructureClerk</span>
+              <Logo
+                size={32}
+                variant="symbol"
+                color="navy"
+                className="mr-2"
+              />
+              <Logo
+                size={32}
+                variant="wordmark"
+                color="navy"
+              />
             </Link>
 
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2"
+              style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
             >
@@ -182,11 +192,16 @@ export default function MobileLandingPage() {
 
       {/* Hero Section */}
       <main id="main-content">
-        <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50">
+        <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden"
+                 style={{ background: 'linear-gradient(to bottom right, #F0F4F8, #FFFFFF, #F0FDF4)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <motion.div
-                className="inline-flex items-center rounded-full bg-blue-100 text-blue-800 px-3 py-1 text-sm font-semibold mb-4 sm:mb-6"
+                className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold mb-4 sm:mb-6"
+                style={{
+                  backgroundColor: `${BRAND_COLORS.primaryNavy}10`,
+                  color: BRAND_COLORS.primaryNavy
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
@@ -201,7 +216,7 @@ export default function MobileLandingPage() {
                 transition={{ duration: 0.6 }}
               >
                 <span className="block">Snap, Record, Upload.</span>
-                <span className="block text-blue-600">We handle the rest.</span>
+                <span className="block" style={{ color: BRAND_COLORS.primaryNavy }}>We handle the rest.</span>
               </motion.h1>
 
               <motion.p
@@ -251,7 +266,8 @@ export default function MobileLandingPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-2">
+                  <div className="text-2xl sm:text-3xl font-bold mb-2"
+                       style={{ color: BRAND_COLORS.primaryNavy }}>
                     {stat.number}
                   </div>
                   <div className="text-sm sm:text-base text-gray-600">
@@ -316,9 +332,13 @@ export default function MobileLandingPage() {
                   key={plan.name}
                   className={`relative p-6 sm:p-8 rounded-2xl ${
                     plan.highlighted
-                      ? 'bg-blue-50 border-2 border-blue-500'
+                      ? 'border-2'
                       : 'bg-white border border-gray-200'
                   }`}
+                  style={plan.highlighted ? {
+                    backgroundColor: `${BRAND_COLORS.primaryNavy}08`,
+                    borderColor: BRAND_COLORS.primaryNavy
+                  } : {}}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -326,7 +346,8 @@ export default function MobileLandingPage() {
                 >
                   {plan.highlighted && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-blue-500 text-white text-sm font-medium px-3 py-1 rounded-full">
+                      <span className="text-white text-sm font-medium px-3 py-1 rounded-full"
+                            style={{ backgroundColor: BRAND_COLORS.primaryNavy }}>
                         Most Popular
                       </span>
                     </div>
@@ -363,9 +384,10 @@ export default function MobileLandingPage() {
                       href="/contact"
                       className={`inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-colors w-full text-center ${
                         plan.highlighted
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
+                          ? 'text-white hover:opacity-90'
                           : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
+                      style={plan.highlighted ? { backgroundColor: BRAND_COLORS.primaryNavy } : {}}
                     >
                       {plan.cta}
                     </Link>
@@ -377,7 +399,8 @@ export default function MobileLandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
+        <section className="py-12 sm:py-16 lg:py-20 text-white"
+                   style={{ background: `linear-gradient(to right, ${BRAND_COLORS.primaryNavy}, ${BRAND_COLORS.primaryNavy}DD)` }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.h2
               className="text-3xl sm:text-4xl font-bold text-white mb-6"
@@ -407,7 +430,8 @@ export default function MobileLandingPage() {
                 onClick={handleStartFree}
                 size="lg"
                 leftIcon={<ArrowRight className="h-5 w-5" />}
-                className="bg-white text-blue-600 hover:bg-gray-100"
+                className="text-white hover:bg-gray-100"
+                style={{ backgroundColor: BRAND_COLORS.white, color: BRAND_COLORS.primaryNavy }}
               >
                 Start for Free Today
               </AccessibleButton>

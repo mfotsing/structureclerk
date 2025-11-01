@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Check, Star, Zap, Shield, ArrowRight, Info } from 'lucide-react';
 import Link from 'next/link';
+import { BRAND_COLORS } from '@/components/brand/BrandColors';
 
 interface Plan {
   id: string;
@@ -225,7 +226,8 @@ export default function PricingPage() {
               </span>
               <button
                 onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'annual' : 'monthly')}
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-brand-blue transition-colors"
+                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                style={{ backgroundColor: BRAND_COLORS.primaryNavy }}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
@@ -259,14 +261,19 @@ export default function PricingPage() {
                 transition={{ delay: index * 0.1 }}
                 className={`relative bg-card p-8 rounded-xl border-2 transition-all hover:shadow-lg ${
                   plan.popular
-                    ? 'border-brand-blue ring-2 ring-brand-blue/20 transform scale-105'
-                    : 'border-border hover:border-brand-blue/50'
+                    ? 'transform scale-105'
+                    : 'border-border hover:border-gray-300'
                 }`}
+                style={plan.popular ? {
+                  borderColor: BRAND_COLORS.primaryNavy,
+                  boxShadow: `0 0 0 2px ${BRAND_COLORS.primaryNavy}20`
+                } : {}}
               >
                 {/* Popular Badge */}
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-brand-blue text-white text-xs font-medium px-3 py-1 rounded-full">
+                    <span className="text-white text-xs font-medium px-3 py-1 rounded-full"
+                          style={{ backgroundColor: BRAND_COLORS.primaryNavy }}>
                       Most Popular
                     </span>
                   </div>
@@ -276,7 +283,8 @@ export default function PricingPage() {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold font-heading mb-2">{plan.name}</h3>
                   <div className="mb-4">
-                    <span className="text-4xl font-bold">{plan.price}</span>
+                    <span className="text-4xl font-bold"
+                         style={{ color: BRAND_COLORS.primaryNavy }}>{plan.price}</span>
                     <span className="text-muted-foreground">{plan.period}</span>
                   </div>
                   <p className="text-sm text-muted-foreground">{plan.description}</p>
@@ -286,7 +294,10 @@ export default function PricingPage() {
                 <div className="space-y-4 mb-8">
                   {plan.features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-brand-green mt-0.5 flex-shrink-0" />
+                      <div className="h-5 w-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0"
+                           style={{ backgroundColor: `${BRAND_COLORS.primaryNavy}20` }}>
+                        <Check className="h-3 w-3" style={{ color: BRAND_COLORS.primaryNavy }} />
+                      </div>
                       <span className="text-sm">{feature}</span>
                     </div>
                   ))}
@@ -303,9 +314,10 @@ export default function PricingPage() {
                   }}
                   className={`w-full py-3 px-4 rounded-lg font-medium text-center transition-colors inline-flex items-center justify-center gap-2 ${
                     plan.popular
-                      ? 'bg-brand-blue text-white hover:bg-brand-blue-dark'
+                      ? 'text-white hover:opacity-90'
                       : 'bg-muted text-foreground hover:bg-muted/80'
                   }`}
+                  style={plan.popular ? { backgroundColor: BRAND_COLORS.primaryNavy } : {}}
                 >
                   {plan.cta}
                   {plan.id !== 'free' && <ArrowRight className="h-4 w-4" />}
