@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Star, Shield, Users, Zap, Globe, FileText, BarChart3, Lock, Award, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/layout/Footer';
 
 export default function LandingPage() {
   return (
@@ -174,51 +175,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-bold mb-4">Product</h3>
-              <ul className="space-y-2">
-                <li><Link href="/en/features" className="text-gray-400 hover:text-white">Features</Link></li>
-                <li><Link href="/en/pricing" className="text-gray-400 hover:text-white">Pricing</Link></li>
-                <li><Link href="/en/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Company</h3>
-              <ul className="space-y-2">
-                <li><Link href="/about" className="text-gray-400 hover:text-white">About</Link></li>
-                <li><Link href="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
-                <li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Legal</h3>
-              <ul className="space-y-2">
-                <li><Link href="/en/legal/privacy" className="text-gray-400 hover:text-white">Privacy</Link></li>
-                <li><Link href="/en/legal/terms" className="text-gray-400 hover:text-white">Terms</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Connect</h3>
-              <ul className="space-y-2">
-                <li><Link href="/support" className="text-gray-400 hover:text-white">Support</Link></li>
-                <li><Link href="/status" className="text-gray-400 hover:text-white">Status</Link></li>
-                <li><Link href="/api" className="text-gray-400 hover:text-white">API</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 StructureClerk. Montreal, Quebec |
-              <Link href="/en/legal/privacy" className="hover:text-white ml-2">Privacy</Link> |
-              <Link href="/en/legal/terms" className="hover:text-white ml-2">Terms</Link>
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
