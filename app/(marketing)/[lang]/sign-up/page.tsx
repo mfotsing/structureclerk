@@ -101,7 +101,9 @@ export default function SignUpPage() {
                     value={formData.firstName}
                     onChange={handleInputChange}
                     className="pl-10 block w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent"
-                    style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                    style={{
+                      '--tw-ring-color': BRAND_COLORS.primaryNavy
+                    } as React.CSSProperties}
                     placeholder="John"
                   />
                 </div>
@@ -123,7 +125,9 @@ export default function SignUpPage() {
                     value={formData.lastName}
                     onChange={handleInputChange}
                     className="pl-10 block w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent"
-                    style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                    style={{
+                      '--tw-ring-color': BRAND_COLORS.primaryNavy
+                    } as React.CSSProperties}
                     placeholder="Doe"
                   />
                 </div>
@@ -146,7 +150,9 @@ export default function SignUpPage() {
                   value={formData.email}
                   onChange={handleInputChange}
                   className="pl-10 block w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent"
-                  style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                  style={{
+                    '--tw-ring-color': BRAND_COLORS.primaryNavy
+                  } as React.CSSProperties}
                   placeholder="john@example.com"
                 />
               </div>
@@ -168,7 +174,9 @@ export default function SignUpPage() {
                   value={formData.password}
                   onChange={handleInputChange}
                   className="pl-10 pr-10 block w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent"
-                  style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                  style={{
+                    '--tw-ring-color': BRAND_COLORS.primaryNavy
+                  } as React.CSSProperties}
                   placeholder="••••••••"
                 />
                 <button
@@ -194,7 +202,9 @@ export default function SignUpPage() {
                 checked={formData.agreeToTerms}
                 onChange={handleInputChange}
                 className="h-4 w-4 border-gray-300 rounded"
-                style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                style={{
+                  '--tw-ring-color': BRAND_COLORS.primaryNavy
+                } as React.CSSProperties}
               />
               <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-700">
                 I agree to the{' '}
@@ -236,7 +246,9 @@ export default function SignUpPage() {
               <button
                 type="button"
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                style={{
+                  '--tw-ring-color': BRAND_COLORS.primaryNavy
+                } as React.CSSProperties}
               >
                 <span className="sr-only">Sign up with Google</span>
                 Google
@@ -245,7 +257,9 @@ export default function SignUpPage() {
               <button
                 type="button"
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                style={{ focusRingColor: BRAND_COLORS.primaryNavy }}
+                style={{
+                  '--tw-ring-color': BRAND_COLORS.primaryNavy
+                } as React.CSSProperties}
               >
                 <span className="sr-only">Sign up with Microsoft</span>
                 Microsoft
